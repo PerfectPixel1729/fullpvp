@@ -1,0 +1,5 @@
+name: FullPVP
+version: 0.0.1
+author: PerfectPixel
+description: Simple plugin like full pvp
+main: me.perfectpixel.fullpvp.FullPVP
