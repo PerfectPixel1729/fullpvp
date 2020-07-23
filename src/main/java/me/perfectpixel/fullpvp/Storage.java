@@ -5,7 +5,7 @@ import java.util.Set;
 
 public interface Storage<K, V> {
 
-    Set<K> users();
+    Set<K> get();
 
     Optional<K> find(V v);
 
