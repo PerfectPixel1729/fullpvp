@@ -20,7 +20,7 @@ public class UserStorageManager implements Storage<User, UUID> {
     private final Set<User> users = new HashSet<>();
 
     @Override
-    public Set<User> users() {
+    public Set<User> get() {
         return users;
     }
 
@@ -45,7 +45,7 @@ public class UserStorageManager implements Storage<User, UUID> {
     @Override
     public void save(UUID uuid) {
         find(uuid).ifPresent(user -> data.set("users." + uuid.toString(), user.serialize()));
-        
+
         remove(uuid);
     }
 
