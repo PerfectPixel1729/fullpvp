@@ -6,78 +6,58 @@ import me.perfectpixel.fullpvp.files.FileManager;
 import me.perfectpixel.fullpvp.utils.LocationSerializable;
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
-
-import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
-public class SupplierChestStorageManager implements Storage<SupplierChest, Location> {
+public class SupplierChestStorageManager implements Storage<SupplierChest, String> {
 
-    @Inject @Named("chests") private FileManager chests;
+    @Inject
+    @Named("chests")
+    private FileManager chests;
 
-    private final Set<SupplierChest> supplierChests = new HashSet<>();
+    private final Map<String, SupplierChest> supplierChests = new HashMap<>();
+
 
     @Override
-    public Set<SupplierChest> get() {
+    public Map<String, SupplierChest> get() {
         return supplierChests;
     }
 
     @Override
-    public Optional<SupplierChest> find(Location location) {
-        SupplierChest supplierChest = null;
-
-        for (SupplierChest findingSupplierChest : supplierChests) {
-            if (findingSupplierChest.getLocation().equals(location)) {
-                supplierChest = findingSupplierChest;
-            }
-        }
-
-        return Optional.ofNullable(supplierChest);
+    public Optional<SupplierChest> find(String s) {
+        return Optional.ofNullable(supplierChests.get(s));
     }
 
     @Override
-    public Optional<SupplierChest> findFromData(Location location) {
-        if (!chests.contains("chests")) {
+    public Optional<SupplierChest> findFromData(String s) {
+        if (!chests.contains("chests." + s)) {
             return Optional.empty();
         }
 
-        SupplierChest supplierChest = null;
-
-        for (String name : chests.getConfigurationSection("chests").getKeys(false)) {
-            Location chestLocation = LocationSerializable.fromString(chests.getString("chests." + name + ".location"));
-
-            if (chestLocation.equals(location)) {
-                supplierChest = new DefaultSupplierChest(name, (Map<Integer, ItemStack>) chests.get("chests." + name + ".items"), chestLocation);
-            }
-        }
-
-        return Optional.ofNullable(supplierChest);
+        return Optional.of(new DefaultSupplierChest((Map<Integer, ItemStack>) chests.get("chests." + s + ".items"), LocationSerializable.fromString(chests.getString("chests." + s + ".location"))));
     }
 
     @Override
-    public void save(Location location) {
-        find(location).ifPresent(supplierChest -> chests.set("chests." + supplierChest.getName(), supplierChest.serialize()));
+    public void save(String s) {
+        find(s).ifPresent(supplierChest -> chests.set("chests." + s, supplierChest.serialize()));
 
-        remove(location);
+        remove(s);
     }
 
     @Override
-    public void remove(Location location) {
-        find(location).ifPresent(supplierChests::remove);
+    public void remove(String s) {
+        supplierChests.remove(s);
     }
 
     @Override
-    public void add(SupplierChest supplierChest) {
-        supplierChests.add(supplierChest);
+    public void add(String s, SupplierChest supplierChest) {
+        supplierChests.put(s, supplierChest);
     }
 
     @Override
     public void saveAll() {
-        supplierChests.forEach(supplierChest -> chests.set("chests." + supplierChest, supplierChest.serialize()));
+        supplierChests.forEach((name, supplierChest) -> save(name));
 
         chests.save();
     }
@@ -88,15 +68,7 @@ public class SupplierChestStorageManager implements Storage<SupplierChest, Locat
             return;
         }
 
-        chests.getConfigurationSection("chests").getKeys(false).forEach(name ->
-                supplierChests.add(
-                        new DefaultSupplierChest(
-                                name,
-                                (Map<Integer, ItemStack>) chests.get("chests." + name + ".items"),
-                                LocationSerializable.fromString(chests.getString("chests." + name + ".location"))
-                        )
-                )
-        );
+        chests.getConfigurationSection("chests").getKeys(false).forEach(name -> findFromData(name).ifPresent(supplierChest -> supplierChests.put(name, supplierChest)));
     }
 
 }

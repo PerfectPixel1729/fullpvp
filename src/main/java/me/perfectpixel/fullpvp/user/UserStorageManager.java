@@ -14,29 +14,25 @@ public class UserStorageManager implements Storage<User, UUID> {
     @Named("data")
     private FileManager data;
 
-    private final Set<User> users = new HashSet<>();
+    private final Map<UUID, User> users = new HashMap<>();
 
     @Override
-    public Set<User> get() {
+    public Map<UUID, User> get() {
         return users;
     }
 
     @Override
     public Optional<User> find(UUID uuid) {
-        User user = null;
-
-        for (User findingUser : users) {
-            if (findingUser.getID().equals(uuid)) {
-                user = findingUser;
-            }
-        }
-
-        return Optional.ofNullable(user);
+        return Optional.ofNullable(users.get(uuid));
     }
 
     @Override
     public Optional<User> findFromData(UUID uuid) {
-        return Optional.of(new SimpleUser((UUID) data.get("users." + uuid.toString())));
+        if (!data.contains("users." + uuid.toString())) {
+            return Optional.empty();
+        }
+
+        return Optional.of(new SimpleUser((Map<String, Object>) data.get("users." + uuid.toString())));
     }
 
     @Override
@@ -48,17 +44,17 @@ public class UserStorageManager implements Storage<User, UUID> {
 
     @Override
     public void remove(UUID uuid) {
-        find(uuid).ifPresent(users::remove);
+        users.remove(uuid);
     }
 
     @Override
-    public void add(User user) {
-        users.add(user);
+    public void add(UUID uuid, User user) {
+        users.put(uuid, user);
     }
 
     @Override
     public void saveAll() {
-        users.forEach(user -> data.set("users." + user.getID().toString(), user.serialize()));
+        users.forEach(((uuid, user) -> save(uuid)));
 
         data.save();
     }
@@ -69,7 +65,7 @@ public class UserStorageManager implements Storage<User, UUID> {
             return;
         }
 
-        data.getConfigurationSection("users").getKeys(false).forEach(uuid -> add(new SimpleUser(UUID.fromString(uuid), (Map<String, Object>) data.get("users." + uuid))));
+        data.getConfigurationSection("users").getKeys(false).forEach(uuid -> add(UUID.fromString(uuid), new SimpleUser((Map<String, Object>) data.get("users." + uuid))));
     }
 
 }
