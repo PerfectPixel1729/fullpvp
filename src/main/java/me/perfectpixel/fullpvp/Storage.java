@@ -1,11 +1,11 @@
 package me.perfectpixel.fullpvp;
 
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public interface Storage<K, V> {
 
-    Set<K> get();
+    Map<V, K> get();
 
     Optional<K> find(V v);
 
@@ -15,7 +15,7 @@ public interface Storage<K, V> {
 
     void remove(V v);
 
-    void add(K k);
+    void add(V v, K k);
 
     void saveAll();
 
