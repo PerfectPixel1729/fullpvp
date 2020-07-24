@@ -17,4 +17,8 @@ public interface Storage<K, V> {
 
     void add(K k);
 
+    void saveAll();
+
+    void loadAll();
+
 }
