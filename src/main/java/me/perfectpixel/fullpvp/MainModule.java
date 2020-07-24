@@ -19,7 +19,8 @@ public class MainModule extends AbstractModule {
         FileBinder fileBinder = new FileBinder()
                 .bind("data", new FileManager(fullPVP, "data"))
                 .bind("config", new FileManager(fullPVP, "config"))
-                .bind("language", new FileManager(fullPVP, "language"));
+                .bind("language", new FileManager(fullPVP, "language"))
+                .bind("chests", new FileManager(fullPVP, "chests"));
 
         install(fileBinder.build());
         install(new StorageModule());
