@@ -3,13 +3,14 @@ package me.perfectpixel.fullpvp.message.placeholder;
 import me.perfectpixel.fullpvp.Storage;
 import me.perfectpixel.fullpvp.user.User;
 import me.yushust.inject.Inject;
+import me.yushust.inject.name.Named;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 public class StatisticPlaceholderApplier implements PlaceholderApplier {
 
-    @Inject Storage<User, UUID> userStorage;
+    @Inject @Named("users") Storage<User, UUID> userStorage;
 
     @Override
     public String setPlaceHolders(Player player, String text) {
