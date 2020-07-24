@@ -1,0 +1,6 @@
+prefix: "&8[&9&lW&f&lC&8]"
+
+events:
+  player-death: "%prefix% &7¡Ahora tienes &9%fullpvp_deaths% &7muertes!"
+  player-kill: "%prefix% &7¡Has asesinado a alguien, ahora tienes &9%fullpvp_kills% &7bajas!"
+  player-gain-coins: "%prefix% &7¡Has ganado &9%coins% &7coins!"
