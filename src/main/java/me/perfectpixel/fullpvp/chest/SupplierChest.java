@@ -1,14 +1,18 @@
 package me.perfectpixel.fullpvp.chest;
 
 import me.perfectpixel.fullpvp.utils.LocationSerializable;
-import org.bukkit.Location;
-import org.bukkit.inventory.Inventory;
 
-public interface SupplierChest extends LocationSerializable {
+import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Map;
+
+public interface SupplierChest extends LocationSerializable, ConfigurationSerializable {
 
     String getName();
 
-    Inventory getInventory();
+    Map<Integer, ItemStack> getItems();
 
     Location getLocation();
 
