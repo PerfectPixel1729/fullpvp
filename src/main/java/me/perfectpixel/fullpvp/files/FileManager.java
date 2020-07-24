@@ -1,5 +1,6 @@
 package me.perfectpixel.fullpvp.files;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -53,6 +54,11 @@ public class FileManager extends YamlConfiguration {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getString(String path) {
+        return ChatColor.translateAlternateColorCodes('&', super.getString(path));
     }
 
 }
