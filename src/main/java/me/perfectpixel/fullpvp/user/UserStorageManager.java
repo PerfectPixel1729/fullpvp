@@ -6,10 +6,7 @@ import me.perfectpixel.fullpvp.files.FileManager;
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class UserStorageManager implements Storage<User, UUID> {
 
@@ -57,6 +54,22 @@ public class UserStorageManager implements Storage<User, UUID> {
     @Override
     public void add(User user) {
         users.add(user);
+    }
+
+    @Override
+    public void saveAll() {
+        users.forEach(user -> data.set("users." + user.getID().toString(), user.serialize()));
+
+        data.save();
+    }
+
+    @Override
+    public void loadAll() {
+        if (!data.contains("users")) {
+            return;
+        }
+
+        data.getConfigurationSection("users").getKeys(false).forEach(uuid -> add(new SimpleUser(UUID.fromString(uuid), (Map<String, Object>) data.get("users." + uuid))));
     }
 
 }
