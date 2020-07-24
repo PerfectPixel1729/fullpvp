@@ -8,11 +8,12 @@ import me.perfectpixel.fullpvp.chest.SupplierChest;
 import me.perfectpixel.fullpvp.listeners.PlayerDeathListener;
 import me.perfectpixel.fullpvp.listeners.PlayerJoinListener;
 import me.perfectpixel.fullpvp.listeners.PlayerQuitListener;
-
 import me.perfectpixel.fullpvp.modules.MainModule;
+
 import me.yushust.inject.Inject;
 import me.yushust.inject.Injector;
 import me.yushust.inject.InjectorFactory;
+import me.yushust.inject.name.Named;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -20,8 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FullPVP extends JavaPlugin {
 
-    @Inject private Storage<SupplierChest, String> supplierChestStorage;
-
+    @Inject @Named("chests") private Storage<SupplierChest, String> supplierChestStorage;
 
     @Inject private PlayerJoinListener playerJoinListener;
     @Inject private PlayerDeathListener playerDeathListener;
