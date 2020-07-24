@@ -38,6 +38,10 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+        <repository>
+            <id>unnamed-repo</id>
+            <url>https://repo.unnamed.team/repository/unnamed-releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -70,6 +74,12 @@
             <artifactId>placeholderapi</artifactId>
             <version>2.10.6</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>team.unnamed.gui</groupId>
+            <artifactId>UnnamedGUI-Core</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
