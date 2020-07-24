@@ -5,9 +5,11 @@ import me.fixeddev.ebcm.parametric.ParametricCommandBuilder;
 import me.fixeddev.ebcm.parametric.ReflectionParametricCommandBuilder;
 
 import me.perfectpixel.fullpvp.chest.SupplierChest;
+import me.perfectpixel.fullpvp.listeners.PlayerDeathListener;
 import me.perfectpixel.fullpvp.listeners.PlayerJoinListener;
 import me.perfectpixel.fullpvp.listeners.PlayerQuitListener;
 
+import me.perfectpixel.fullpvp.modules.MainModule;
 import me.yushust.inject.Inject;
 import me.yushust.inject.Injector;
 import me.yushust.inject.InjectorFactory;
@@ -22,13 +24,14 @@ public class FullPVP extends JavaPlugin {
 
 
     @Inject private PlayerJoinListener playerJoinListener;
+    @Inject private PlayerDeathListener playerDeathListener;
     @Inject private PlayerQuitListener playerQuitListener;
 
     public void onEnable() {
         Injector injector = InjectorFactory.create(new MainModule(this));
         injector.injectMembers(this);
 
-        registerListeners(playerJoinListener, playerQuitListener);
+        registerListeners(playerJoinListener, playerQuitListener, playerDeathListener);
 
         registerCommands();
 
