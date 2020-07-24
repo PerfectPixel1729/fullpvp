@@ -10,8 +10,6 @@ import java.util.Map;
 
 public interface SupplierChest extends LocationSerializable, ConfigurationSerializable {
 
-    String getName();
-
     Map<Integer, ItemStack> getItems();
 
     Location getLocation();

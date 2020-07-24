@@ -13,7 +13,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class DefaultSupplierChest implements SupplierChest {
 
-    private final String name;
     private final Map<Integer, ItemStack> items;
     private final Location location;
 
