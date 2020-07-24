@@ -1,5 +1,6 @@
-package me.perfectpixel.fullpvp;
+package me.perfectpixel.fullpvp.modules;
 
+import me.perfectpixel.fullpvp.FullPVP;
 import me.perfectpixel.fullpvp.files.FileBinder;
 import me.perfectpixel.fullpvp.files.FileManager;
 
@@ -23,6 +24,7 @@ public class MainModule extends AbstractModule {
                 .bind("chests", new FileManager(fullPVP, "chests"));
 
         install(fileBinder.build());
+        install(new MessageModule());
         install(new StorageModule());
 
         bind(FullPVP.class).toInstance(fullPVP);

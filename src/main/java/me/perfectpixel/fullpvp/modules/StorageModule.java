@@ -1,5 +1,6 @@
-package me.perfectpixel.fullpvp;
+package me.perfectpixel.fullpvp.modules;
 
+import me.perfectpixel.fullpvp.Storage;
 import me.perfectpixel.fullpvp.chest.SupplierChest;
 import me.perfectpixel.fullpvp.chest.SupplierChestStorageManager;
 import me.perfectpixel.fullpvp.user.User;
