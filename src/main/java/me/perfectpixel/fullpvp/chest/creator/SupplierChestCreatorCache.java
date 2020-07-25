@@ -2,29 +2,27 @@ package me.perfectpixel.fullpvp.chest.creator;
 
 import me.perfectpixel.fullpvp.Storage;
 
-import org.bukkit.Location;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SupplierChestCreatorCache implements Storage<Location, UUID> {
+public class SupplierChestCreatorCache implements Storage<UserCreator, UUID> {
 
-    private final Map<UUID, Location> creators = new HashMap<>();
+    private final Map<UUID, UserCreator> creators = new HashMap<>();
 
     @Override
-    public Map<UUID, Location> get() {
+    public Map<UUID, UserCreator> get() {
         return creators;
     }
 
     @Override
-    public Optional<Location> find(UUID uuid) {
+    public Optional<UserCreator> find(UUID uuid) {
         return Optional.ofNullable(creators.get(uuid));
     }
 
     @Override
-    public Optional<Location> findFromData(UUID uuid) { return Optional.empty(); }
+    public Optional<UserCreator> findFromData(UUID uuid) { return Optional.empty(); }
 
     @Override
     public void save(UUID uuid) { }
@@ -35,7 +33,7 @@ public class SupplierChestCreatorCache implements Storage<Location, UUID> {
     }
 
     @Override
-    public void add(UUID uuid, Location location) {
+    public void add(UUID uuid, UserCreator location) {
         creators.put(uuid, location);
     }
 
