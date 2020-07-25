@@ -1,5 +1,6 @@
-package me.perfectpixel.fullpvp;
+package me.perfectpixel.fullpvp.loader;
 
+import me.perfectpixel.fullpvp.FullPVP;
 import me.perfectpixel.fullpvp.listeners.PlayerDeathListener;
 import me.perfectpixel.fullpvp.listeners.PlayerJoinListener;
 import me.perfectpixel.fullpvp.listeners.PlayerQuitListener;
@@ -9,7 +10,9 @@ import me.yushust.inject.Inject;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
-public class EventsLoader {
+import team.unnamed.gui.listeners.MenuListeners;
+
+public class EventsLoader implements Loader {
 
     @Inject
     private FullPVP fullPVP;
@@ -18,11 +21,13 @@ public class EventsLoader {
     @Inject private PlayerDeathListener playerDeathListener;
     @Inject private PlayerQuitListener playerQuitListener;
 
-    public void register() {
+    @Override
+    public void load() {
         registerListeners(
                 playerJoinListener,
                 playerQuitListener,
-                playerDeathListener
+                playerDeathListener,
+                new MenuListeners()
         );
     }
 
