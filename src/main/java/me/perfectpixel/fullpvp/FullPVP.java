@@ -1,10 +1,10 @@
 package me.perfectpixel.fullpvp;
 
-import me.fixeddev.ebcm.bukkit.BukkitCommandManager;
-import me.fixeddev.ebcm.parametric.ParametricCommandBuilder;
-import me.fixeddev.ebcm.parametric.ReflectionParametricCommandBuilder;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 import me.perfectpixel.fullpvp.chest.SupplierChest;
+import me.perfectpixel.fullpvp.loader.CommandsLoader;
+import me.perfectpixel.fullpvp.loader.EventsLoader;
 import me.perfectpixel.fullpvp.modules.MainModule;
 
 import me.yushust.inject.Inject;
@@ -23,24 +23,26 @@ public class FullPVP extends JavaPlugin {
     @Inject
     private EventsLoader eventsLoader;
 
+    @Inject
+    private CommandsLoader commandsLoader;
+
+    @Inject
+    private PlaceholderExpansion placeholderExpansion;
+
     public void onEnable() {
         Injector injector = InjectorFactory.create(new MainModule(this));
         injector.injectMembers(this);
 
-        registerCommands();
+        placeholderExpansion.register();
 
-        eventsLoader.register();
+        commandsLoader.load();
+        eventsLoader.load();
 
         supplierChestStorage.loadAll();
     }
 
     public void onDisable() {
         supplierChestStorage.saveAll();
-    }
-
-    private void registerCommands() {
-        ParametricCommandBuilder builder = new ReflectionParametricCommandBuilder();
-        BukkitCommandManager commandManager = new BukkitCommandManager(getName());
     }
 
 }
