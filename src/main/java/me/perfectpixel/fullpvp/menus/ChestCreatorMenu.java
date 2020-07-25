@@ -10,18 +10,19 @@ import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
 
 import net.wesjd.anvilgui.AnvilGUI;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import team.unnamed.gui.button.SimpleButton;
 import team.unnamed.gui.item.ItemBuilder;
 import team.unnamed.gui.menu.MenuBuilder;
 
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
 
 public class ChestCreatorMenu implements Menu {
 
@@ -149,6 +150,22 @@ public class ChestCreatorMenu implements Menu {
 
         player.sendMessage(simpleMessageDecorator.getMessage(player, "chest.cancel-creator"));
         chestCreators.remove(player.getUniqueId());
+    }
+
+    private Map<Integer, ItemStack> getAvailableItems(Inventory inventory) {
+        Map<Integer, ItemStack> items = new HashMap<>();
+
+        for (int i = 0; i < 27; i++) {
+            ItemStack item = inventory.getItem(i);
+
+            if (item == null || item.getType() == null || item.getType() == Material.AIR) {
+                continue;
+            }
+
+            items.put(i, item);
+        }
+
+        return items;
     }
 
 }
