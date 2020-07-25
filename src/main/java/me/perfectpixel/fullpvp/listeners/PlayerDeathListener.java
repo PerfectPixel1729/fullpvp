@@ -2,7 +2,7 @@ package me.perfectpixel.fullpvp.listeners;
 
 import me.perfectpixel.fullpvp.Storage;
 import me.perfectpixel.fullpvp.files.FileManager;
-import me.perfectpixel.fullpvp.message.SimpleMessageDecorator;
+import me.perfectpixel.fullpvp.message.Message;
 import me.perfectpixel.fullpvp.user.User;
 
 import me.yushust.inject.Inject;
@@ -20,7 +20,7 @@ public class PlayerDeathListener implements Listener {
     @Inject @Named("users") private Storage<User, UUID> userStorage;
 
     @Inject @Named("config") private FileManager config;
-    @Inject private SimpleMessageDecorator messageDecorator;
+    @Inject private Message messageDecorator;
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
