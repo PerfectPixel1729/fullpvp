@@ -17,7 +17,7 @@ public class FileMessages implements Message {
 
     @Override
     public String getMessage(Player player, String id) {
-        return language.getString(id).replace("%prefix%", language.getString("prefix"));
+        return language.getString(id, id).replace("%prefix%", language.getString("prefix"));
     }
 
     @Override
