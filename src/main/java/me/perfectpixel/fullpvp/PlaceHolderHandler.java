@@ -2,9 +2,20 @@ package me.perfectpixel.fullpvp;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
+import me.perfectpixel.fullpvp.user.User;
+
+import me.yushust.inject.Inject;
+import me.yushust.inject.name.Named;
+
 import org.bukkit.OfflinePlayer;
 
+import java.util.UUID;
+
 public class PlaceHolderHandler extends PlaceholderExpansion {
+
+    @Inject
+    @Named("users")
+    private Storage<User, UUID> userStorage;
 
     @Override
     public boolean canRegister(){
@@ -28,7 +39,28 @@ public class PlaceHolderHandler extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, String identifier){
-        return "";
+        if (player == null) {
+            return "";
+        }
+
+        if (!userStorage.find(player.getUniqueId()).isPresent()) {
+            return "";
+        }
+
+        User user = userStorage.find(player.getUniqueId()).get();
+
+        switch (identifier) {
+            case "kills":
+                return user.getKills().get() + "";
+            case "deaths":
+                return user.getDeaths().get() + "";
+            case "level":
+                return user.getLevel().get() + "";
+            case "coins":
+                return user.getCoins().get() + "";
+            default:
+                return "";
+        }
     }
 
 }
