@@ -2,7 +2,10 @@ package me.perfectpixel.fullpvp.menus;
 
 import me.perfectpixel.fullpvp.FullPVP;
 import me.perfectpixel.fullpvp.Storage;
+import me.perfectpixel.fullpvp.chest.DefaultSupplierChest;
 import me.perfectpixel.fullpvp.chest.SupplierChest;
+import me.perfectpixel.fullpvp.chest.SupplierChestStorageManager;
+import me.perfectpixel.fullpvp.chest.creator.UserCreator;
 import me.perfectpixel.fullpvp.message.Message;
 import me.perfectpixel.fullpvp.message.menu.MessageMenu;
 
@@ -37,11 +40,11 @@ public class ChestCreatorMenu implements Menu {
 
     @Inject
     @Named("chests-creators")
-    private Storage<Location, UUID> chestCreators;
+    private Storage<UserCreator, UUID> chestCreators;
 
     @Inject
     @Named("chests")
-    private Storage<SupplierChest, String> supplierChestStorage;
+    private Storage<SupplierChest, Location> supplierChestStorage;
 
     @Override
     public MenuBuilder build() {
@@ -84,7 +87,14 @@ public class ChestCreatorMenu implements Menu {
                             Player player = (Player) click.getWhoClicked();
 
                             player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
-                            click.getClickedInventory().clear();
+
+                            Inventory inventory = click.getInventory();
+
+                            getAvailableItems(inventory).forEach((slot, item) -> {
+                                inventory.clear(slot);
+
+                                player.getInventory().addItem(item);
+                            });
 
                             return true;
                         })
@@ -115,22 +125,40 @@ public class ChestCreatorMenu implements Menu {
                             player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
 
                             new AnvilGUI.Builder()
-                                    .onClose(who -> cancelCreation(player))
-                                    .onComplete((who, text) -> {
-                                        if (!supplierChestStorage.get().containsKey(text)) {
-                                            player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
-
-                                            player.sendMessage(Arrays.toString(click.getInventory().getContents()));
-
-                                            return AnvilGUI.Response.close();
-                                        } else {
-                                            return AnvilGUI.Response.text(simpleMessageDecorator.getMessage(player, "chest.already-name"));
+                                    .onClose(who -> {
+                                        if (!chestCreators.find(player.getUniqueId()).isPresent()) {
+                                            return;
                                         }
+
+                                        cancelCreation(player);
+                                    })
+                                    .onComplete((who, text) -> {
+                                        chestCreators.find(player.getUniqueId()).ifPresent(userCreator -> {
+                                            if (!SupplierChestStorageManager.containsChest(text)) {
+                                                supplierChestStorage.add(
+                                                        userCreator.getChestLocation(),
+                                                        new DefaultSupplierChest(
+                                                                getAvailableItems(click.getInventory()),
+                                                                text,
+                                                                userCreator.getChestLocation()
+                                                        )
+                                                );
+
+                                                chestCreators.remove(player.getUniqueId());
+                                                player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
+                                                player.sendMessage(simpleMessageDecorator.getMessage(player, "chest.successfully-creation"));
+                                            } else {
+                                                player.sendMessage(simpleMessageDecorator.getMessage(player, "chest.already-name"));
+                                            }
+
+                                            player.closeInventory();
+                                        });
+
+                                        return AnvilGUI.Response.close();
                                     })
                                     .text("Introduce el nombre.")
                                     .plugin(fullPVP)
                                     .open(player);
-
 
                             return true;
                         })
