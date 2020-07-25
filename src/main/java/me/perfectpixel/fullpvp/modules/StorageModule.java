@@ -13,6 +13,8 @@ import me.yushust.inject.identity.Key;
 import me.yushust.inject.identity.type.TypeReference;
 import me.yushust.inject.name.Names;
 
+import org.bukkit.Location;
+
 import java.util.UUID;
 
 public class StorageModule extends AbstractModule {
@@ -21,7 +23,7 @@ public class StorageModule extends AbstractModule {
     protected void configure() {
         bind(Key.of(new TypeReference<Storage<User, UUID>>() {}, (Names.named("users")))).to(UserStorageManager.class).singleton();
         bind(Key.of(new TypeReference<Storage<UserCreator, UUID>>() {}, (Names.named("chests-creators")))).to(SupplierChestCreatorCache.class).singleton();
-        bind(Key.of(new TypeReference<Storage<SupplierChest, String>>() {}, (Names.named("chests")))).to(SupplierChestStorageManager.class).singleton();
+        bind(Key.of(new TypeReference<Storage<SupplierChest, Location>>() {}, (Names.named("chests")))).to(SupplierChestStorageManager.class).singleton();
     }
 
 }
