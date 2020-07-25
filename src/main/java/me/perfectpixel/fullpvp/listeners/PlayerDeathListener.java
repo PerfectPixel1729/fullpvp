@@ -20,7 +20,7 @@ public class PlayerDeathListener implements Listener {
     @Inject @Named("users") private Storage<User, UUID> userStorage;
 
     @Inject @Named("config") private FileManager config;
-    @Inject private Message messageDecorator;
+    @Inject private Message message;
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
@@ -30,7 +30,7 @@ public class PlayerDeathListener implements Listener {
         userStorage.find(player.getUniqueId()).ifPresent(user -> {
             user.getDeaths().add(1);
 
-            player.sendMessage(messageDecorator.getMessage(player, "events.player-death"));
+            player.sendMessage(message.getMessage(player, "events.player-death"));
         });
 
         userStorage.find(killer.getUniqueId()).ifPresent(user -> {
@@ -39,8 +39,8 @@ public class PlayerDeathListener implements Listener {
             user.getKills().add(1);
             user.getCoins().add(coins);
 
-            killer.sendMessage(messageDecorator.getMessage(killer, "events.player-kill"));
-            killer.sendMessage(messageDecorator.getMessage(killer, "events.player-gain-coins").replace("%coins%", coins + ""));
+            killer.sendMessage(message.getMessage(killer, "events.player-kill"));
+            killer.sendMessage(message.getMessage(killer, "events.player-gain-coins").replace("%coins%", coins + ""));
         });
     }
 
