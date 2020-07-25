@@ -3,6 +3,7 @@ package me.perfectpixel.fullpvp.modules;
 import me.perfectpixel.fullpvp.Storage;
 import me.perfectpixel.fullpvp.chest.SupplierChest;
 import me.perfectpixel.fullpvp.chest.SupplierChestStorageManager;
+import me.perfectpixel.fullpvp.chest.creator.SupplierChestCreatorCache;
 import me.perfectpixel.fullpvp.user.User;
 import me.perfectpixel.fullpvp.user.UserStorageManager;
 
@@ -20,6 +21,7 @@ public class StorageModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(Key.of(new TypeReference<Storage<User, UUID>>() {}, (Names.named("users")))).to(UserStorageManager.class).singleton();
+        bind(Key.of(new TypeReference<Storage<Location, UUID>>() {}, (Names.named("chests-creators")))).to(SupplierChestCreatorCache.class).singleton();
         bind(Key.of(new TypeReference<Storage<SupplierChest, String>>() {}, (Names.named("chests")))).to(SupplierChestStorageManager.class).singleton();
     }
 
