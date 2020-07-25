@@ -46,7 +46,7 @@ public class ChestCreatorCommand implements CommandClass {
                 ))
         );
 
-        player.sendMessage(message.getMessage(player, "chests.enter-creator-mode"));
+        player.sendMessage(message.getMessage(player, "chest.enter-creator-mode"));
 
         return true;
     }
