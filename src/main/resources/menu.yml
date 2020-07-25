@@ -1,0 +1,19 @@
+chest-creator:
+  title: "&9Creador de cofres"
+  items:
+    decoration:
+      name: "&7"
+      lore:
+        - "&7"
+    save:
+      name: "&aGuardar"
+      lore:
+        - "&7Haz click aquí para guardar!"
+    cancel:
+      name: "&cCancelar"
+      lore:
+        - "&7Haz click aquí para cancelar!"
+    clear:
+      name: "&cLimpiar inventario"
+      lore:
+        - "&7Haz click aquí para limpiar el inventario!"
