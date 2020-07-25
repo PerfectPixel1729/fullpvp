@@ -12,13 +12,14 @@ import me.yushust.inject.Injector;
 import me.yushust.inject.InjectorFactory;
 import me.yushust.inject.name.Named;
 
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FullPVP extends JavaPlugin {
 
     @Inject
     @Named("chests")
-    private Storage<SupplierChest, String> supplierChestStorage;
+    private Storage<SupplierChest, Location> supplierChestStorage;
 
     @Inject
     private EventsLoader eventsLoader;
