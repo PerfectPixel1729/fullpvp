@@ -2,6 +2,7 @@ package me.perfectpixel.fullpvp.loader;
 
 import me.perfectpixel.fullpvp.FullPVP;
 import me.perfectpixel.fullpvp.listeners.PlayerDeathListener;
+import me.perfectpixel.fullpvp.listeners.PlayerInteractListener;
 import me.perfectpixel.fullpvp.listeners.PlayerJoinListener;
 import me.perfectpixel.fullpvp.listeners.PlayerQuitListener;
 
@@ -20,6 +21,7 @@ public class EventsLoader implements Loader {
     @Inject private PlayerJoinListener playerJoinListener;
     @Inject private PlayerDeathListener playerDeathListener;
     @Inject private PlayerQuitListener playerQuitListener;
+    @Inject private PlayerInteractListener playerInteractListener;
 
     @Override
     public void load() {
@@ -27,6 +29,7 @@ public class EventsLoader implements Loader {
                 playerJoinListener,
                 playerQuitListener,
                 playerDeathListener,
+                playerInteractListener,
                 new MenuListeners()
         );
     }
