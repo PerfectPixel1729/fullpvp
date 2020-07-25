@@ -6,6 +6,8 @@ events:
   player-gain-coins: "%prefix% &7¡Has ganado &9%coins% &7coins!"
 
 chest:
+  successfully-creation: "%prefix% &7¡Haz finalizado correctamente la creación de este inventario!"
   enter-creator-mode: "%prefix% &7¡Ahora estás en modo creador de cofres!"
+  open-chest-inventory: "%prefix% &7¡Abriendo inventario de cofre para editar!"
   cancel-creator: "%prefix% &7¡Haz cancelado correctamente la creación de este inventario!"
   already-name: "%prefix% &7¡Al parecer ya exxiste un cofre con este nombre, intenta de nuevo!"
