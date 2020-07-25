@@ -4,7 +4,7 @@ import org.bukkit.Location;
 
 public interface UserCreator {
 
-    UserCreatorInventory getSavedInventory();
+    CreatorInventory getSavedInventory();
 
     Location getChestLocation();
 
