@@ -21,11 +21,13 @@ public class MainModule extends AbstractModule {
                 .bind("data", new FileManager(fullPVP, "data"))
                 .bind("config", new FileManager(fullPVP, "config"))
                 .bind("language", new FileManager(fullPVP, "language"))
-                .bind("chests", new FileManager(fullPVP, "chests"));
+                .bind("chests", new FileManager(fullPVP, "chests"))
+                .bind("menu", new FileManager(fullPVP, "menu"));
 
         install(fileBinder.build());
         install(new MessageModule());
         install(new StorageModule());
+        install(new MenusModule());
 
         bind(FullPVP.class).toInstance(fullPVP);
 
