@@ -5,12 +5,15 @@ import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 
 import me.perfectpixel.fullpvp.Storage;
+import me.perfectpixel.fullpvp.chest.creator.SimpleUserCreator;
+import me.perfectpixel.fullpvp.chest.creator.UserCreator;
+import me.perfectpixel.fullpvp.chest.creator.UserCreatorInventory;
 import me.perfectpixel.fullpvp.menus.Menu;
+import me.perfectpixel.fullpvp.message.Message;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
 
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -25,15 +28,25 @@ public class ChestCreatorCommand implements CommandClass {
 
     @Inject
     @Named("chests-creators")
-    private Storage<Location, UUID> chestCreators;
+    private Storage<UserCreator, UUID> chestCreators;
+
+    @Inject
+    private Message message;
 
     @ACommand(names = "")
-    public boolean mainCommand(@Injected(true)CommandSender sender) {
+    public boolean mainCommand(@Injected(true) CommandSender sender) {
         Player player = (Player) sender;
 
-        chestCreators.add(player.getUniqueId(), player.getLocation());
+        chestCreators.add(
+                player.getUniqueId(),
+                new SimpleUserCreator(new UserCreatorInventory(
+                        player.getInventory().getContents(),
+                        player.getInventory().getArmorContents(),
+                        player.getGameMode()
+                ))
+        );
 
-        player.openInventory(chestCreatorMenu.build().build());
+        player.sendMessage(message.getMessage(player, "chests.enter-creator-mode"));
 
         return true;
     }
