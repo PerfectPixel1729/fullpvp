@@ -1,6 +1,5 @@
 package me.perfectpixel.fullpvp.chest;
 
-import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 
@@ -11,7 +10,5 @@ public interface SupplierChest extends ConfigurationSerializable {
     String getName();
 
     Map<Integer, ItemStack> getItems();
-
-    Location getLocation();
 
 }
