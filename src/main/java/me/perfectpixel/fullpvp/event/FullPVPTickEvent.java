@@ -1,13 +1,10 @@
 package me.perfectpixel.fullpvp.event;
 
-import lombok.Getter;
-
 import me.perfectpixel.fullpvp.utils.TickCause;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-@Getter
 public class FullPVPTickEvent extends Event {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
@@ -21,6 +18,14 @@ public class FullPVPTickEvent extends Event {
     @Override
     public HandlerList getHandlers() {
         return HANDLER_LIST;
+    }
+
+    public static HandlerList getHandlerList() {
+        return HANDLER_LIST;
+    }
+
+    public TickCause getCause() {
+        return cause;
     }
 
 }
