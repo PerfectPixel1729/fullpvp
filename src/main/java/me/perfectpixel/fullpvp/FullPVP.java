@@ -1,10 +1,7 @@
 package me.perfectpixel.fullpvp;
 
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-
 import me.perfectpixel.fullpvp.chest.SupplierChest;
-import me.perfectpixel.fullpvp.loader.CommandsLoader;
-import me.perfectpixel.fullpvp.loader.EventsLoader;
+import me.perfectpixel.fullpvp.loader.ServiceLoader;
 import me.perfectpixel.fullpvp.modules.MainModule;
 
 import me.yushust.inject.Inject;
@@ -22,24 +19,13 @@ public class FullPVP extends JavaPlugin {
     private Storage<SupplierChest, Location> supplierChestStorage;
 
     @Inject
-    private EventsLoader eventsLoader;
-
-    @Inject
-    private CommandsLoader commandsLoader;
-
-    @Inject
-    private PlaceholderExpansion placeholderExpansion;
+    private ServiceLoader serviceLoader;
 
     public void onEnable() {
         Injector injector = InjectorFactory.create(new MainModule(this));
         injector.injectMembers(this);
 
-        placeholderExpansion.register();
-
-        commandsLoader.load();
-        eventsLoader.load();
-
-        supplierChestStorage.loadAll();
+        serviceLoader.load();
     }
 
     public void onDisable() {
