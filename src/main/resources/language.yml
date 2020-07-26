@@ -1,5 +1,17 @@
 prefix: "&8[&9&lW&f&lC&8]"
 
+format:
+  week: "semana"
+  weeks: "semanas"
+  day: "día"
+  days: "días"
+  hour: "hora"
+  hours: "horas"
+  minute: "minuto"
+  minutes: "minutos"
+  second: "segundo"
+  seconds: "segundos"
+
 events:
   player-death: "%prefix% &7¡Ahora tienes &9%fullpvp_deaths% &7muertes!"
   player-kill: "%prefix% &7¡Has asesinado a alguien, ahora tienes &9%fullpvp_kills% &7bajas!"
@@ -11,3 +23,4 @@ chest:
   open-chest-inventory: "%prefix% &7¡Abriendo inventario de cofre para editar!"
   cancel-creator: "%prefix% &7¡Haz cancelado correctamente la creación de este inventario!"
   already-name: "%prefix% &7¡Al parecer ya exxiste un cofre con este nombre, intenta de nuevo!"
+  already-view: "%prefix% &7¡Whoops! Al parecer ya has encontrado este cofre. Debes esperar &9%time%&7."
