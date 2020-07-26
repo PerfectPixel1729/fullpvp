@@ -139,8 +139,7 @@ public class ChestCreatorMenu implements Menu {
                                                         userCreator.getChestLocation(),
                                                         new DefaultSupplierChest(
                                                                 getAvailableItems(click.getInventory()),
-                                                                text,
-                                                                userCreator.getChestLocation()
+                                                                text
                                                         )
                                                 );
 
