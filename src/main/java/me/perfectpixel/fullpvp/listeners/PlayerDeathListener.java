@@ -17,10 +17,15 @@ import java.util.UUID;
 
 public class PlayerDeathListener implements Listener {
 
-    @Inject @Named("users") private Storage<User, UUID> userStorage;
+    @Inject
+    private Storage<UUID, User> userStorage;
 
-    @Inject @Named("config") private FileManager config;
-    @Inject private Message message;
+    @Inject
+    @Named("config")
+    private FileManager config;
+
+    @Inject
+    private Message message;
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
