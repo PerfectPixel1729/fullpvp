@@ -8,7 +8,7 @@ import me.yushust.inject.name.Named;
 
 import java.util.*;
 
-public class UserStorageManager implements Storage<User, UUID> {
+public class UserStorageManager implements Storage<UUID, User> {
 
     @Inject
     @Named("data")
@@ -66,6 +66,8 @@ public class UserStorageManager implements Storage<User, UUID> {
         }
 
         data.getConfigurationSection("users").getKeys(false).forEach(uuid -> add(UUID.fromString(uuid), new SimpleUser((Map<String, Object>) data.get("users." + uuid))));
+
+        data.save();
     }
 
 }
