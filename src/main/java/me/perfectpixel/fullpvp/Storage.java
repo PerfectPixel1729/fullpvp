@@ -5,17 +5,17 @@ import java.util.Optional;
 
 public interface Storage<K, V> {
 
-    Map<V, K> get();
+    Map<K, V> get();
 
-    Optional<K> find(V v);
+    Optional<V> find(K key);
 
-    Optional<K> findFromData(V v);
+    Optional<V> findFromData(K key);
 
-    void save(V v);
+    void save(K key);
 
-    void remove(V v);
+    void remove(K key);
 
-    void add(V v, K k);
+    void add(K key, V value);
 
     void saveAll();
 
