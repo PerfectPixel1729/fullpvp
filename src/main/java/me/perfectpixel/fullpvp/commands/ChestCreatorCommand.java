@@ -4,7 +4,7 @@ import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 
-import me.perfectpixel.fullpvp.Storage;
+import me.perfectpixel.fullpvp.Cache;
 import me.perfectpixel.fullpvp.chest.creator.SimpleUserCreator;
 import me.perfectpixel.fullpvp.chest.creator.UserCreator;
 import me.perfectpixel.fullpvp.chest.creator.UserCreatorInventory;
@@ -27,8 +27,7 @@ public class ChestCreatorCommand implements CommandClass {
     private Menu chestCreatorMenu;
 
     @Inject
-    @Named("chests-creators")
-    private Storage<UserCreator, UUID> chestCreators;
+    private Cache<UUID, UserCreator> chestCreators;
 
     @Inject
     private Message message;
