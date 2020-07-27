@@ -1,13 +1,18 @@
 package me.perfectpixel.fullpvp.loader;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+
 import me.perfectpixel.fullpvp.Storage;
 import me.perfectpixel.fullpvp.chest.SupplierChest;
+
+import me.perfectpixel.fullpvp.chest.viewer.UserViewer;
 import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
+
 import org.bukkit.Location;
 
-public class ServiceLoader implements Loader {
+import java.util.UUID;
+
+public class Service implements Loader {
 
     @Inject
     private EventsLoader eventsLoader;
@@ -19,8 +24,10 @@ public class ServiceLoader implements Loader {
     private TickLoader tickLoader;
 
     @Inject
-    @Named("chests")
-    private Storage<SupplierChest, Location> supplierChestStorage;
+    private Storage<Location, SupplierChest> supplierChestStorage;
+
+    @Inject
+    private Storage<UUID, UserViewer> userViewerStorage;
 
     @Inject
     private PlaceholderExpansion placeholderExpansion;
@@ -33,6 +40,14 @@ public class ServiceLoader implements Loader {
 
         placeholderExpansion.register();
         supplierChestStorage.loadAll();
+
+        userViewerStorage.loadAll();
+    }
+
+    public void stop() {
+        supplierChestStorage.saveAll();
+
+        userViewerStorage.saveAll();
     }
 
 }
