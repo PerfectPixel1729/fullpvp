@@ -11,4 +11,6 @@ public interface SupplierChest extends ConfigurationSerializable {
 
     Map<Integer, ItemStack> getItems();
 
+    void setItems(Map<Integer, ItemStack> items);
+
 }
