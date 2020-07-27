@@ -14,8 +14,7 @@ import java.util.UUID;
 public class PlaceHolderHandler extends PlaceholderExpansion {
 
     @Inject
-    @Named("users")
-    private Storage<User, UUID> userStorage;
+    private Storage<UUID, User> userStorage;
 
     @Override
     public boolean canRegister(){
