@@ -1,0 +1,6 @@
+game:
+  coins-per-kill: 20
+
+chests:
+  #El cooldown está en segundos.
+  cooldown: 10
