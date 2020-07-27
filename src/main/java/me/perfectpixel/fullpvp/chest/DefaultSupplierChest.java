@@ -3,6 +3,7 @@ package me.perfectpixel.fullpvp.chest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import lombok.Setter;
 import me.perfectpixel.fullpvp.utils.ItemSerializable;
 
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +15,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class DefaultSupplierChest implements SupplierChest {
 
-    private final Map<Integer, ItemStack> items;
+    @Setter
+    private Map<Integer, ItemStack> items;
 
     private final String name;
 
