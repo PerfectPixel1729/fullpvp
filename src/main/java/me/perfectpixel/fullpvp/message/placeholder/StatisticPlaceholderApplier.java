@@ -10,7 +10,8 @@ import java.util.UUID;
 
 public class StatisticPlaceholderApplier implements PlaceholderApplier {
 
-    @Inject @Named("users") Storage<User, UUID> userStorage;
+    @Inject
+    private Storage<UUID, User> userStorage;
 
     @Override
     public String setPlaceHolders(Player player, String text) {
