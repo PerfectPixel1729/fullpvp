@@ -19,8 +19,10 @@ events:
 
 chest:
   successfully-creation: "%prefix% &7¡Haz finalizado correctamente la creación de este inventario!"
+  successfully-edition: "%prefix% &7¡Haz finalizado correctamente la edición de este inventario!"
   enter-creator-mode: "%prefix% &7¡Ahora estás en modo creador de cofres!"
-  open-chest-inventory: "%prefix% &7¡Abriendo inventario de cofre para editar!"
+  open-chest-inventory: "%prefix% &7¡Abriendo inventario de cofre para crear!"
+  edit-chest-inventory: "%prefix% &7¡Abriendo inventario para editar!"
   cancel-creator: "%prefix% &7¡Haz cancelado correctamente la creación de este inventario!"
   already-name: "%prefix% &7¡Al parecer ya exxiste un cofre con este nombre, intenta de nuevo!"
   already-view: "%prefix% &7¡Whoops! Al parecer ya has encontrado este cofre. Debes esperar &9%time%&7."
