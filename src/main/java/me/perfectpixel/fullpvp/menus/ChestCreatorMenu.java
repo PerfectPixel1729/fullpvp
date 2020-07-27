@@ -1,5 +1,6 @@
 package me.perfectpixel.fullpvp.menus;
 
+import me.perfectpixel.fullpvp.Cache;
 import me.perfectpixel.fullpvp.FullPVP;
 import me.perfectpixel.fullpvp.Storage;
 import me.perfectpixel.fullpvp.chest.DefaultSupplierChest;
@@ -10,7 +11,6 @@ import me.perfectpixel.fullpvp.message.Message;
 import me.perfectpixel.fullpvp.message.menu.MessageMenu;
 
 import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
 
 import net.wesjd.anvilgui.AnvilGUI;
 
@@ -33,18 +33,19 @@ public class ChestCreatorMenu implements Menu {
     private FullPVP fullPVP;
 
     @Inject
-    private Message simpleMessageDecorator;
+    private Message message;
 
     @Inject
     private MessageMenu simpleMessageMenu;
 
     @Inject
-    @Named("chests-creators")
-    private Storage<UserCreator, UUID> chestCreators;
+    private Cache<UUID, SupplierChest> userEditorCache;
 
     @Inject
-    @Named("chests")
-    private Storage<SupplierChest, Location> supplierChestStorage;
+    private Cache<UUID, UserCreator> userCreatorCache;
+
+    @Inject
+    private Storage<Location, SupplierChest> supplierChestStorage;
 
     @Override
     public MenuBuilder build() {
@@ -124,16 +125,28 @@ public class ChestCreatorMenu implements Menu {
 
                             player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
 
+                            if (userEditorCache.find(player.getUniqueId()).isPresent()) {
+                                userEditorCache.find(player.getUniqueId()).get().setItems(getAvailableItems(click.getInventory()));
+
+                                player.closeInventory();
+                                player.sendMessage(message.getMessage(player, "chest.successfully-edition"));
+
+                                userCreatorCache.remove(player.getUniqueId());
+                                userEditorCache.remove(player.getUniqueId());
+
+                                return true;
+                            }
+
                             new AnvilGUI.Builder()
                                     .onClose(who -> {
-                                        if (!chestCreators.find(player.getUniqueId()).isPresent()) {
+                                        if (!userCreatorCache.find(player.getUniqueId()).isPresent()) {
                                             return;
                                         }
 
                                         cancelCreation(player);
                                     })
                                     .onComplete((who, text) -> {
-                                        chestCreators.find(player.getUniqueId()).ifPresent(userCreator -> {
+                                        userCreatorCache.find(player.getUniqueId()).ifPresent(userCreator -> {
                                             if (!SupplierChestStorageManager.containsChest(text)) {
                                                 supplierChestStorage.add(
                                                         userCreator.getChestLocation(),
@@ -143,11 +156,11 @@ public class ChestCreatorMenu implements Menu {
                                                         )
                                                 );
 
-                                                chestCreators.remove(player.getUniqueId());
+                                                userCreatorCache.remove(player.getUniqueId());
                                                 player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
-                                                player.sendMessage(simpleMessageDecorator.getMessage(player, "chest.successfully-creation"));
+                                                player.sendMessage(message.getMessage(player, "chest.successfully-creation"));
                                             } else {
-                                                player.sendMessage(simpleMessageDecorator.getMessage(player, "chest.already-name"));
+                                                player.sendMessage(message.getMessage(player, "chest.already-name"));
                                             }
 
                                             player.closeInventory();
@@ -175,8 +188,8 @@ public class ChestCreatorMenu implements Menu {
         player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
         player.closeInventory();
 
-        player.sendMessage(simpleMessageDecorator.getMessage(player, "chest.cancel-creator"));
-        chestCreators.remove(player.getUniqueId());
+        player.sendMessage(message.getMessage(player, "chest.cancel-creator"));
+        userCreatorCache.remove(player.getUniqueId());
     }
 
     private Map<Integer, ItemStack> getAvailableItems(Inventory inventory) {
