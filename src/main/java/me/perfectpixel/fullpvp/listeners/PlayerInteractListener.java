@@ -1,5 +1,6 @@
 package me.perfectpixel.fullpvp.listeners;
 
+import me.perfectpixel.fullpvp.Cache;
 import me.perfectpixel.fullpvp.Storage;
 import me.perfectpixel.fullpvp.chest.SupplierChest;
 import me.perfectpixel.fullpvp.chest.creator.UserCreator;
@@ -9,13 +10,13 @@ import me.perfectpixel.fullpvp.event.FullPVPTickEvent;
 import me.perfectpixel.fullpvp.files.FileManager;
 import me.perfectpixel.fullpvp.menus.Menu;
 import me.perfectpixel.fullpvp.message.Message;
+import me.perfectpixel.fullpvp.utils.InventoryUtils;
 import me.perfectpixel.fullpvp.utils.TickCause;
 import me.perfectpixel.fullpvp.utils.TimeFormat;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -27,23 +28,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public class PlayerInteractListener implements Listener {
 
     @Inject
-    @Named("chests-creators")
-    private Storage<UserCreator, UUID> userCreatorStorage;
+    private Cache<UUID, UserCreator> userCreatorCache;
 
     @Inject
-    @Named("chests")
-    private Storage<SupplierChest, Location> supplierChestStorage;
+    private Cache<UUID, SupplierChest> userEditorCache;
 
     @Inject
-    @Named("chests-viewers")
-    private Storage<UserViewer, UUID> userViewerStorage;
+    private Storage<Location, SupplierChest> supplierChestStorage;
+
+    @Inject
+    private Storage<UUID, UserViewer> userViewerStorage;
 
     @Inject
     @Named("chest-creator")
@@ -58,6 +62,9 @@ public class PlayerInteractListener implements Listener {
     @Inject
     @Named("config")
     private FileManager config;
+
+    @Inject
+    private InventoryUtils inventoryUtils;
 
     @EventHandler
     public void onServerTick(FullPVPTickEvent event) {
@@ -92,9 +99,26 @@ public class PlayerInteractListener implements Listener {
             return;
         }
 
-        Optional<UserCreator> userCreator = userCreatorStorage.find(player.getUniqueId());
+        Optional<UserCreator> userCreator = userCreatorCache.find(player.getUniqueId());
+
+        Optional<SupplierChest> supplierChestOptional = supplierChestStorage.find(block.getLocation());
 
         if (userCreator.isPresent()) {
+            event.setCancelled(true);
+
+            if (supplierChestOptional.isPresent()) {
+                Inventory inventory = chestCreatorMenu.build().build();
+
+                userEditorCache.add(player.getUniqueId(), supplierChestOptional.get());
+                supplierChestOptional.get().getItems().forEach(inventory::setItem);
+
+                player.playSound(player.getLocation(), Sound.NOTE_PLING, 1, 2);
+                player.openInventory(inventory);
+                player.sendMessage(message.getMessage(player, "chest.edit-chest-inventory"));
+
+                return;
+            }
+
             player.playSound(player.getLocation(), Sound.NOTE_PLING, 1, 2);
 
             player.sendMessage(message.getMessage(player, "chest.open-chest-inventory"));
@@ -102,12 +126,13 @@ public class PlayerInteractListener implements Listener {
             userCreator.get().setChestLocation(block.getLocation());
 
             player.openInventory(chestCreatorMenu.build().build());
-            event.setCancelled(true);
 
             return;
         }
 
-        supplierChestStorage.find(block.getLocation()).ifPresent(supplierChest -> {
+        if (supplierChestOptional.isPresent()) {
+            SupplierChest supplierChest = supplierChestOptional.get();
+
             event.setCancelled(true);
 
             Optional<UserViewer> optionalUserViewer = userViewerStorage.find(player.getUniqueId());
@@ -120,7 +145,7 @@ public class PlayerInteractListener implements Listener {
                             .replace("%time%", timeFormat.format(userViewer.getViewed().get(supplierChest) * 1000))
                     );
                 } else {
-                    openSupplierChestInventory(supplierChest, player);
+                    addItemsToPlayer(player, supplierChest);
                     userViewer.getViewed().put(supplierChest, config.getInt("chests.cooldown"));
                 }
             } else {
@@ -129,19 +154,25 @@ public class PlayerInteractListener implements Listener {
                 userViewer.getViewed().put(supplierChest, config.getInt("chests.cooldown"));
 
                 userViewerStorage.add(player.getUniqueId(), userViewer);
-                openSupplierChestInventory(supplierChest, player);
+                addItemsToPlayer(player, supplierChest);
             }
-        });
+        }
     }
 
-    private void openSupplierChestInventory(SupplierChest supplierChest, Player player) {
-        player.playSound(player.getLocation(), Sound.CHEST_OPEN, 1, 2);
+    private void addItemsToPlayer(Player player, SupplierChest supplierChest) {
+        List<ItemStack> items = new ArrayList<>(supplierChest.getItems().values());
 
-        Inventory inventory = Bukkit.createInventory(null, 9 * 3, supplierChest.getName());
+        int index = items.size();
 
-        supplierChest.getItems().forEach(inventory::setItem);
+        for (ItemStack item : items) {
+            index -= 1;
 
-        player.openInventory(inventory);
+            if (inventoryUtils.hasSpace(player, index)) {
+                player.getInventory().addItem(item);
+            } else {
+                player.getWorld().dropItemNaturally(player.getLocation(), item);
+            }
+        }
     }
 
 }
