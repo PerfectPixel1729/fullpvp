@@ -14,13 +14,13 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SupplierChestStorageManager implements Storage<SupplierChest, Location> {
+public class SupplierChestStorageManager implements Storage<Location, SupplierChest> {
 
     @Inject
     @Named("chests")
     private FileManager chests;
 
-    private static final ConcurrentHashMap<Location, SupplierChest> SUPPLIER_CHESTS = new ConcurrentHashMap<>();
+    private static final Map<Location, SupplierChest> SUPPLIER_CHESTS = new ConcurrentHashMap<>();
 
     @Override
     public Map<Location, SupplierChest> get() {
@@ -45,6 +45,10 @@ public class SupplierChestStorageManager implements Storage<SupplierChest, Locat
 
     public static boolean containsChest(String name) {
         return SUPPLIER_CHESTS.values().stream().anyMatch(supplierChest -> supplierChest.getName().equals(name));
+    }
+
+    public static Optional<SupplierChest> findByName(String name) {
+        return SUPPLIER_CHESTS.values().stream().filter(supplierChest -> supplierChest.getName().equals(name)).findFirst();
     }
 
     @Override
