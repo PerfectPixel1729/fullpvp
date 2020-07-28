@@ -1,5 +1,15 @@
 prefix: "&8[&9&lW&f&lC&8]"
 
+i18n:
+  no-permission: "%prefix% &7Lo siento, no tienes permiso para realizar esta acción."
+  invalid-subcommand: "%prefix% &7Argumento inválido, por favor intenta con: "
+  missing-argument: "%prefix% &7Argumentos insuficientes."
+  missing-subcommand: "%prefix% &7Subcomando inválido, intenta con:"
+  invalid-int: "%prefix% &7¡Por favor ingresa un número válido!"
+
+no-player-sender: "%prefix% &7¡Este comando es solo disponible para jugadores!"
+no-player-exists: "%prefix% &7¡Al parecer no existe un jugador con este nombre!"
+
 format:
   week: "semana"
   weeks: "semanas"
@@ -11,6 +21,15 @@ format:
   minutes: "minutos"
   second: "segundo"
   seconds: "segundos"
+
+coins:
+  command:
+    no-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene coins!"
+    no-enough-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene los coins suficientes!"
+    user-no-exists: "%prefix% &7¡Ha ocurrido un problema al intentar buscar al usuario, intenta de nuevo!"
+    successfully-add: "%prefix% &7¡Haz añadido &9%coins% &7al jugador &9%target%&7!"
+    successfully-set: "%prefix% &7¡Haz seteado los coins de &9%target% &7a &9%coins%&7!"
+    successfully-remove: "%prefix% &7¡Haz removido &9%coins% &7al jugador &9%target%&7!"
 
 events:
   player-death: "%prefix% &7¡Ahora tienes &9%fullpvp_deaths% &7muertes!"
