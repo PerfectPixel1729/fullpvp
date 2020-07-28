@@ -7,6 +7,7 @@ game:
 
 clans:
   price: 10000
+  maximum-characters: 8
 
 ##################################################################################
 # Este símbolo es el que deberán colocar para poder hablar por el chat del clan. #
