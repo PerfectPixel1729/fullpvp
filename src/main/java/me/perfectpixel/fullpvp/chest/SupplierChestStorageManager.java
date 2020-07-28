@@ -1,7 +1,7 @@
 package me.perfectpixel.fullpvp.chest;
 
 import me.perfectpixel.fullpvp.Storage;
-import me.perfectpixel.fullpvp.files.FileManager;
+import me.perfectpixel.fullpvp.files.FileCreator;
 import me.perfectpixel.fullpvp.utils.ItemSerializable;
 import me.perfectpixel.fullpvp.utils.LocationSerializable;
 
@@ -18,7 +18,7 @@ public class SupplierChestStorageManager implements Storage<Location, SupplierCh
 
     @Inject
     @Named("chests")
-    private FileManager chests;
+    private FileCreator chests;
 
     private static final Map<Location, SupplierChest> SUPPLIER_CHESTS = new ConcurrentHashMap<>();
 
