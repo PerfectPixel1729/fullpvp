@@ -22,12 +22,14 @@ public class MainModule extends AbstractModule {
                 .bind("config", new FileCreator(fullPVP, "config"))
                 .bind("language", new FileCreator(fullPVP, "language"))
                 .bind("chests", new FileCreator(fullPVP, "chests"))
-                .bind("menu", new FileCreator(fullPVP, "menu"));
+                .bind("menu", new FileCreator(fullPVP, "menu"))
+                .bind("clans", new FileCreator(fullPVP, "clans"));
 
         install(fileBinder.build());
         install(new MessageModule());
         install(new StorageModule());
         install(new MenusModule());
+        install(new ServiceModule());
 
         bind(FullPVP.class).toInstance(fullPVP);
 
