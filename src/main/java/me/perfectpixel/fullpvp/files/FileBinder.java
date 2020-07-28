@@ -8,20 +8,20 @@ import java.util.Optional;
 
 public class FileBinder {
 
-    private final Map<String, FileManager> files = new HashMap<>();
+    private final Map<String, FileCreator> files = new HashMap<>();
 
-    public FileBinder bind(String name, FileManager file) {
+    public FileBinder bind(String name, FileCreator file) {
         files.put(name, file);
 
         return this;
     }
 
-    public Optional<FileManager> get(String name) {
+    public Optional<FileCreator> get(String name) {
         return Optional.ofNullable(files.get(name));
     }
 
     public Module build() {
-        return binder -> files.forEach((name, file) -> binder.bind(FileManager.class).named(name).toInstance(file));
+        return binder -> files.forEach((name, file) -> binder.bind(FileCreator.class).named(name).toInstance(file));
     }
 
 }

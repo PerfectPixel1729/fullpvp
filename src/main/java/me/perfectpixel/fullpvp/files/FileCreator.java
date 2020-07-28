@@ -9,24 +9,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class FileManager extends YamlConfiguration {
+public class FileCreator extends YamlConfiguration {
 
     private final String fileName;
     private final Plugin plugin;
     private final File file;
 
-    public FileManager(Plugin plugin, String filename, String fileExtension, File folder){
+    public FileCreator(Plugin plugin, String filename, String fileExtension, File folder){
         this.plugin = plugin;
         this.fileName = filename + (filename.endsWith(fileExtension) ? "" : fileExtension);
         this.file = new File(folder, this.fileName);
         this.createFile();
     }
 
-    public FileManager(Plugin plugin, String fileName) {
+    public FileCreator(Plugin plugin, String fileName) {
         this(plugin, fileName, ".yml");
     }
 
-    public FileManager(Plugin plugin, String fileName, String fileExtension) {
+    public FileCreator(Plugin plugin, String fileName, String fileExtension) {
         this(plugin, fileName, fileExtension, plugin.getDataFolder());
     }
 

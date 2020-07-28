@@ -1,6 +1,6 @@
 package me.perfectpixel.fullpvp.message;
 
-import me.perfectpixel.fullpvp.files.FileManager;
+import me.perfectpixel.fullpvp.files.FileCreator;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
@@ -13,7 +13,7 @@ public class FileMessages implements Message {
 
     @Inject
     @Named("language")
-    private FileManager language;
+    private FileCreator language;
 
     @Override
     public String getMessage(Player player, String id) {
