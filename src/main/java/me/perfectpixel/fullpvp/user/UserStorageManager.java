@@ -1,20 +1,23 @@
 package me.perfectpixel.fullpvp.user;
 
 import me.perfectpixel.fullpvp.Storage;
-import me.perfectpixel.fullpvp.files.FileManager;
+import me.perfectpixel.fullpvp.files.FileCreator;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
 
+import org.bukkit.Bukkit;
+
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class UserStorageManager implements Storage<UUID, User> {
 
     @Inject
     @Named("data")
-    private FileManager data;
+    private FileCreator data;
 
-    private final Map<UUID, User> users = new HashMap<>();
+    private final Map<UUID, User> users = new ConcurrentHashMap<>();
 
     @Override
     public Map<UUID, User> get() {
@@ -32,7 +35,14 @@ public class UserStorageManager implements Storage<UUID, User> {
             return Optional.empty();
         }
 
-        return Optional.of(new SimpleUser((Map<String, Object>) data.get("users." + uuid.toString())));
+        Map<String, Object> statistics = new HashMap<>();
+
+        statistics.put("kills", data.getInt("users." + uuid.toString() + ".kills"));
+        statistics.put("coins", data.getInt("users." + uuid.toString() + ".coins"));
+        statistics.put("level", data.getInt("users." + uuid.toString() + ".level"));
+        statistics.put("deaths", data.getInt("users." + uuid.toString() + ".deaths"));
+
+        return Optional.of(new SimpleUser(statistics));
     }
 
     @Override
@@ -65,9 +75,7 @@ public class UserStorageManager implements Storage<UUID, User> {
             return;
         }
 
-        data.getConfigurationSection("users").getKeys(false).forEach(uuid -> add(UUID.fromString(uuid), new SimpleUser((Map<String, Object>) data.get("users." + uuid))));
-
-        data.save();
+        Bukkit.getOnlinePlayers().forEach(player -> findFromData(player.getUniqueId()).ifPresent(user -> add(player.getUniqueId(), user)));
     }
 
 }
