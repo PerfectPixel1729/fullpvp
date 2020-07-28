@@ -1,11 +1,11 @@
 package me.perfectpixel.fullpvp.clans;
 
+import me.perfectpixel.fullpvp.clans.properties.ClanProperties;
+import me.perfectpixel.fullpvp.clans.statistics.ClanStatistics;
+
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public interface Clan extends ConfigurationSerializable {
 
@@ -13,7 +13,7 @@ public interface Clan extends ConfigurationSerializable {
 
     UUID getCreator();
 
-    Set<UUID> getMembers();
+    List<UUID> getMembers();
 
     ClanProperties getProperties();
 
