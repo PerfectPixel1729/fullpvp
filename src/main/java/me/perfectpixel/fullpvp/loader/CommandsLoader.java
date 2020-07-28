@@ -7,12 +7,20 @@ import me.fixeddev.ebcm.parametric.ReflectionParametricCommandBuilder;
 
 import me.perfectpixel.fullpvp.commands.ChestCreatorCommand;
 
+import me.perfectpixel.fullpvp.commands.CoinsCommands;
+import me.perfectpixel.fullpvp.commands.SimpleI18n;
 import me.yushust.inject.Inject;
 
 public class CommandsLoader implements Loader {
 
     @Inject
     private ChestCreatorCommand chestCreatorCommand;
+
+    @Inject
+    private CoinsCommands coinsCommands;
+
+    @Inject
+    private SimpleI18n simpleI18n;
 
     private final ParametricCommandBuilder builder = new ReflectionParametricCommandBuilder();
     private final BukkitCommandManager commandManager = new BukkitCommandManager("FullPVP");
@@ -25,7 +33,9 @@ public class CommandsLoader implements Loader {
 
     @Override
     public void load() {
-        registerCommands(chestCreatorCommand);
+        commandManager.setI18n(simpleI18n);
+
+        registerCommands(chestCreatorCommand, coinsCommands);
     }
 
 }
