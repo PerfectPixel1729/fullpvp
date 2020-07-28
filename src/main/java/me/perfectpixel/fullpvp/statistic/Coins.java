@@ -32,4 +32,12 @@ public class Coins implements Statistic<Integer> {
         coins = integer;
     }
 
+    public boolean hasCoins() {
+        return coins > 0;
+    }
+
+    public boolean hasEnoughCoins(Integer coins) {
+        return this.coins >= coins;
+    }
+
 }
