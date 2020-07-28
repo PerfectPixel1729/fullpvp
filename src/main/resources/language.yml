@@ -22,6 +22,13 @@ format:
   second: "segundo"
   seconds: "segundos"
 
+clans:
+  already-exists: "%prefix% &7¡Lo siento, al parecer ya existe un clan con este nombre!"
+  commands:
+    name-too-long: "%prefix% &7¡Este nombre es demasiado largo, debe tener máximo &9%characters% &7carácteres!"
+    successfully-create: "%prefix% &7¡Haz creado correctamente el clan &9%name%&7!"
+    already-clan: "%prefix% &7¡Whoops! Ya perteneces a un clan, debes salir primero!"
+
 coins:
   command:
     no-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene coins!"
