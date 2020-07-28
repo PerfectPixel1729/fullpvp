@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 import java.util.Optional;
 import java.util.UUID;
 
-@ACommand(names = "coins", permission = "fullpvp.coins")
+@ACommand(names = {"coins", "coin"}, permission = "fullpvp.coins")
 @Usage(usage = "§9[add, remove, set]")
 public class CoinsCommands implements CommandClass {
 
