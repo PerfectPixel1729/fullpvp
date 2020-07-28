@@ -2,8 +2,8 @@ package me.perfectpixel.fullpvp.chest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import lombok.Setter;
+
 import me.perfectpixel.fullpvp.utils.ItemSerializable;
 
 import org.bukkit.inventory.ItemStack;
