@@ -1,10 +1,22 @@
+#############################################################################
+# Recuerda que los cooldowns están en segundos, haz la conversión adecuada. #
+#############################################################################
+
 game:
   coins-per-kill: 20
 
+clans:
+  price: 10000
+
+##################################################################################
+# Este símbolo es el que deberán colocar para poder hablar por el chat del clan. #
+##################################################################################
+  symbol-chat: "@"
+  members:
+    max: 5
+
 pearl:
-  #El cooldown está en segundos.
   cooldown: 5
 
 chests:
-  #El cooldown está en segundos.
   cooldown: 10
