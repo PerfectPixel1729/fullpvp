@@ -1,6 +1,6 @@
 package me.perfectpixel.fullpvp.message.menu;
 
-import me.perfectpixel.fullpvp.files.FileManager;
+import me.perfectpixel.fullpvp.files.FileCreator;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
@@ -11,7 +11,7 @@ public class SimpleMessageMenu implements MessageMenu {
 
     @Inject
     @Named("menu")
-    private FileManager menu;
+    private FileCreator menu;
 
     @Override
     public String getTitle(String keyMenu) {
