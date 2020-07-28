@@ -7,6 +7,7 @@ import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ClanStorageManager implements Storage<String, Clan> {
 
@@ -14,7 +15,7 @@ public class ClanStorageManager implements Storage<String, Clan> {
     @Named("clans")
     private FileCreator clanFile;
 
-    private final Map<String, Clan> clans = new HashMap<>();
+    private final Map<String, Clan> clans = new ConcurrentHashMap<>();
 
     @Override
     public Map<String, Clan> get() {
@@ -70,7 +71,7 @@ public class ClanStorageManager implements Storage<String, Clan> {
 
     @Override
     public void saveAll() {
-        clans.forEach((name, clan) -> save(name));
+        clans.keySet().forEach(this::save);
 
         clanFile.save();
     }
