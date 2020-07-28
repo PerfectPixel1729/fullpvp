@@ -9,10 +9,12 @@ import me.perfectpixel.fullpvp.statistic.Level;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Getter
 public class SimpleUser implements User {
 
+    private String clanName = null;
     private final Coins coins;
     private final Level level;
     private final Deaths deaths;
@@ -30,6 +32,7 @@ public class SimpleUser implements User {
         level = new Level((Integer) userMap.get("level"));
         deaths = new Deaths((Integer) userMap.get("deaths"));
         kills = new Kills((Integer) userMap.get("kills"));
+        clanName = (String) userMap.get("clanName");
     }
 
     @Override
@@ -40,8 +43,19 @@ public class SimpleUser implements User {
         playerMap.put("level", level.get());
         playerMap.put("deaths", deaths.get());
         playerMap.put("kills", kills.get());
+        playerMap.put("clanName", clanName);
 
         return playerMap;
+    }
+
+    @Override
+    public Optional<String> getClanName() {
+        return Optional.ofNullable(clanName);
+    }
+
+    @Override
+    public void setClanName(String clanName) {
+        this.clanName = clanName;
     }
 
 }
