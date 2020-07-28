@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import team.unnamed.gui.listeners.MenuListeners;
 
-public class EventsLoader implements Loader {
+public final class EventsLoader implements Loader {
 
     @Inject
     private FullPVP fullPVP;

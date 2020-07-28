@@ -8,7 +8,7 @@ import me.yushust.inject.Inject;
 
 import org.bukkit.Bukkit;
 
-public class TickLoader implements Loader {
+public final class TickLoader implements Loader {
 
     @Inject
     private FullPVP fullPVP;

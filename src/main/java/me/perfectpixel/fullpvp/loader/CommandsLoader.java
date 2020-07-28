@@ -11,7 +11,7 @@ import me.perfectpixel.fullpvp.commands.CoinsCommands;
 import me.perfectpixel.fullpvp.commands.SimpleI18n;
 import me.yushust.inject.Inject;
 
-public class CommandsLoader implements Loader {
+public final class CommandsLoader implements Loader {
 
     @Inject
     private ChestCreatorCommand chestCreatorCommand;
