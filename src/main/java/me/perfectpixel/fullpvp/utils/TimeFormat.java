@@ -69,7 +69,7 @@ public class TimeFormat {
             stringJoiner.add(unitValue + " " + unit);
         }
 
-        unitValue = Math.toIntExact(seconds /TimeUnit.MINUTES.toSeconds(1));
+        unitValue = Math.toIntExact(seconds / TimeUnit.MINUTES.toSeconds(1));
 
         if (unitValue > 0) {
             seconds %= TimeUnit.MINUTES.toSeconds(1);
