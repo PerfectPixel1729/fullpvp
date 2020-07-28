@@ -1,4 +1,4 @@
-package me.perfectpixel.fullpvp.clans;
+package me.perfectpixel.fullpvp.clans.statistics;
 
 import lombok.Getter;
 
@@ -10,6 +10,10 @@ public class DefaultClanStatistics implements ClanStatistics {
 
     private final Deaths deaths;
     private final Kills kills;
+
+    public DefaultClanStatistics() {
+        this(0, 0);
+    }
 
     public DefaultClanStatistics(int deaths, int kills) {
         this.deaths = new Deaths(deaths);
