@@ -32,7 +32,7 @@ public class CoinsCommands implements CommandClass {
 
     @ACommand(names = "add", permission = "fullpvp.coins.add")
     @Usage(usage = "§9[targetName] coins")
-    public boolean runAddCoinsCommand(@Injected(true) CommandSender sender, String targetName, int coins) {
+    public boolean runAddCoinsCommand(@Injected(true) CommandSender sender, String targetName, Integer coins) {
         Player target = Bukkit.getPlayerExact(targetName);
 
         if (target == null) {
@@ -60,7 +60,7 @@ public class CoinsCommands implements CommandClass {
 
     @ACommand(names = "set", permission = "fullpvp.coins.set")
     @Usage(usage = "§9[targetName] coins")
-    public boolean runSetCoinsCommand(@Injected(true) CommandSender sender, String targetName, int coins) {
+    public boolean runSetCoinsCommand(@Injected(true) CommandSender sender, String targetName, Integer coins) {
         Player target = Bukkit.getPlayerExact(targetName);
 
         if (target == null) {
@@ -89,7 +89,7 @@ public class CoinsCommands implements CommandClass {
 
     @ACommand(names = "remove", permission = "fullpvp.coins.remove")
     @Usage(usage = "§9[targetName] coins")
-    public boolean runRemoveCoinsCommand(@Injected(true) CommandSender sender, String targetName, int coins) {
+    public boolean runRemoveCoinsCommand(@Injected(true) CommandSender sender, String targetName, Integer coins) {
         Player target = Bukkit.getPlayerExact(targetName);
 
         if (target == null) {
