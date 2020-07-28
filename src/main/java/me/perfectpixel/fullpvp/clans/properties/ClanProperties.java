@@ -1,4 +1,4 @@
-package me.perfectpixel.fullpvp.clans;
+package me.perfectpixel.fullpvp.clans.properties;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;

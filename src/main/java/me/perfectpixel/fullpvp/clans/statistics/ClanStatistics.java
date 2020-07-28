@@ -1,4 +1,4 @@
-package me.perfectpixel.fullpvp.clans;
+package me.perfectpixel.fullpvp.clans.statistics;
 
 import me.perfectpixel.fullpvp.statistic.Deaths;
 import me.perfectpixel.fullpvp.statistic.Kills;
@@ -30,4 +30,5 @@ public interface ClanStatistics extends ConfigurationSerializable {
 
         return statisticsSerializable;
     }
+
 }
