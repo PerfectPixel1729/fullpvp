@@ -1,7 +1,7 @@
 package me.perfectpixel.fullpvp.listeners;
 
 import me.perfectpixel.fullpvp.Storage;
-import me.perfectpixel.fullpvp.files.FileManager;
+import me.perfectpixel.fullpvp.files.FileCreator;
 import me.perfectpixel.fullpvp.message.Message;
 import me.perfectpixel.fullpvp.user.User;
 
@@ -22,7 +22,7 @@ public class PlayerDeathListener implements Listener {
 
     @Inject
     @Named("config")
-    private FileManager config;
+    private FileCreator config;
 
     @Inject
     private Message message;
@@ -37,6 +37,10 @@ public class PlayerDeathListener implements Listener {
 
             player.sendMessage(message.getMessage(player, "events.player-death"));
         });
+
+        if (killer == null) {
+            return;
+        }
 
         userStorage.find(killer.getUniqueId()).ifPresent(user -> {
             int coins = config.getInt("game.coins-per-kill");
