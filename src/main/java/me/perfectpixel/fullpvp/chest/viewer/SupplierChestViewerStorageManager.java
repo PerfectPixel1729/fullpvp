@@ -6,6 +6,7 @@ import me.perfectpixel.fullpvp.files.FileCreator;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
+import org.bukkit.Bukkit;
 
 import java.util.Map;
 import java.util.Optional;
@@ -72,7 +73,7 @@ public class SupplierChestViewerStorageManager implements Storage<UUID, UserView
 
     @Override
     public void saveAll() {
-        userViewers.keySet().forEach(this::save);
+        Bukkit.getOnlinePlayers().forEach(player -> save(player.getUniqueId()));
     }
 
     @Override
@@ -81,9 +82,7 @@ public class SupplierChestViewerStorageManager implements Storage<UUID, UserView
             return;
         }
 
-        data.getConfigurationSection("viewers").getKeys(false).forEach(uuid -> findFromData(UUID.fromString(uuid)).ifPresent(userViewer -> add(UUID.fromString(uuid), userViewer)));
-
-        data.save();
+        Bukkit.getOnlinePlayers().forEach(player -> findFromData(player.getUniqueId()).ifPresent(userViewer -> add(player.getUniqueId(), userViewer)));
     }
 
 }
