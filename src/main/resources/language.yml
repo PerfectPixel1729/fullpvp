@@ -5,7 +5,7 @@ i18n:
   invalid-subcommand: "%prefix% &7Argumento inválido, por favor intenta con: "
   missing-argument: "%prefix% &7Argumentos insuficientes."
   missing-subcommand: "%prefix% &7Subcomando inválido, intenta con:"
-  invalid-int: "%prefix% &7¡Por favor ingresa un número válido!"
+  invalid-int: "%prefix% &7¡&9%s &7No es un número válido, intenta de nuevo!"
 
 no-player-sender: "%prefix% &7¡Este comando es solo disponible para jugadores!"
 no-player-exists: "%prefix% &7¡Al parecer no existe un jugador con este nombre!"
