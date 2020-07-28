@@ -1,28 +1,30 @@
 package me.perfectpixel.fullpvp;
 
-import me.perfectpixel.fullpvp.loader.Service;
 import me.perfectpixel.fullpvp.modules.MainModule;
+import me.perfectpixel.fullpvp.service.Service;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.Injector;
 import me.yushust.inject.InjectorFactory;
+import me.yushust.inject.name.Named;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FullPVP extends JavaPlugin {
 
     @Inject
-    private Service service;
+    @Named("fullpvp-service")
+    private Service fullpvpService;
 
     public void onEnable() {
         Injector injector = InjectorFactory.create(new MainModule(this));
         injector.injectMembers(this);
 
-        service.load();
+        fullpvpService.start();
     }
 
     public void onDisable() {
-        service.stop();
+        fullpvpService.stop();
     }
 
 }
