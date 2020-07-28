@@ -10,7 +10,7 @@ import me.yushust.inject.name.Named;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class FullPVP extends JavaPlugin {
+public final class FullPVP extends JavaPlugin {
 
     @Inject
     @Named("fullpvp-service")
