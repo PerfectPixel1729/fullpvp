@@ -24,7 +24,7 @@ public interface Clan extends ConfigurationSerializable {
         Map<String, Object> clanSerializable = new HashMap<>();
 
         clanSerializable.put("alias", getAlias());
-        clanSerializable.put("creator", getCreator());
+        clanSerializable.put("creator", getCreator().toString());
         clanSerializable.put("members", getMembers());
 
         clanSerializable.put("properties", getProperties().serialize());
