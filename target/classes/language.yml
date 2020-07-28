@@ -1,0 +1,33 @@
+prefix: "&8[&9&lW&f&lC&8]"
+
+format:
+  week: "semana"
+  weeks: "semanas"
+  day: "día"
+  days: "días"
+  hour: "hora"
+  hours: "horas"
+  minute: "minuto"
+  minutes: "minutos"
+  second: "segundo"
+  seconds: "segundos"
+
+events:
+  player-death: "%prefix% &7¡Ahora tienes &9%fullpvp_deaths% &7muertes!"
+  player-kill: "%prefix% &7¡Has asesinado a alguien, ahora tienes &9%fullpvp_kills% &7bajas!"
+  player-gain-coins: "%prefix% &7¡Has ganado &9%coins% &7coins!"
+
+pearl:
+  already-cooldown: "%prefix% &7¡Debes esperar &9%time%&7 para poder lanzar una perla de nuevo!"
+  actionbar: "&eRestan &6%time%&e."
+  actionbar-finish: "&e¡Ya puedes usar de nuevo!"
+
+chest:
+  successfully-creation: "%prefix% &7¡Haz finalizado correctamente la creación de este inventario!"
+  successfully-edition: "%prefix% &7¡Haz finalizado correctamente la edición de este inventario!"
+  enter-creator-mode: "%prefix% &7¡Ahora estás en modo creador de cofres!"
+  open-chest-inventory: "%prefix% &7¡Abriendo inventario de cofre para crear!"
+  edit-chest-inventory: "%prefix% &7¡Abriendo inventario para editar!"
+  cancel-creator: "%prefix% &7¡Haz cancelado correctamente la creación de este inventario!"
+  already-name: "%prefix% &7¡Al parecer ya exxiste un cofre con este nombre, intenta de nuevo!"
+  already-view: "%prefix% &7¡Whoops! Al parecer ya has encontrado este cofre. Debes esperar &9%time%&7."
