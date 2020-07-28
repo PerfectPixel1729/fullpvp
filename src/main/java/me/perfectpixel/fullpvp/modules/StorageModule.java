@@ -9,6 +9,8 @@ import me.perfectpixel.fullpvp.chest.creator.UserCreator;
 import me.perfectpixel.fullpvp.chest.editor.SupplierChestEditorCache;
 import me.perfectpixel.fullpvp.chest.viewer.SupplierChestViewerStorageManager;
 import me.perfectpixel.fullpvp.chest.viewer.UserViewer;
+import me.perfectpixel.fullpvp.clans.Clan;
+import me.perfectpixel.fullpvp.clans.ClanStorageManager;
 import me.perfectpixel.fullpvp.pearl.PearlCountdownCache;
 import me.perfectpixel.fullpvp.user.User;
 import me.perfectpixel.fullpvp.user.UserStorageManager;
@@ -27,6 +29,7 @@ public class StorageModule extends AbstractModule {
         bind(new Key<Storage<UUID, User>>() {}).to(UserStorageManager.class).singleton();
         bind(new Key<Storage<Location, SupplierChest>>() {}).to(SupplierChestStorageManager.class).singleton();
         bind(new Key<Storage<UUID, UserViewer>>() {}).to(SupplierChestViewerStorageManager.class).singleton();
+        bind(new Key<Storage<String, Clan>>() {}).to(ClanStorageManager.class).singleton();
 
         bind(new Key<Cache<UUID, SupplierChest>>() {}).to(SupplierChestEditorCache.class).singleton();
         bind(new Key<Cache<UUID, UserCreator>>() {}).to(SupplierChestCreatorCache.class).singleton();
