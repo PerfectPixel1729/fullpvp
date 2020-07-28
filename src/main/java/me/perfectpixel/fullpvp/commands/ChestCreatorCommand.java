@@ -5,6 +5,7 @@ import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 
 import me.perfectpixel.fullpvp.Cache;
+import me.perfectpixel.fullpvp.Delegates;
 import me.perfectpixel.fullpvp.chest.creator.SimpleUserCreator;
 import me.perfectpixel.fullpvp.chest.creator.UserCreator;
 import me.perfectpixel.fullpvp.chest.creator.UserCreatorInventory;
@@ -32,8 +33,18 @@ public class ChestCreatorCommand implements CommandClass {
     @Inject
     private Message message;
 
+    @Inject
+    @Delegates
+    private Message fileMessage;
+
     @ACommand(names = "")
     public boolean mainCommand(@Injected(true) CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
         Player player = (Player) sender;
 
         chestCreators.add(
