@@ -42,6 +42,10 @@ public class UserStorageManager implements Storage<UUID, User> {
         statistics.put("level", data.getInt("users." + uuid.toString() + ".level"));
         statistics.put("deaths", data.getInt("users." + uuid.toString() + ".deaths"));
 
+        if (data.contains("users." + uuid.toString() + ".clanName")) {
+            statistics.put("clanName", data.getString("users." + uuid.toString() + ".clanName"));
+        }
+
         return Optional.of(new SimpleUser(statistics));
     }
 
@@ -64,7 +68,7 @@ public class UserStorageManager implements Storage<UUID, User> {
 
     @Override
     public void saveAll() {
-        users.forEach(((uuid, user) -> save(uuid)));
+        users.keySet().forEach(this::save);
 
         data.save();
     }
