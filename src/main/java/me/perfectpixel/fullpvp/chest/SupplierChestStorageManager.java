@@ -74,7 +74,7 @@ public class SupplierChestStorageManager implements Storage<Location, SupplierCh
 
     @Override
     public void saveAll() {
-        SUPPLIER_CHESTS.forEach((name, supplierChest) -> save(name));
+        SUPPLIER_CHESTS.keySet().forEach(this::save);
 
         chests.save();
     }
