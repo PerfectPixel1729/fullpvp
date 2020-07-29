@@ -25,7 +25,12 @@ public interface Clan extends ConfigurationSerializable {
 
         clanSerializable.put("alias", getAlias());
         clanSerializable.put("creator", getCreator().toString());
-        clanSerializable.put("members", getMembers());
+
+        List<String> members = new ArrayList<>();
+
+        getMembers().forEach(member -> members.add(member.toString()));
+
+        clanSerializable.put("members", members);
 
         clanSerializable.put("properties", getProperties().serialize());
         clanSerializable.put("statistics", getStatistics().serialize());
