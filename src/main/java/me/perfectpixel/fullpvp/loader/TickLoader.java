@@ -13,7 +13,8 @@ public final class TickLoader implements Loader {
     @Inject
     private FullPVP fullPVP;
 
-    private int time = 0;
+    private int time = 20;
+    private int minute = 1200;
 
     @Override
     public void load() {
@@ -22,13 +23,21 @@ public final class TickLoader implements Loader {
 
     private Runnable runnable() {
         return () -> {
-            time++;
+            time--;
+            minute--;
 
             Bukkit.getPluginManager().callEvent(new FullPVPTickEvent(TickCause.MILLISECOND));
 
-            if(time >= 20) {
-                time = 0;
+            if(time == 0) {
+                time = 20;
+
                 Bukkit.getPluginManager().callEvent(new FullPVPTickEvent(TickCause.SECOND));
+            }
+
+            if (minute == 0) {
+                minute = 1200;
+
+                Bukkit.getPluginManager().callEvent(new FullPVPTickEvent(TickCause.MINUTE));
             }
         };
     }
