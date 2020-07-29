@@ -5,7 +5,6 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.perfectpixel.fullpvp.user.User;
 
 import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
 
 import org.bukkit.OfflinePlayer;
 
