@@ -51,6 +51,9 @@ clans:
     no-pending-requests: "%prefix% &7¡Lo siento, al parecer no tienes invitaciones a clanes pendientes!"
     no-pending-request: "%prefix% &7¡Whoops! Al parecer no tienes una initación pendiente de este clan."
 
+    deny-request-sender: "%prefix% &7¡El jugador &9%target% &7ha denegado la invitación a tu clan!"
+    deny-request-target: "%prefix% &7¡Haz denegado correctamente la invitación al clan &9%clan%&7!"
+
 coins:
   command:
     no-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene coins!"
