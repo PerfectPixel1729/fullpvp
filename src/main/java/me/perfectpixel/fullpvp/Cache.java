@@ -7,12 +7,20 @@ public interface Cache<K, V> {
 
     Map<K, V> get();
 
-    Optional<V> find(K key);
+    default Optional<V> find(K key) {
+        return Optional.ofNullable(get().get(key));
+    }
 
-    void remove(K key);
+    default void remove(K key) {
+        get().remove(key);
+    }
 
-    void add(K key, V value);
+    default void add(K key, V value) {
+        get().put(key, value);
+    }
 
-    boolean exists(K key);
+    default boolean exists(K key) {
+        return get().containsKey(key);
+    }
 
 }
