@@ -9,6 +9,11 @@ clans:
   price: 10000
   maximum-characters: 8
 
+  ##############################################################
+  # El tiempo es medido en minutos, al menos en este cooldown. #
+  ##############################################################
+  request-expiration: 2
+
 ##################################################################################
 # Este símbolo es el que deberán colocar para poder hablar por el chat del clan. #
 ##################################################################################
