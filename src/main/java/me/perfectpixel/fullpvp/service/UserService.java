@@ -1,23 +1,25 @@
 package me.perfectpixel.fullpvp.service;
 
 import me.perfectpixel.fullpvp.Storage;
-import me.perfectpixel.fullpvp.clans.Clan;
+import me.perfectpixel.fullpvp.user.User;
 
 import me.yushust.inject.Inject;
 
-public final class ClansService implements Service {
+import java.util.UUID;
+
+public final class UserService implements Service {
 
     @Inject
-    private Storage<String, Clan> clanStorage;
+    private Storage<UUID, User> userStorage;
 
     @Override
     public void start() {
-        clanStorage.loadAll();
+        userStorage.loadAll();
     }
 
     @Override
     public void stop() {
-        clanStorage.saveAll();
+        userStorage.saveAll();
     }
 
 }

@@ -7,7 +7,7 @@ import me.yushust.inject.Inject;
 
 import org.bukkit.Location;
 
-public final class SupplierChestsService implements Service {
+public final class SupplierChestService implements Service {
 
     @Inject
     private Storage<Location, SupplierChest> supplierChestStorage;

@@ -25,19 +25,19 @@ public final class FullPVPService implements Service {
 
     @Inject
     @Named("clans-service")
-    private Service clansService;
+    private Service clanService;
 
     @Inject
     @Named("supplierchests-service")
-    private Service supplierChestsService;
+    private Service supplierChestService;
 
     @Inject
     @Named("users-service")
-    private Service usersService;
+    private Service userService;
 
     @Inject
     @Named("supplierchestsviewers-service")
-    private Service supplierChestsViewersService;
+    private Service supplierChestViewerService;
 
     @Override
     public void start() {
@@ -47,18 +47,18 @@ public final class FullPVPService implements Service {
 
         placeholderExpansion.register();
 
-        clansService.start();
-        supplierChestsService.start();
-        supplierChestsViewersService.start();
-        usersService.start();
+        clanService.start();
+        supplierChestService.start();
+        supplierChestViewerService.start();
+        userService.start();
     }
 
     @Override
     public void stop() {
-        clansService.stop();
-        supplierChestsService.stop();
-        usersService.stop();
-        supplierChestsViewersService.stop();
+        clanService.stop();
+        supplierChestService.stop();
+        userService.stop();
+        supplierChestViewerService.stop();
     }
 
 }

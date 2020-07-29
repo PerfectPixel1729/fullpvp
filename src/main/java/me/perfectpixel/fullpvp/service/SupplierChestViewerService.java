@@ -7,7 +7,7 @@ import me.yushust.inject.Inject;
 
 import java.util.UUID;
 
-public final class SupplierChestViewersService implements Service {
+public final class SupplierChestViewerService implements Service {
 
     @Inject
     private Storage<UUID, UserViewer> userViewerStorage;
