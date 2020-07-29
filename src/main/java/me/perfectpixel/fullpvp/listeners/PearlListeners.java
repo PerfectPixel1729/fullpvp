@@ -92,7 +92,13 @@ public class PearlListeners implements Listener {
             return;
         }
 
-        pearlsCache.add(player.getUniqueId(), config.getInt("pearl.cooldown"));
+        int countdown = config.getInt("pearl.cooldown");
+
+        pearlsCache.add(player.getUniqueId(), countdown);
+
+        actionbarMessenger.sendActionbar(player, message.getMessage(player, "pearl.actionbar")
+                .replace("%time%", timeFormat.format(countdown * 1000))
+        );
     }
 
 }
