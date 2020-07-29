@@ -3,6 +3,7 @@ prefix: "&8[&9&lW&f&lC&8]"
 i18n:
   no-permission: "%prefix% &7Lo siento, no tienes permiso para realizar esta acción."
   invalid-subcommand: "%prefix% &7Argumento inválido, por favor intenta con: "
+  invalid-usage: "%prefix% &7Uso inválido, intenta con %1$s&7."
   missing-argument: "%prefix% &7Argumentos insuficientes."
   missing-subcommand: "%prefix% &7Subcomando inválido, intenta con:"
   invalid-int: "%prefix% &7¡&9%s &7No es un número válido, intenta de nuevo!"
@@ -24,10 +25,31 @@ format:
 
 clans:
   already-exists: "%prefix% &7¡Lo siento, al parecer ya existe un clan con este nombre!"
+
+  request-expire-target: "%prefix% &7¡La invitación al clan &9%clan% &7ha expirado!"
+  request-expire-sender: "%prefix% &7¡La invitación envíada a &9%target% &7ha expirado!"
+
+  player-join-clan: "&7¡Démosle la bienvenida al clan a &9%player% &7ahora es nuestro aliado!"
+
   commands:
+    user-error: "%prefix% &7¡Ha ocurrido un error al intentar buscar tus datos, intenta de nuevo en unos momentos!"
+    no-clan: "%prefix% &7¡Lo siento, al parecer no tienes un clan, debes estar ser lider de un clan para poder invitar a alguien!"
     name-too-long: "%prefix% &7¡Este nombre es demasiado largo, debe tener máximo &9%characters% &7carácteres!"
+    maximum-members: "%prefix% &7¡Al parecer tu clan está lleno, el límite de miembros es &9%limit%&7!"
+    already-member: "%prefix% &7¡Este jugador ya pertenece a tu clan, no puedes invitarlo de nuevo!"
+
     successfully-create: "%prefix% &7¡Haz creado correctamente el clan &9%name%&7!"
+    successfully-invite-sender: "%prefix% &7¡Haz invitado correctamente a &9%target% &7a tu clan!"
+    successfully-invite-target: "%prefix% &7¡Haz recibido una invitación al clan &9%clan% &7por parte de &9%sender%&7!\n&7¡Tienes &9%time% &7minutos para aceptar la invitación!"
+    successfully-join: "%prefix% &7¡Te haz unido correctamente al clan &9%clan% &7disfruta tu estadía ahí!"
+    successfully-accept-request: "%prefix% &7¡El jugador &9%player% &7ha aceptado la invitación a tu clan, ahora es parte de el!"
+
     already-clan: "%prefix% &7¡Whoops! Ya perteneces a un clan, debes salir primero!"
+    already-invite: "%prefix% &7¡Whoops! Al parecer ya haz invitado a este jugador a tu clan, espera a que acepte!"
+    already-clan-target: "%prefix% &7¡Este jugador ya pertenece a un clan, no puedes invitarlo al tuyo!"
+
+    no-pending-requests: "%prefix% &7¡Lo siento, al parecer no tienes invitaciones a clanes pendientes!"
+    no-pending-request: "%prefix% &7¡Whoops! Al parecer no tienes una initación pendiente de este clan."
 
 coins:
   command:
