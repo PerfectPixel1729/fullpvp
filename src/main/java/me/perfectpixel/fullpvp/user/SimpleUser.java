@@ -7,7 +7,6 @@ import me.perfectpixel.fullpvp.statistic.Deaths;
 import me.perfectpixel.fullpvp.statistic.Kills;
 import me.perfectpixel.fullpvp.statistic.Level;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,19 +32,6 @@ public class SimpleUser implements User {
         deaths = new Deaths((Integer) userMap.get("deaths"));
         kills = new Kills((Integer) userMap.get("kills"));
         clanName = (String) userMap.get("clanName");
-    }
-
-    @Override
-    public Map<String, Object> serialize() {
-        Map<String, Object> playerMap = new HashMap<>();
-
-        playerMap.put("coins", coins.get());
-        playerMap.put("level", level.get());
-        playerMap.put("deaths", deaths.get());
-        playerMap.put("kills", kills.get());
-        playerMap.put("clanName", clanName);
-
-        return playerMap;
     }
 
     @Override
