@@ -82,6 +82,8 @@ public class SupplierChestListeners implements Listener {
             } else {
                 inventoryUtils.addItemsToPlayer(player, supplierChest);
                 userViewer.getViewed().put(supplierChest, config.getInt("chests.cooldown"));
+
+                player.playSound(player.getLocation(), Sound.CHEST_OPEN, 1, 1);
             }
         } else {
             UserViewer userViewer = new SimpleUserViewer();
@@ -90,6 +92,8 @@ public class SupplierChestListeners implements Listener {
 
             userViewerStorage.add(player.getUniqueId(), userViewer);
             inventoryUtils.addItemsToPlayer(player, supplierChest);
+
+            player.playSound(player.getLocation(), Sound.CHEST_OPEN, 1, 1);
         }
     }
 
