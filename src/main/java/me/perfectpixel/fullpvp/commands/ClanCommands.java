@@ -68,14 +68,10 @@ public class ClanCommands implements CommandClass {
 
         Optional<User> userOptional = userStorage.find(player.getUniqueId());
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
+        if (clanUtilities.playerHasClan(player)) {
+            player.sendMessage(message.getMessage(player, "clans.commands.already-clan"));
 
-            if (user.getClanName().isPresent()) {
-                player.sendMessage(message.getMessage(player, "clans.commands.already-clan"));
-
-                return true;
-            }
+            return true;
         }
 
         if (clanStorage.find(name).isPresent()) {
@@ -161,16 +157,10 @@ public class ClanCommands implements CommandClass {
             }
         }
 
-        Optional<User> userTargetOptional = userStorage.find(target.getUniqueId());
+        if (clanUtilities.playerHasClan(target)) {
+            player.sendMessage(message.getMessage(player, "clans.commands.already-clan-target"));
 
-        if (userTargetOptional.isPresent()) {
-            User userTarget = userTargetOptional.get();
-
-            if (userTarget.getClanName().isPresent()) {
-                player.sendMessage(message.getMessage(player, "clans.commands.already-clan-target"));
-
-                return true;
-            }
+            return true;
         }
 
         Optional<ClanRequest> clanRequestOptional = clanRequestCache.find(target.getUniqueId());
@@ -206,6 +196,7 @@ public class ClanCommands implements CommandClass {
     }
 
     @ACommand(names = {"accept", "aceptar"}, permission = "fullpvp.clans.accept")
+    @Usage(usage = "§8- §9<clan name>")
     public boolean runAcceptClanCommand(@Injected(true) CommandSender sender, String clanName) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
@@ -243,6 +234,34 @@ public class ClanCommands implements CommandClass {
         return true;
     }
 
+    @ACommand(names = {"deny", "denegar"}, permission = "fullpvp.clans.deny")
+    @Usage(usage = "§8- §9<clan name>")
+    public boolean runDenyClanCommand(@Injected(true) CommandSender sender, String clanName) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        if (prepareClanAction(player, clanName)) {
+            clanStorage.find(clanName).ifPresent(clan -> {
+                Bukkit.getPlayer(clan.getCreator()).sendMessage(fileMessage.getMessage(null, "clans.commands.deny-request-sender")
+                        .replace("%target%", player.getName())
+                );
+
+                player.sendMessage(message.getMessage(player, "clans.commands.deny-request-target")
+                        .replace("%clan%", clanName)
+                );
+
+                clanRequestCache.find(player.getUniqueId()).ifPresent(clanRequest -> clanRequest.getClanRequests().remove(clanName));
+            });
+        }
+
+        return true;
+    }
+
     private boolean prepareClanAction(Player player, String clanName) {
         Optional<ClanRequest> clanRequestOptional = clanRequestCache.find(player.getUniqueId());
 
@@ -263,14 +282,10 @@ public class ClanCommands implements CommandClass {
                 return false;
             }
 
-            Optional<User> userOptional = userStorage.find(player.getUniqueId());
+            if (clanUtilities.playerHasClan(player)) {
+                player.sendMessage(message.getMessage(player, "clans.already-clan"));
 
-            if (userOptional.isPresent()) {
-                if (userOptional.get().getClanName().isPresent()) {
-                    player.sendMessage(message.getMessage(player, "clans.already-clan"));
-
-                    return false;
-                }
+                return false;
             }
         }
 
