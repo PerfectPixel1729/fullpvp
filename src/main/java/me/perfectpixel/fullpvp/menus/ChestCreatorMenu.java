@@ -48,7 +48,7 @@ public class ChestCreatorMenu implements Menu {
     private Storage<Location, SupplierChest> supplierChestStorage;
 
     @Override
-    public MenuBuilder build() {
+    public MenuBuilder build(Player player) {
         String menuKey = "chest-creator";
 
         ItemStack fill = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 9)
@@ -81,12 +81,6 @@ public class ChestCreatorMenu implements Menu {
                 .addButton(
                         36,
                         new SimpleButton(click -> {
-                            if (!(click.getWhoClicked() instanceof Player)) {
-                                return true;
-                            }
-
-                            Player player = (Player) click.getWhoClicked();
-
                             player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
 
                             Inventory inventory = click.getInventory();
@@ -103,12 +97,6 @@ public class ChestCreatorMenu implements Menu {
                 .addButton(
                         40,
                         new SimpleButton(click -> {
-                            if (!(click.getWhoClicked() instanceof Player)) {
-                                return true;
-                            }
-
-                            Player player = (Player) click.getWhoClicked();
-
                             cancelCreation(player);
 
                             return true;
@@ -117,12 +105,6 @@ public class ChestCreatorMenu implements Menu {
                 .addButton(
                         44,
                         new SimpleButton(click -> {
-                            if (!(click.getWhoClicked() instanceof Player)) {
-                                return true;
-                            }
-
-                            Player player = (Player) click.getWhoClicked();
-
                             player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
 
                             if (userEditorCache.find(player.getUniqueId()).isPresent()) {
