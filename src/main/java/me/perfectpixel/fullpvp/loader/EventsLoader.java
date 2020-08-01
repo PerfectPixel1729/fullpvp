@@ -4,6 +4,7 @@ import me.perfectpixel.fullpvp.FullPVP;
 import me.perfectpixel.fullpvp.listeners.*;
 import me.perfectpixel.fullpvp.listeners.chest.SupplierChestListeners;
 import me.perfectpixel.fullpvp.listeners.clan.ClanListeners;
+import me.perfectpixel.fullpvp.listeners.fake.FakeCommandListener;
 import me.yushust.inject.Inject;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -35,6 +36,9 @@ public final class EventsLoader implements Loader {
     @Inject
     private ClanListeners clanListeners;
 
+    @Inject
+    private FakeCommandListener fakeCommandListener;
+
     @Override
     public void load() {
         registerListeners(
@@ -45,6 +49,7 @@ public final class EventsLoader implements Loader {
                 supplierChestListeners,
                 pearlListeners,
                 clanListeners,
+                fakeCommandListener,
                 new MenuListeners()
         );
     }
