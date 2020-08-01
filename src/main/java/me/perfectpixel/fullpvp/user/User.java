@@ -1,9 +1,6 @@
 package me.perfectpixel.fullpvp.user;
 
-import me.perfectpixel.fullpvp.statistic.Coins;
-import me.perfectpixel.fullpvp.statistic.Deaths;
-import me.perfectpixel.fullpvp.statistic.Kills;
-import me.perfectpixel.fullpvp.statistic.Level;
+import me.perfectpixel.fullpvp.statistic.*;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
@@ -11,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public interface User extends ConfigurationSerializable {
+public interface User extends ConfigurationSerializable, KDR {
 
     Optional<String> getClanName();
 
@@ -20,10 +17,6 @@ public interface User extends ConfigurationSerializable {
     Coins getCoins();
 
     Level getLevel();
-
-    Deaths getDeaths();
-
-    Kills getKills();
 
     @Override
     default Map<String, Object> serialize() {
@@ -34,7 +27,7 @@ public interface User extends ConfigurationSerializable {
         playerMap.put("deaths", getDeaths().get());
         playerMap.put("kills", getKills().get());
 
-        getClanName().ifPresent(name -> playerMap.put("name", name));
+        getClanName().ifPresent(name -> playerMap.put("clanName", name));
 
         return playerMap;
     }
