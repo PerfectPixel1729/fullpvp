@@ -14,6 +14,11 @@ public class SimpleMessageMenu implements MessageMenu {
     private FileCreator menu;
 
     @Override
+    public String getString(String key) {
+        return menu.getString(key, key);
+    }
+
+    @Override
     public String getTitle(String keyMenu) {
         return menu.getString(keyMenu + ".title");
     }
