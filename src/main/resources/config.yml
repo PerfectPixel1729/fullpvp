@@ -9,9 +9,9 @@ clans:
   price: 10000
   maximum-characters: 8
 
-  ##############################################################
-  # El tiempo es medido en minutos, al menos en este cooldown. #
-  ##############################################################
+##############################################################
+# El tiempo es medido en minutos, al menos en este cooldown. #
+##############################################################
   request-expiration: 2
 
 ##################################################################################
@@ -20,6 +20,21 @@ clans:
   symbol-chat: "@"
   members:
     max: 5
+
+  colors-price:
+    red: 4000
+    gold: 5000
+    green: 4000
+    yellow: 5000
+    light_purple: 6000
+    white: 10000
+    dark_blue: 6000
+    dark_green: 4000
+    dark_aqua: 8000
+    dark_purple: 6000
+    dark_gray: 7000
+    gray: 2000
+    black: 12000
 
 pearl:
   cooldown: 5
