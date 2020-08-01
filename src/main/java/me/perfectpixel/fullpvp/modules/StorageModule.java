@@ -16,6 +16,8 @@ import me.perfectpixel.fullpvp.clans.request.ClanRequestCache;
 import me.perfectpixel.fullpvp.pearl.PearlCountdownCache;
 import me.perfectpixel.fullpvp.user.User;
 import me.perfectpixel.fullpvp.user.UserStorageManager;
+import me.perfectpixel.fullpvp.utils.fake.ActionData;
+import me.perfectpixel.fullpvp.utils.fake.FakeCommandCache;
 
 import me.yushust.inject.bind.AbstractModule;
 import me.yushust.inject.identity.Key;
@@ -37,6 +39,7 @@ public class StorageModule extends AbstractModule {
         bind(new Key<Cache<UUID, UserCreator>>() {}).to(SupplierChestCreatorCache.class).singleton();
         bind(new Key<Cache<UUID, Integer>>() {}).to(PearlCountdownCache.class).singleton();
         bind(new Key<Cache<UUID, ClanRequest>>() {}).to(ClanRequestCache.class).singleton();
+        bind(new Key<Cache<UUID, ActionData>>() {}).to(FakeCommandCache.class).singleton();
     }
 
 }
