@@ -108,7 +108,7 @@ public class SupplierChestListeners implements Listener {
 
         event.getUserCreator().setChestLocation(event.getLocation());
 
-        player.openInventory(chestCreatorMenu.build().build());
+        player.openInventory(chestCreatorMenu.build(player).build());
     }
 
     @EventHandler
@@ -117,7 +117,7 @@ public class SupplierChestListeners implements Listener {
         SupplierChest supplierChest = event.getSupplierChest();
         Message message = event.getMessage();
 
-        Inventory inventory = chestCreatorMenu.build().build();
+        Inventory inventory = chestCreatorMenu.build(player).build();
 
         userEditorCache.add(player.getUniqueId(), supplierChest);
         supplierChest.getItems().forEach(inventory::setItem);
