@@ -5,6 +5,7 @@ import me.perfectpixel.fullpvp.files.FileBinder;
 import me.perfectpixel.fullpvp.files.FileCreator;
 
 import me.yushust.inject.bind.AbstractModule;
+import org.bukkit.plugin.Plugin;
 
 public class MainModule extends AbstractModule {
 
@@ -32,6 +33,7 @@ public class MainModule extends AbstractModule {
         install(new ServiceModule());
 
         bind(FullPVP.class).toInstance(fullPVP);
+        bind(Plugin.class).to(FullPVP.class);
 
     }
 
