@@ -17,3 +17,158 @@ chest-creator:
       name: "&cLimpiar inventario"
       lore:
         - "&7Haz click aquí para limpiar el inventario!"
+
+clan-main:
+  title: "&7Clan %clan%"
+  status-online: "&aConectado"
+  status-offline: "&cDesconectado"
+
+  items:
+    information:
+      name: "&9Información sobre el clan"
+      lore:
+        - ""
+    settings:
+      name: "&9Configuración del clan"
+      lore:
+        - "&7¡Haz click para abrir el menú de"
+        - "&7configuraciones del clan, podrás"
+        - "&7modificar bastantes cosas ahí!"
+        - ""
+        - "&e¡Click aquí!"
+    creator:
+      name: "&7Creador &9%name%"
+      lore:
+        - "&8 + &7Bajas: &9%kills%"
+        - "&8 + &7Muertes: &9%deaths%"
+        - "&8 + &7KDR: &9%kdr%"
+        - "&8 + &7Estado: %status%"
+    close:
+      name: "&cCerrar"
+      lore:
+        - "&7¡Click para cerrar!"
+
+clan-settings:
+  title: "&9Clan configuraciones"
+  items:
+    allow-damage:
+      name: "&9Fuego amigo &8- %state%"
+      lore:
+        - "&7Aquí podrás modificar el pvp entre"
+        - "&7los miembros de tu clan, es decir,"
+        - "&7si podrán atacarse o no..."
+        - ""
+        - "&e¡Click para alternar!"
+      state-enable: "&aActivado"
+      state-disable: "&cDesactivado"
+    message:
+      name: "&9Configuración de mensajes"
+      lore:
+        - "&7Aquí podrás modificar el mensaje de entrada, que será mandado a"
+        - "&7los miembros de tu clan, cada que ingresen al servidor."
+        - ""
+        - "&7Mensaje establecido:"
+        - ""
+        - "%message%"
+        - ""
+        - "&e¡Click para desplegar más opciones!"
+      messages-empty: "&7Ninguno."
+    change-color:
+      name: "&9Cambiar el color"
+      lore:
+        - "&7Aquí podrás cambiar el color del prefix"
+        - "&7de tu clan, mismo que se muestra al"
+        - "&7escribir en el chat."
+        - ""
+        - "&e¡Click para modificar!"
+    disband:
+      name: "&cEliminar clan"
+      lore:
+        - "&7Haz click aquí para eliminar tu"
+        - "&7clan, recuerda que esta acción"
+        - "&7no se puede deshacer, tampoco se"
+        - "&7reembolsará el dinero de la creación."
+        - ""
+        - "&e¡Click aquí para eliminar!"
+    close:
+      name: "&cCerrar"
+      lore:
+        - "&7¡Click para cerrar!"
+    back:
+      name: "&cRegresar"
+      lore:
+        - "&7¡Click para volver!"
+
+clan-change-color:
+  title: "&9Cambiar color"
+  items:
+    colors:
+      name: "&7Color %color%"
+      lore:
+        - "&7Este color cuesta: &9%price%"
+        - ""
+        - "&e¡Click para comprar!"
+    current:
+      name: "&7¡Ya comprado!"
+      lore:
+        - "&7¡Ya tienes seleccionado este color!"
+    close:
+      name: "&cCerrar"
+      lore:
+        - "&7¡Click para cerrar!"
+    back:
+      name: "&cRegresar"
+      lore:
+        - "&7¡Click para volver!"
+
+clan-messages:
+  title: "&9Configurar mensajes"
+  items:
+    add:
+      name: "&7Añadir un mensaje"
+      lore:
+        - "&7¡Aquí podrás añadir un mensaje"
+        - "&7de entrada para tu clan, recuerda que"
+        - "&7los mensajes serán enviados a los"
+        - "&7miembros de tu clan cuando ingresen al"
+        - "&7servidor..."
+        - ""
+        - "&e¡Click para agregar un mensaje!"
+    clear:
+      name: "&7Limpiar mensajes"
+      lore:
+        - "&7¡Aquí podrás remover todos"
+        - "&7los mensajes de entrada de tu"
+        - "&7clan, recuerda que esta acción"
+        - "&7no se podrá deshacer..."
+        - ""
+        - "&e¡Click aquí para remover mensajes!"
+    close:
+      name: "&cCerrar"
+      lore:
+        - "&7¡Click para cerrar!"
+    back:
+      name: "&cRegresar"
+      lore:
+        - "&7¡Click para volver!"
+
+clan-disband:
+  title: "&9Eliminar clan"
+  items:
+    confirm:
+      name: "&aConfirmar"
+      lore:
+        - "&7¡Haz click para confirmar la"
+        - "&7eliminación de tu clan, recuerda"
+        - "&7que esta acción no se"
+        - "&7puede deshacer...!"
+        - ""
+        - "&e¡Click para confirmar!"
+    cancel:
+      name: "&cCancelar"
+      lore:
+        - "&7¡Haz click para cancelar"
+        - "&7la eliminación de tu clan y"
+        - "&7seguir en el, felizmente."
+        - ""
+        - "&e¡Click para cancelar!"
