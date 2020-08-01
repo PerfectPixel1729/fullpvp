@@ -14,16 +14,23 @@ import me.perfectpixel.fullpvp.clans.DefaultClan;
 import me.perfectpixel.fullpvp.clans.request.ClanRequest;
 import me.perfectpixel.fullpvp.clans.request.DefaultClanRequest;
 import me.perfectpixel.fullpvp.files.FileCreator;
+import me.perfectpixel.fullpvp.menus.Menu;
 import me.perfectpixel.fullpvp.message.Message;
 import me.perfectpixel.fullpvp.user.User;
+import me.perfectpixel.fullpvp.utils.fake.EasyTextComponent;
 
 import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
+
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import team.unnamed.gui.menu.MenuBuilder;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -55,6 +62,67 @@ public class ClanCommands implements CommandClass {
     @Inject
     private ClanUtilities clanUtilities;
 
+    @Inject
+    private EasyTextComponent easyTextComponent;
+
+    @Inject
+    @Named("clan-main")
+    private Menu clanSettingsMenu;
+
+    @ACommand(names = "")
+    public boolean runMainCommand(@Injected(true) CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        Optional<User> userOptional = userStorage.find(player.getUniqueId());
+
+        if (!userOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "clans.commands.user-error"));
+
+            return true;
+        }
+
+        User user = userOptional.get();
+
+        Optional<String> clanNameOptional = user.getClanName();
+
+        if (clanNameOptional.isPresent()) {
+            MenuBuilder builder = clanSettingsMenu.build(player);
+
+            if (builder == null) {
+                player.sendMessage(message.getMessage(player, "clans.commands.error-opening-menu"));
+
+                return true;
+            }
+
+            player.openInventory(builder.build());
+        } else {
+            fileMessage.getMessages(null, "clans.commands.help").forEach(player::sendMessage);
+        }
+
+        return true;
+    }
+
+    @ACommand(names = "help")
+    public boolean runHelpClanCommand(@Injected(true) CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        fileMessage.getMessages(null, "clans.commands.help").forEach(player::sendMessage);
+
+        return true;
+    }
+
     @ACommand(names = {"crear", "create"}, permission = "fullpvp.clans.create")
     @Usage(usage = "§8- §9<name>")
     public boolean runCreateClanCommand(@Injected(true) CommandSender sender, String name) {
@@ -67,6 +135,12 @@ public class ClanCommands implements CommandClass {
         Player player = (Player) sender;
 
         Optional<User> userOptional = userStorage.find(player.getUniqueId());
+
+        if (!userOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "clans.commands.user-error"));
+
+            return true;
+        }
 
         if (clanUtilities.playerHasClan(player)) {
             player.sendMessage(message.getMessage(player, "clans.commands.already-clan"));
@@ -135,6 +209,8 @@ public class ClanCommands implements CommandClass {
             return true;
         }
 
+        String clanName = user.getClanName().get();
+
         int maximumMembers = config.getInt("clans.members.max");
 
         Optional<Clan> clanOptional = clanStorage.find(user.getClanName().get());
@@ -192,72 +268,24 @@ public class ClanCommands implements CommandClass {
                 .replace("%sender%", player.getName())
         );
 
-        return true;
-    }
+        TextComponent space = new TextComponent("  •  ");
+        space.setColor(ChatColor.GRAY);
 
-    @ACommand(names = {"accept", "aceptar"}, permission = "fullpvp.clans.accept")
-    @Usage(usage = "§8- §9<clan name>")
-    public boolean runAcceptClanCommand(@Injected(true) CommandSender sender, String clanName) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+        TextComponent accept = easyTextComponent.sendActionMessage(
+                target,
+                fileMessage.getMessage(null, "clans.accept-text"),
+                true,
+                p -> runAcceptCommand(user, target, clanName)
+        );
 
-            return true;
-        }
+        TextComponent deny = easyTextComponent.sendActionMessage(
+                target,
+                fileMessage.getMessage(null, "clans.deny-text"),
+                true,
+                p -> runDenyCommand(target, clanName)
+        );
 
-        Player player = (Player) sender;
-
-        if (prepareClanAction(player, clanName)) {
-            clanUtilities.sendMessageToMembers(clanName, fileMessage.getMessage(null, "clans.player-join-clan")
-                    .replace("%player%", player.getName())
-            );
-
-            clanStorage.find(clanName).ifPresent(clan -> {
-                clan.getMembers().add(player.getUniqueId());
-
-                Bukkit.getPlayer(clan.getCreator()).sendMessage(fileMessage.getMessage(null, "clans.commands.successfully-accept-request")
-                        .replace("%player%", player.getName())
-                );
-
-                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 2);
-
-                player.sendMessage(message.getMessage(player, "clans.commands.successfully-join")
-                        .replace("%clan%", clanName)
-                );
-
-                clanRequestCache.find(player.getUniqueId()).ifPresent(clanRequest -> clanRequest.getClanRequests().remove(clanName));
-                userStorage.find(player.getUniqueId()).ifPresent(user -> user.setClanName(clanName));
-            });
-
-            return true;
-        }
-
-        return true;
-    }
-
-    @ACommand(names = {"deny", "denegar"}, permission = "fullpvp.clans.deny")
-    @Usage(usage = "§8- §9<clan name>")
-    public boolean runDenyClanCommand(@Injected(true) CommandSender sender, String clanName) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
-
-            return true;
-        }
-
-        Player player = (Player) sender;
-
-        if (prepareClanAction(player, clanName)) {
-            clanStorage.find(clanName).ifPresent(clan -> {
-                Bukkit.getPlayer(clan.getCreator()).sendMessage(fileMessage.getMessage(null, "clans.commands.deny-request-sender")
-                        .replace("%target%", player.getName())
-                );
-
-                player.sendMessage(message.getMessage(player, "clans.commands.deny-request-target")
-                        .replace("%clan%", clanName)
-                );
-
-                clanRequestCache.find(player.getUniqueId()).ifPresent(clanRequest -> clanRequest.getClanRequests().remove(clanName));
-            });
-        }
+        target.spigot().sendMessage(accept, space, deny);
 
         return true;
     }
@@ -290,6 +318,47 @@ public class ClanCommands implements CommandClass {
         }
 
         return true;
+    }
+
+    private void runAcceptCommand(User user, Player player, String clanName) {
+        if (prepareClanAction(player, clanName)) {
+            clanUtilities.sendMessageToMembers(clanName, fileMessage.getMessage(null, "clans.player-join-clan")
+                    .replace("%player%", player.getName())
+            );
+
+            clanStorage.find(clanName).ifPresent(clan -> {
+                clan.getMembers().add(player.getUniqueId());
+
+                Bukkit.getPlayer(clan.getCreator()).sendMessage(fileMessage.getMessage(null, "clans.commands.successfully-accept-request")
+                        .replace("%player%", player.getName())
+                );
+
+                player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 2);
+
+                player.sendMessage(message.getMessage(player, "clans.commands.successfully-join")
+                        .replace("%clan%", clanName)
+                );
+
+                clanRequestCache.find(player.getUniqueId()).ifPresent(clanRequest -> clanRequest.getClanRequests().remove(clanName));
+                user.setClanName(clanName);
+            });
+        }
+    }
+
+    private void runDenyCommand(Player player, String clanName) {
+        if (prepareClanAction(player, clanName)) {
+            clanStorage.find(clanName).ifPresent(clan -> {
+                Bukkit.getPlayer(clan.getCreator()).sendMessage(fileMessage.getMessage(null, "clans.commands.deny-request-sender")
+                        .replace("%target%", player.getName())
+                );
+
+                player.sendMessage(message.getMessage(player, "clans.commands.deny-request-target")
+                        .replace("%clan%", clanName)
+                );
+
+                clanRequestCache.find(player.getUniqueId()).ifPresent(clanRequest -> clanRequest.getClanRequests().remove(clanName));
+            });
+        }
     }
 
 }
