@@ -31,16 +31,38 @@ clans:
 
   player-join-clan: "&7¡Démosle la bienvenida al clan a &9%player% &7ahora es nuestro aliado!"
 
+  successfully-change-color: "%prefix% &7¡Haz cambiado el color del prefix de tu clan a %color%&7!"
+  successfully-change-color-members: "%prefix% &7¡El color del prefix de tu clan a sido cambiado a %color%&7!"
+  successfully-clear-messages: "%prefix% &7¡Haz removido los mensajes de entrada de tu clan!"
+  successfully-cancel-disband: "%prefix% &7¡Haz cancelado la eliminación de tu clan correctamente!"
+
+  clan-disband-members: "%prefix% &7¡El clan al que pertenecías ha sido removido, ahora no perteneces a ningún clan!"
+  clan-disband-creator: "%prefix% &7¡Haz removido tu clan correctamente, ahora eres libre!"
+  already-clear-messages: "%prefix% &7¡Al parecer ya habían sido removidos los mensajes de entrada de tu clan!"
+
+  accept-text: "&8[&aAceptar&8]"
+  deny-text: "&8[&cDenegar&8]"
+
   commands:
+    help:
+      - "&9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-&7 CLANES &9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+      - "&8 + &7/clan help &8- &7Muestra este menu de ayuda."
+      - "&8 + &7/clan create &9<name> &8- &7Crear un clan con un nombre específico"
+      - "&8 + &7/clan invite &9<player> &8- &7Invitar a un jugador a tu clan."
+      - "&8 + &7/clan kick &9<member> &8- &7Expulsar a un miembro de tu clan."
+      - "&8 + &7/clan settings &8- &7Abre un menú de configuraciones para tu clan."
+      - "&9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+
     user-error: "%prefix% &7¡Ha ocurrido un error al intentar buscar tus datos, intenta de nuevo en unos momentos!"
     no-clan: "%prefix% &7¡Lo siento, al parecer no tienes un clan, debes estar ser lider de un clan para poder invitar a alguien!"
     name-too-long: "%prefix% &7¡Este nombre es demasiado largo, debe tener máximo &9%characters% &7carácteres!"
     maximum-members: "%prefix% &7¡Al parecer tu clan está lleno, el límite de miembros es &9%limit%&7!"
     already-member: "%prefix% &7¡Este jugador ya pertenece a tu clan, no puedes invitarlo de nuevo!"
+    error-opening-menu: "%prefix% &7¡Ha ocurrido algún percance al intentar abrir el menú, intenta de nuevo!"
 
     successfully-create: "%prefix% &7¡Haz creado correctamente el clan &9%name%&7!"
     successfully-invite-sender: "%prefix% &7¡Haz invitado correctamente a &9%target% &7a tu clan!"
-    successfully-invite-target: "%prefix% &7¡Haz recibido una invitación al clan &9%clan% &7por parte de &9%sender%&7!\n&7¡Tienes &9%time% &7minutos para aceptar la invitación!"
+    successfully-invite-target: "%prefix% &7¡Haz recibido una invitación al clan &9%clan% &7por parte de &9%sender%&7! &7¡Tienes &9%time% &7minutos para aceptar la invitación!"
     successfully-join: "%prefix% &7¡Te haz unido correctamente al clan &9%clan% &7disfruta tu estadía ahí!"
     successfully-accept-request: "%prefix% &7¡El jugador &9%player% &7ha aceptado la invitación a tu clan, ahora es parte de el!"
 
@@ -55,6 +77,9 @@ clans:
     deny-request-target: "%prefix% &7¡Haz denegado correctamente la invitación al clan &9%clan%&7!"
 
 coins:
+  no-coins: "%prefix% &7¡Al parecer no tienes coins, intenta de nuevo!"
+  no-enough-coins: "%prefix% &7¡Al parecer no tienes coins suficientes, necesitas &9%missing% &7coins más!"
+
   command:
     no-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene coins!"
     no-enough-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene los coins suficientes!"
