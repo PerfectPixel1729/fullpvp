@@ -56,9 +56,10 @@ public class SupplierChestViewerStorageManager implements Storage<UUID, UserView
     public void save(UUID uuid) {
         find(uuid).ifPresent(userViewer -> userViewer.getViewed().forEach((supplierChest, time) -> {
             data.set("viewers." + uuid.toString() + "." + supplierChest.getName() + ".time", time);
-        }));
+            data.save();
 
-        remove(uuid);
+            remove(uuid);
+        }));
     }
 
     @Override
