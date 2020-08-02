@@ -36,29 +36,25 @@ public class UserStorageManager implements Storage<UUID, User> {
             return Optional.empty();
         }
 
-        ConfigurationSection userSection = data.getConfigurationSection("users." + uuid.toString());
-
-        return Optional.of(new SimpleUser(userSection.getValues(false)));
+        return Optional.of(new SimpleUser((Map<String, Object>) data.get("users." + uuid.toString())));
     }
 
     @Override
     public void save(UUID uuid) {
         find(uuid).ifPresent(user -> {
             data.set("users." + uuid.toString(), user.serialize());
-
             data.save();
 
-            users.remove(uuid);
+            remove(uuid);
         });
-
-        System.out.println(data.get("users." + uuid.toString()));
     }
 
     @Override
     public void saveObject(UUID key, User value) {
         data.set("users." + key.toString(), value.serialize());
-
         data.save();
+
+        remove(key);
     }
 
     @Override
@@ -74,8 +70,6 @@ public class UserStorageManager implements Storage<UUID, User> {
     @Override
     public void saveAll() {
         users.keySet().forEach(this::save);
-
-        data.save();
     }
 
     @Override
