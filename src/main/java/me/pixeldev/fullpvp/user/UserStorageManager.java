@@ -7,6 +7,7 @@ import me.yushust.inject.Inject;
 import me.yushust.inject.name.Named;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,17 +36,9 @@ public class UserStorageManager implements Storage<UUID, User> {
             return Optional.empty();
         }
 
-        Map<String, Object> statistics = new HashMap<>();
+        ConfigurationSection userSection = data.getConfigurationSection("users." + uuid.toString());
 
-        statistics.put("kills", data.getInt("users." + uuid.toString() + ".kills"));
-        statistics.put("coins", data.getInt("users." + uuid.toString() + ".coins"));
-        statistics.put("level", data.getInt("users." + uuid.toString() + ".level"));
-        statistics.put("deaths", data.getInt("users." + uuid.toString() + ".deaths"));
-        statistics.put("clan", data.getString("users." + uuid.toString() + ".clan", null));
-
-        System.out.println(statistics);
-
-        return Optional.of(new SimpleUser(statistics));
+        return Optional.of(new SimpleUser(userSection.getValues(false)));
     }
 
     @Override
