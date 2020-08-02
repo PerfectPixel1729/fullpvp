@@ -27,7 +27,12 @@ clan-main:
     information:
       name: "&9Información sobre el clan"
       lore:
+        - "%clan%"
         - ""
+        - "&8 + &7Miembros: &b%members%&7/&b%maxmembers%"
+        - "&8 + &7Bajas: &9%kills%"
+        - "&8 + &7Muertes: &9%deaths%"
+        - "&8 + &7KDR: &9%kdr%"
     settings:
       name: "&9Configuración del clan"
       lore:
@@ -38,6 +43,13 @@ clan-main:
         - "&e¡Click aquí!"
     creator:
       name: "&7Creador &9%name%"
+      lore:
+        - "&8 + &7Bajas: &9%kills%"
+        - "&8 + &7Muertes: &9%deaths%"
+        - "&8 + &7KDR: &9%kdr%"
+        - "&8 + &7Estado: %status%"
+    member:
+      name: "&7Miembro &9%name%"
       lore:
         - "&8 + &7Bajas: &9%kills%"
         - "&8 + &7Muertes: &9%deaths%"

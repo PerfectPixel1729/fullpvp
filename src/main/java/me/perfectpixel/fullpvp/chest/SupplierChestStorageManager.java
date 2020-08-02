@@ -63,6 +63,9 @@ public class SupplierChestStorageManager implements Storage<Location, SupplierCh
     }
 
     @Override
+    public void saveObject(Location location, SupplierChest value) { }
+
+    @Override
     public void remove(Location location) {
         SUPPLIER_CHESTS.remove(location);
     }

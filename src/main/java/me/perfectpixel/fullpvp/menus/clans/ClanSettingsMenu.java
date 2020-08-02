@@ -40,6 +40,8 @@ public class ClanSettingsMenu implements Menu {
 
     private final Menu clanDisbandMenu;
 
+    private final ClanMainMenu clanMainMenu;
+
     private final ClanUtilities clanUtilities;
 
     public ClanSettingsMenu(
@@ -50,6 +52,7 @@ public class ClanSettingsMenu implements Menu {
             Message fileMessage,
             FileCreator config,
             Menu clanDisbandMenu,
+            ClanMainMenu clanMainMenu,
             ClanUtilities clanUtilities
     ) {
 
@@ -60,6 +63,7 @@ public class ClanSettingsMenu implements Menu {
         this.fileMessage = fileMessage;
         this.config = config;
         this.clanDisbandMenu = clanDisbandMenu;
+        this.clanMainMenu = clanMainMenu;
         this.clanUtilities = clanUtilities;
     }
 
@@ -152,6 +156,15 @@ public class ClanSettingsMenu implements Menu {
                                 .name(messageMenu.getItemName(keyMenu, "back"))
                                 .lore(messageMenu.getItemLore(keyMenu, "back"))
                                 .build()
+                )
+                .addButton(
+                        27,
+                        new SimpleButton(click -> {
+                            player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
+                            player.openInventory(clanMainMenu.build(player).build());
+
+                            return true;
+                        })
                 )
                 .addButton(
                         11,

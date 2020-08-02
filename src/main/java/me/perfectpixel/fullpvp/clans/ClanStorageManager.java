@@ -60,6 +60,9 @@ public class ClanStorageManager implements Storage<String, Clan> {
     }
 
     @Override
+    public void saveObject(String key, Clan value) { }
+
+    @Override
     public void remove(String key) {
         clans.remove(key);
     }

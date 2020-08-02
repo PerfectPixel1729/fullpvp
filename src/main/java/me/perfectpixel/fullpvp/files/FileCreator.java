@@ -64,7 +64,9 @@ public class FileCreator extends YamlConfiguration {
 
     @Override
     public String getString(String path, String def) {
-        return ChatColor.translateAlternateColorCodes('&', super.getString(path, def));
+        String s = super.getString(path, def);
+
+        return s != null ? ChatColor.translateAlternateColorCodes('&', s) : def;
     }
 
     @Override

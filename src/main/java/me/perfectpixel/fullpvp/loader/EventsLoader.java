@@ -28,6 +28,9 @@ public final class EventsLoader implements Loader {
     private PlayerInteractListener playerInteractListener;
 
     @Inject
+    private AsyncPlayerChatListener asyncPlayerChatListener;
+
+    @Inject
     private SupplierChestListeners supplierChestListeners;
 
     @Inject
@@ -46,6 +49,7 @@ public final class EventsLoader implements Loader {
                 playerQuitListener,
                 playerDeathListener,
                 playerInteractListener,
+                asyncPlayerChatListener,
                 supplierChestListeners,
                 pearlListeners,
                 clanListeners,

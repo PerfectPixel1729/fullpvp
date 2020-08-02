@@ -13,7 +13,7 @@ import java.util.Optional;
 @Getter
 public class SimpleUser implements User {
 
-    private String clanName = null;
+    private String clanName;
     private final Coins coins;
     private final Level level;
     private final Deaths deaths;
@@ -24,6 +24,7 @@ public class SimpleUser implements User {
         level = new Level();
         deaths = new Deaths();
         kills = new Kills();
+        clanName = null;
     }
 
     public SimpleUser(Map<String, Object> userMap) {
@@ -31,7 +32,7 @@ public class SimpleUser implements User {
         level = new Level((Integer) userMap.get("level"));
         deaths = new Deaths((Integer) userMap.get("deaths"));
         kills = new Kills((Integer) userMap.get("kills"));
-        clanName = (String) userMap.get("clanName");
+        clanName = (String) userMap.get("clan");
     }
 
     @Override

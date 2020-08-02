@@ -7,6 +7,7 @@ import me.yushust.inject.Inject;
 import me.yushust.inject.process.annotation.Singleton;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -33,8 +34,28 @@ public class ClanUtilities {
         clanStorage.find(clanName).ifPresent(clan -> clan.getMembers().forEach(uuid -> {
             Player member = Bukkit.getPlayer(uuid);
 
+            message.replaceAll(line -> ChatColor.translateAlternateColorCodes('&', line));
+
             message.forEach(member::sendMessage);
         }));
+    }
+
+    public void sendMessageToMembers(Clan clan, String message) {
+        clan.getMembers().forEach(uuid -> {
+            Player member = Bukkit.getPlayer(uuid);
+
+            member.sendMessage(message);
+        });
+    }
+
+    public void sendMessageToMembers(Clan clan, List<String> message) {
+        clan.getMembers().forEach(uuid -> {
+            Player member = Bukkit.getPlayer(uuid);
+
+            message.replaceAll(line -> ChatColor.translateAlternateColorCodes('&', line));
+
+            message.forEach(member::sendMessage);
+        });
     }
 
     public boolean playerHasClan(Player player) {

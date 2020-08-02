@@ -13,6 +13,8 @@ public interface Storage<K, V> {
 
     void save(K key);
 
+    void saveObject(K key, V value);
+
     void remove(K key);
 
     void add(K key, V value);

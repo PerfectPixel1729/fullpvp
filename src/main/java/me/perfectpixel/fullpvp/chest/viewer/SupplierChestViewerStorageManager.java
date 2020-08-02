@@ -62,6 +62,9 @@ public class SupplierChestViewerStorageManager implements Storage<UUID, UserView
     }
 
     @Override
+    public void saveObject(UUID uuid, UserViewer value) { }
+
+    @Override
     public void remove(UUID uuid) {
         userViewers.remove(uuid);
     }

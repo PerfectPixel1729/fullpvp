@@ -25,10 +25,13 @@ format:
 
 clans:
   already-exists: "%prefix% &7¡Lo siento, al parecer ya existe un clan con este nombre!"
+  no-creator: "%prefix% &7¡Whoops, al parecer no eres el creador de este clan, no tienes acceso a estas opciones!"
 
   request-expire-target: "%prefix% &7¡La invitación al clan &9%clan% &7ha expirado!"
   request-expire-sender: "%prefix% &7¡La invitación envíada a &9%target% &7ha expirado!"
 
+  member-join-server: "&9Clan &8| &b%member% &7ha entrado al servidor."
+  member-leave-server: "&9Clan &8| &b%member% &7ha salido del servidor."
   player-join-clan: "&7¡Démosle la bienvenida al clan a &9%player% &7ahora es nuestro aliado!"
 
   successfully-change-color: "%prefix% &7¡Haz cambiado el color del prefix de tu clan a %color%&7!"

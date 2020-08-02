@@ -268,6 +268,12 @@ public class ClanCommands implements CommandClass {
                 .replace("%sender%", player.getName())
         );
 
+        Optional<User> userTarget = userStorage.find(target.getUniqueId());
+
+        if (!userTarget.isPresent()) {
+            return true;
+        }
+
         TextComponent space = new TextComponent("  •  ");
         space.setColor(ChatColor.GRAY);
 
@@ -275,7 +281,7 @@ public class ClanCommands implements CommandClass {
                 target,
                 fileMessage.getMessage(null, "clans.accept-text"),
                 true,
-                p -> runAcceptCommand(user, target, clanName)
+                p -> runAcceptCommand(userTarget.get(), target, clanName)
         );
 
         TextComponent deny = easyTextComponent.sendActionMessage(
