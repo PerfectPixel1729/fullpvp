@@ -7,7 +7,7 @@ game:
 
 clans:
   price: 10000
-  maximum-characters: 8
+  maximum-characters: 15
 
 # El tiempo es medido en minutos, al menos en este cooldown. #
   request-expiration: 2
@@ -34,7 +34,7 @@ clans:
     black: 12000
 
 pearl:
-  cooldown: 5
+  cooldown: 20
 
 chests:
-  cooldown: 10
+  cooldown: 360
