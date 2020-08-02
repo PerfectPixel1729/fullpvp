@@ -16,7 +16,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class PlayerJoinListener implements Listener {
@@ -34,25 +33,14 @@ public class PlayerJoinListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        User user;
-        Optional<User> userOptional = userStorage.findFromData(player.getUniqueId());
-
-        if (userOptional.isPresent()) {
-            user = userOptional.get();
-
-            System.out.println("Si está presente: " + user);
-        } else {
-            user = new SimpleUser();
-
-            System.out.println("Añadiendo nuevo");
-        }
+        User user = userStorage.findFromData(player.getUniqueId()).orElseGet(SimpleUser::new);
 
         userStorage.add(player.getUniqueId(), user);
 
         userViewerStorage.findFromData(player.getUniqueId()).ifPresent(userViewer -> userViewerStorage.add(player.getUniqueId(), userViewer));
 
-        user.getClanName().flatMap(clanName -> clanStorage.find(clanName)).ifPresent(clan ->
-                Bukkit.getPluginManager().callEvent(new ClanMemberJoinEvent(player, clan))
+        user.getClanName().flatMap(clanName -> clanStorage.find(clanName)).ifPresent(
+                clan -> Bukkit.getPluginManager().callEvent(new ClanMemberJoinEvent(player, clan))
         );
     }
 

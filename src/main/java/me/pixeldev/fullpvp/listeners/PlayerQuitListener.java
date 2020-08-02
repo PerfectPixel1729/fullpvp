@@ -35,11 +35,11 @@ public class PlayerQuitListener implements Listener {
         Optional<User> userOptional = userStorage.find(player.getUniqueId());
 
         userOptional.ifPresent(user -> {
-            userStorage.saveObject(player.getUniqueId(), user);
-
             user.getClanName().flatMap(clanName -> clanStorage.find(clanName)).ifPresent(
                     clan -> Bukkit.getPluginManager().callEvent(new ClanMemberQuitEvent(player, clan))
             );
+
+            userStorage.saveObject(player.getUniqueId(), user);
         });
 
         userViewerStorage.save(player.getUniqueId());
