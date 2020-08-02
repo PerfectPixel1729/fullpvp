@@ -1,8 +1,7 @@
 package me.pixeldev.fullpvp.modules;
 
-import me.perfectpixel.fullpvp.service.*;
-
 import me.pixeldev.fullpvp.service.*;
+
 import me.yushust.inject.bind.AbstractModule;
 
 public class ServiceModule extends AbstractModule {

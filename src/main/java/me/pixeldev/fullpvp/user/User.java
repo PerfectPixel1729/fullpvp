@@ -1,7 +1,5 @@
 package me.pixeldev.fullpvp.user;
 
-import me.perfectpixel.fullpvp.statistic.*;
-
 import me.pixeldev.fullpvp.statistic.Coins;
 import me.pixeldev.fullpvp.statistic.KDR;
 import me.pixeldev.fullpvp.statistic.Level;
