@@ -5,8 +5,8 @@ import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.utils.ItemSerializable;
 import me.pixeldev.fullpvp.utils.LocationSerializable;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.name.Named;
 
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;

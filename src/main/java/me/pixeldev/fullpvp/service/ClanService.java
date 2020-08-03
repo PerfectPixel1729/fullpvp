@@ -3,7 +3,7 @@ package me.pixeldev.fullpvp.service;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 public final class ClanService implements Service {
 

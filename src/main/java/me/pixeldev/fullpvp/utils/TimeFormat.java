@@ -3,8 +3,8 @@ package me.pixeldev.fullpvp.utils;
 import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.message.Message;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.process.annotation.Singleton;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.process.annotation.Singleton;
 
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;

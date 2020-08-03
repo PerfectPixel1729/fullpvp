@@ -8,7 +8,7 @@ import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.message.menu.MessageMenu;
 import me.pixeldev.fullpvp.user.User;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

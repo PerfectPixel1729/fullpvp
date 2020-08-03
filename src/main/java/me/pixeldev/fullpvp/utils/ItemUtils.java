@@ -1,6 +1,6 @@
 package me.pixeldev.fullpvp.utils;
 
-import me.yushust.inject.process.annotation.Singleton;
+import team.unnamed.inject.process.annotation.Singleton;
 
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;

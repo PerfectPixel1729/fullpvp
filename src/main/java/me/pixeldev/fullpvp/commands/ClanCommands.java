@@ -19,8 +19,8 @@ import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
 import me.pixeldev.fullpvp.utils.fake.EasyTextComponent;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.name.Named;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;

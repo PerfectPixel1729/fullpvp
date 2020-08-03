@@ -42,6 +42,10 @@
             <id>unnamed-repo</id>
             <url>https://repo.unnamed.team/repository/unnamed-snapshots/</url>
         </repository>
+        <repository>
+            <id>unnamed-releases</id>
+            <url>https://repo.unnamed.team/repository/unnamed-releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -58,7 +62,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>me.yushust.inject</groupId>
+            <groupId>team.unnamed.inject</groupId>
             <artifactId>syringe-core</artifactId>
             <version>0.3.0</version>
             <scope>compile</scope>

@@ -5,7 +5,7 @@ import me.fixeddev.ebcm.i18n.Message;
 
 import me.pixeldev.fullpvp.Delegates;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import java.util.HashMap;
 import java.util.Map;

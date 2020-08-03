@@ -5,7 +5,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import me.pixeldev.fullpvp.scoreboard.Frame;
 import me.pixeldev.fullpvp.scoreboard.entry.DefaultEntry;
 
-import me.yushust.inject.process.annotation.Singleton;
+import team.unnamed.inject.process.annotation.Singleton;
 
 import org.apache.commons.lang.RandomStringUtils;
 

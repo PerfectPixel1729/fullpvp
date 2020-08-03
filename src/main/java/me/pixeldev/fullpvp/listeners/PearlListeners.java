@@ -8,9 +8,9 @@ import me.pixeldev.fullpvp.packets.ActionbarMessenger;
 import me.pixeldev.fullpvp.utils.TickCause;
 import me.pixeldev.fullpvp.utils.TimeFormat;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.name.Named;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EnderPearl;

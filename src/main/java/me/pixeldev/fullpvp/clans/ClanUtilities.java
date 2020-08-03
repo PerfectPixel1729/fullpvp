@@ -3,8 +3,8 @@ package me.pixeldev.fullpvp.clans;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.user.User;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.process.annotation.Singleton;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.process.annotation.Singleton;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

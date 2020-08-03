@@ -15,9 +15,9 @@ import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.utils.TickCause;
 import me.pixeldev.fullpvp.utils.fake.ActionData;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.name.Named;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

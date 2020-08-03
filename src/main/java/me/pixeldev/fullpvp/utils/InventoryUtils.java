@@ -1,7 +1,7 @@
 package me.pixeldev.fullpvp.utils;
 
 import me.pixeldev.fullpvp.chest.SupplierChest;
-import me.yushust.inject.process.annotation.Singleton;
+import team.unnamed.inject.process.annotation.Singleton;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

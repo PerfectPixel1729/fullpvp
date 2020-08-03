@@ -2,8 +2,8 @@ package me.pixeldev.fullpvp.utils.fake;
 
 import me.pixeldev.fullpvp.Cache;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.process.annotation.Singleton;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.process.annotation.Singleton;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;

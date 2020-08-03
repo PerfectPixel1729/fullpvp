@@ -12,7 +12,7 @@ import me.pixeldev.fullpvp.message.menu.SimpleMessageMenu;
 import me.pixeldev.fullpvp.message.placeholder.PlaceholderApplier;
 import me.pixeldev.fullpvp.message.placeholder.PlaceholderApplierDecorator;
 
-import me.yushust.inject.bind.AbstractModule;
+import team.unnamed.inject.bind.AbstractModule;
 
 public class MessageModule extends AbstractModule {
 

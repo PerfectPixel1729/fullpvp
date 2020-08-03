@@ -3,7 +3,7 @@ package me.pixeldev.fullpvp.listeners.fake;
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.utils.fake.ActionData;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

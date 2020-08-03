@@ -7,7 +7,7 @@ import me.pixeldev.fullpvp.event.clan.ClanMemberJoinEvent;
 import me.pixeldev.fullpvp.user.SimpleUser;
 import me.pixeldev.fullpvp.user.User;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

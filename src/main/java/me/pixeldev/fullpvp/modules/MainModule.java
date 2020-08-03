@@ -4,7 +4,7 @@ import me.pixeldev.fullpvp.FullPVP;
 import me.pixeldev.fullpvp.files.FileBinder;
 import me.pixeldev.fullpvp.files.FileCreator;
 
-import me.yushust.inject.bind.AbstractModule;
+import team.unnamed.inject.bind.AbstractModule;
 import org.bukkit.plugin.Plugin;
 
 public class MainModule extends AbstractModule {

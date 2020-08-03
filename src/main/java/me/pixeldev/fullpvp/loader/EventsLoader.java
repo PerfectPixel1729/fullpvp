@@ -5,7 +5,7 @@ import me.pixeldev.fullpvp.listeners.*;
 import me.pixeldev.fullpvp.listeners.chest.SupplierChestListeners;
 import me.pixeldev.fullpvp.listeners.clan.ClanListeners;
 import me.pixeldev.fullpvp.listeners.fake.FakeCommandListener;
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import team.unnamed.gui.listeners.MenuListeners;

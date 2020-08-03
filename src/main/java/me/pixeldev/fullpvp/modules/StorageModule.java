@@ -19,8 +19,8 @@ import me.pixeldev.fullpvp.user.UserStorageManager;
 import me.pixeldev.fullpvp.utils.fake.ActionData;
 import me.pixeldev.fullpvp.utils.fake.FakeCommandCache;
 
-import me.yushust.inject.bind.AbstractModule;
-import me.yushust.inject.identity.Key;
+import team.unnamed.inject.bind.AbstractModule;
+import team.unnamed.inject.identity.Key;
 
 import org.bukkit.Location;
 

@@ -2,7 +2,7 @@ package me.pixeldev.fullpvp.modules;
 
 import me.pixeldev.fullpvp.service.*;
 
-import me.yushust.inject.bind.AbstractModule;
+import team.unnamed.inject.bind.AbstractModule;
 
 public class ServiceModule extends AbstractModule {
 

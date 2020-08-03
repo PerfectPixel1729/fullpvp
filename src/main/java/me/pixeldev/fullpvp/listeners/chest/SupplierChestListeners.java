@@ -16,8 +16,8 @@ import me.pixeldev.fullpvp.utils.InventoryUtils;
 import me.pixeldev.fullpvp.utils.TickCause;
 import me.pixeldev.fullpvp.utils.TimeFormat;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.name.Named;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

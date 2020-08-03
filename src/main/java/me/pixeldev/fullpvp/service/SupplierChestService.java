@@ -3,7 +3,7 @@ package me.pixeldev.fullpvp.service;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.chest.SupplierChest;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.Location;
 

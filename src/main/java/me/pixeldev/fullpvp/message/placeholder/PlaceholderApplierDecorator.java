@@ -1,6 +1,6 @@
 package me.pixeldev.fullpvp.message.placeholder;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.entity.Player;
 

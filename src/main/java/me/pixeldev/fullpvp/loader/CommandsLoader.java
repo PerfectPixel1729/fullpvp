@@ -10,7 +10,7 @@ import me.pixeldev.fullpvp.commands.ChestCreatorCommand;
 import me.pixeldev.fullpvp.commands.ClanCommands;
 import me.pixeldev.fullpvp.commands.CoinsCommands;
 import me.pixeldev.fullpvp.commands.SimpleI18n;
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 public final class CommandsLoader implements Loader {
 

@@ -3,7 +3,7 @@ package me.pixeldev.fullpvp.service;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.chest.viewer.UserViewer;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 package me.pixeldev.fullpvp;
 
-import me.yushust.inject.BindingAnnotation;
+import team.unnamed.inject.BindingAnnotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

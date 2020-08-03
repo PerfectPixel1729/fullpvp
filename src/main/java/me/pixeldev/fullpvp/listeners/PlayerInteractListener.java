@@ -10,7 +10,7 @@ import me.pixeldev.fullpvp.event.chest.SupplierChestOpenEvent;
 import me.pixeldev.fullpvp.event.chest.SupplierChestPreCreateEvent;
 import me.pixeldev.fullpvp.message.Message;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

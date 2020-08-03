@@ -1,6 +1,6 @@
 package me.pixeldev.fullpvp.files;
 
-import me.yushust.inject.bind.Module;
+import team.unnamed.inject.bind.Module;
 
 import java.util.HashMap;
 import java.util.Map;

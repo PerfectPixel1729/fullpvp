@@ -6,8 +6,8 @@ import me.pixeldev.fullpvp.loader.CommandsLoader;
 import me.pixeldev.fullpvp.loader.EventsLoader;
 import me.pixeldev.fullpvp.loader.TickLoader;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.name.Named;
 
 public final class FullPVPService implements Service {
 

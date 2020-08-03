@@ -10,7 +10,7 @@ import me.pixeldev.fullpvp.chest.creator.UserCreator;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.message.menu.MessageMenu;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import net.wesjd.anvilgui.AnvilGUI;
 

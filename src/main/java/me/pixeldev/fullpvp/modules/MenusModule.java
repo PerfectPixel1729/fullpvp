@@ -5,7 +5,7 @@ import me.pixeldev.fullpvp.menus.clans.ClanDisbandMenu;
 import me.pixeldev.fullpvp.menus.clans.ClanMainMenu;
 import me.pixeldev.fullpvp.menus.Menu;
 
-import me.yushust.inject.bind.AbstractModule;
+import team.unnamed.inject.bind.AbstractModule;
 
 public class MenusModule extends AbstractModule {
 

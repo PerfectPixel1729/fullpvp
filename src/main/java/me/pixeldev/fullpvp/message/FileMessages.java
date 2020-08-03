@@ -2,8 +2,8 @@ package me.pixeldev.fullpvp.message;
 
 import me.pixeldev.fullpvp.files.FileCreator;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.name.Named;
 
 import org.bukkit.entity.Player;
 

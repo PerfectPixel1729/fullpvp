@@ -2,7 +2,7 @@ package me.pixeldev.fullpvp.message.placeholder;
 
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.user.User;
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;

@@ -3,7 +3,7 @@ package me.pixeldev.fullpvp.message;
 import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.message.placeholder.PlaceholderApplier;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

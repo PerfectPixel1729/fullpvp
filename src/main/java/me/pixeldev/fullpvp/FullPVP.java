@@ -3,10 +3,10 @@ package me.pixeldev.fullpvp;
 import me.pixeldev.fullpvp.modules.MainModule;
 import me.pixeldev.fullpvp.service.Service;
 
-import me.yushust.inject.Inject;
-import me.yushust.inject.Injector;
-import me.yushust.inject.InjectorFactory;
-import me.yushust.inject.name.Named;
+import team.unnamed.inject.Inject;
+import team.unnamed.inject.Injector;
+import team.unnamed.inject.InjectorFactory;
+import team.unnamed.inject.name.Named;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

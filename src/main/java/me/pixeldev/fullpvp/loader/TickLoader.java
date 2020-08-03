@@ -4,7 +4,7 @@ import me.pixeldev.fullpvp.FullPVP;
 import me.pixeldev.fullpvp.event.FullPVPTickEvent;
 import me.pixeldev.fullpvp.utils.TickCause;
 
-import me.yushust.inject.Inject;
+import team.unnamed.inject.Inject;
 
 import org.bukkit.Bukkit;
 
