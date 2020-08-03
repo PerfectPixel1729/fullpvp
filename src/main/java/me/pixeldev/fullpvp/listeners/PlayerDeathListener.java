@@ -1,6 +1,7 @@
 package me.pixeldev.fullpvp.listeners;
 
 import me.pixeldev.fullpvp.Storage;
+import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
@@ -21,6 +22,9 @@ public class PlayerDeathListener implements Listener {
     private Storage<UUID, User> userStorage;
 
     @Inject
+    private Storage<String, Clan> clansStorage;
+
+    @Inject
     @Named("config")
     private FileCreator config;
 
@@ -35,6 +39,8 @@ public class PlayerDeathListener implements Listener {
         userStorage.find(player.getUniqueId()).ifPresent(user -> {
             user.getDeaths().add(1);
 
+            user.getClanName().flatMap(clanName -> clansStorage.find(clanName)).ifPresent(clan -> clan.getStatistics().getDeaths().add(1));
+
             player.sendMessage(message.getMessage(player, "events.player-death"));
         });
 
@@ -47,6 +53,8 @@ public class PlayerDeathListener implements Listener {
 
             user.getKills().add(1);
             user.getCoins().add(coins);
+
+            user.getClanName().flatMap(clanName -> clansStorage.find(clanName)).ifPresent(clan -> clan.getStatistics().getKills().add(1));
 
             killer.sendMessage(message.getMessage(killer, "events.player-kill"));
             killer.sendMessage(message.getMessage(killer, "events.player-gain-coins").replace("%coins%", coins + ""));
