@@ -14,6 +14,7 @@ public final class TickLoader implements Loader {
     private FullPVP fullPVP;
 
     private int time = 20;
+    private int two_seconds = 40;
     private int minute = 1200;
 
     @Override
@@ -24,6 +25,7 @@ public final class TickLoader implements Loader {
     private Runnable runnable() {
         return () -> {
             time--;
+            two_seconds--;
             minute--;
 
             Bukkit.getPluginManager().callEvent(new FullPVPTickEvent(TickCause.MILLISECOND));
@@ -32,6 +34,12 @@ public final class TickLoader implements Loader {
                 time = 20;
 
                 Bukkit.getPluginManager().callEvent(new FullPVPTickEvent(TickCause.SECOND));
+            }
+
+            if (two_seconds == 0) {
+                two_seconds = 40;
+
+                Bukkit.getPluginManager().callEvent(new FullPVPTickEvent(TickCause.TWO_SECONDS));
             }
 
             if (minute == 0) {
