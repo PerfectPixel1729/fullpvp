@@ -12,9 +12,8 @@ import me.pixeldev.fullpvp.user.User;
 
 import team.unnamed.inject.Inject;
 
-import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -32,11 +31,15 @@ public class CoinsCommands implements CommandClass {
 
     @ACommand(names = "add", permission = "fullpvp.coins.add")
     @Usage(usage = "§8- §9<targetName> <coins>")
-    public boolean runAddCoinsCommand(@Injected(true) CommandSender sender, String targetName, Integer coins) {
-        Player target = Bukkit.getPlayerExact(targetName);
-
+    public boolean runAddCoinsCommand(@Injected(true) CommandSender sender, OfflinePlayer target, Integer coins) {
         if (target == null) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-exists"));
+
+            return true;
+        }
+
+        if (!target.isOnline()) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-online"));
 
             return true;
         }
@@ -52,7 +55,7 @@ public class CoinsCommands implements CommandClass {
         userOptional.get().getCoins().add(coins);
         sender.sendMessage(fileMessage.getMessage(null, "coins.command.successfully-add")
                 .replace("%coins%", String.valueOf(coins))
-                .replace("%target%", targetName)
+                .replace("%target%", target.getName())
         );
 
         return true;
@@ -60,11 +63,15 @@ public class CoinsCommands implements CommandClass {
 
     @ACommand(names = "set", permission = "fullpvp.coins.set")
     @Usage(usage = "§8- §9<targetName> <coins>")
-    public boolean runSetCoinsCommand(@Injected(true) CommandSender sender, String targetName, Integer coins) {
-        Player target = Bukkit.getPlayerExact(targetName);
-
+    public boolean runSetCoinsCommand(@Injected(true) CommandSender sender, OfflinePlayer target, Integer coins) {
         if (target == null) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-exists"));
+
+            return true;
+        }
+
+        if (!target.isOnline()) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-online"));
 
             return true;
         }
@@ -81,7 +88,7 @@ public class CoinsCommands implements CommandClass {
 
         sender.sendMessage(fileMessage.getMessage(null, "coins.command.successfully-set")
                 .replace("%coins%", String.valueOf(coins))
-                .replace("%target%", targetName)
+                .replace("%target%", target.getName())
         );
 
         return true;
@@ -89,11 +96,15 @@ public class CoinsCommands implements CommandClass {
 
     @ACommand(names = "remove", permission = "fullpvp.coins.remove")
     @Usage(usage = "§8- §9<targetName> <coins>")
-    public boolean runRemoveCoinsCommand(@Injected(true) CommandSender sender, String targetName, Integer coins) {
-        Player target = Bukkit.getPlayerExact(targetName);
-
+    public boolean runRemoveCoinsCommand(@Injected(true) CommandSender sender, OfflinePlayer target, Integer coins) {
         if (target == null) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-exists"));
+
+            return true;
+        }
+
+        if (!target.isOnline()) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-online"));
 
             return true;
         }
@@ -124,7 +135,7 @@ public class CoinsCommands implements CommandClass {
 
         sender.sendMessage(fileMessage.getMessage(null, "coins.command.successfully-remove")
                 .replace("%coins%", String.valueOf(coins))
-                .replace("%target%", targetName)
+                .replace("%target%", target.getName())
         );
 
         return true;

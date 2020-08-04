@@ -19,6 +19,7 @@ import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
 import me.pixeldev.fullpvp.utils.fake.EasyTextComponent;
 
+import org.bukkit.OfflinePlayer;
 import team.unnamed.inject.Inject;
 import team.unnamed.inject.name.Named;
 
@@ -123,6 +124,43 @@ public class ClanCommands implements CommandClass {
         return true;
     }
 
+    @ACommand(names = "settings")
+    public boolean runSettingsClanCommand(@Injected(true) CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        Optional<User> userOptional = userStorage.find(player.getUniqueId());
+
+        if (!userOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "clans.commands.user-error"));
+
+            return true;
+        }
+
+        User user = userOptional.get();
+
+        Optional<String> clanNameOptional = user.getClanName();
+
+        if (clanNameOptional.isPresent()) {
+            MenuBuilder builder = clanSettingsMenu.build(player);
+
+            if (builder == null) {
+                player.sendMessage(message.getMessage(player, "clans.commands.error-opening-menu"));
+
+                return true;
+            }
+
+            player.openInventory(builder.build());
+        }
+
+        return true;
+    }
+
     @ACommand(names = {"crear", "create"}, permission = "fullpvp.clans.create")
     @Usage(usage = "§8- §9<name>")
     public boolean runCreateClanCommand(@Injected(true) CommandSender sender, String name) {
@@ -176,7 +214,7 @@ public class ClanCommands implements CommandClass {
 
     @ACommand(names = {"invite", "invitar"}, permission = "fullpvp.clans.invite")
     @Usage(usage = "§8- §9<name>")
-    public boolean runInviteClanCommand(@Injected(true) CommandSender sender, String playerName) {
+    public boolean runInviteClanCommand(@Injected(true) CommandSender sender, OfflinePlayer target) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
 
@@ -185,10 +223,14 @@ public class ClanCommands implements CommandClass {
 
         Player player = (Player) sender;
 
-        Player target = Bukkit.getPlayerExact(playerName);
-
         if (target == null) {
             player.sendMessage(message.getMessage(player, "no-player-exists"));
+
+            return true;
+        }
+
+        if (!target.isOnline()) {
+            player.sendMessage(message.getMessage(player, "no-player-online"));
 
             return true;
         }
@@ -218,6 +260,12 @@ public class ClanCommands implements CommandClass {
         if (clanOptional.isPresent()) {
             Clan clan = clanOptional.get();
 
+            if (!clan.getCreator().equals(player.getUniqueId())) {
+                player.sendMessage(message.getMessage(player, "clans.no-creator"));
+
+                return true;
+            }
+
             if (clan.getMembers().contains(target.getUniqueId())) {
                 player.sendMessage(message.getMessage(player, "clans.commands.already-member"));
 
@@ -233,7 +281,7 @@ public class ClanCommands implements CommandClass {
             }
         }
 
-        if (clanUtilities.playerHasClan(target)) {
+        if (clanUtilities.playerHasClan(target.getPlayer())) {
             player.sendMessage(message.getMessage(player, "clans.commands.already-clan-target"));
 
             return true;
@@ -259,10 +307,10 @@ public class ClanCommands implements CommandClass {
         }
 
         player.sendMessage(message.getMessage(player, "clans.commands.successfully-invite-sender")
-                .replace("%target%", playerName)
+                .replace("%target%", target.getName())
         );
 
-        target.sendMessage(message.getMessage(target, "clans.commands.successfully-invite-target")
+        target.getPlayer().sendMessage(message.getMessage(target.getPlayer(), "clans.commands.successfully-invite-target")
                 .replace("%clan%", user.getClanName().get())
                 .replace("%time%", requestExpiration + "")
                 .replace("%sender%", player.getName())
@@ -278,20 +326,20 @@ public class ClanCommands implements CommandClass {
         space.setColor(ChatColor.GRAY);
 
         TextComponent accept = easyTextComponent.sendActionMessage(
-                target,
+                target.getPlayer(),
                 fileMessage.getMessage(null, "clans.accept-text"),
                 true,
-                p -> runAcceptCommand(userTarget.get(), target, clanName)
+                p -> runAcceptCommand(userTarget.get(), target.getPlayer(), clanName)
         );
 
         TextComponent deny = easyTextComponent.sendActionMessage(
-                target,
+                target.getPlayer(),
                 fileMessage.getMessage(null, "clans.deny-text"),
                 true,
-                p -> runDenyCommand(target, clanName)
+                p -> runDenyCommand(target.getPlayer(), clanName)
         );
 
-        target.spigot().sendMessage(accept, space, deny);
+        target.getPlayer().spigot().sendMessage(accept, space, deny);
 
         return true;
     }
