@@ -1,6 +1,8 @@
 package me.pixeldev.fullpvp.modules;
 
 import me.pixeldev.fullpvp.FullPVP;
+import me.pixeldev.fullpvp.combatlog.CombatLogAnnouncer;
+import me.pixeldev.fullpvp.combatlog.SimpleCombatLogAnnouncer;
 import me.pixeldev.fullpvp.files.FileBinder;
 import me.pixeldev.fullpvp.files.FileCreator;
 
@@ -34,6 +36,8 @@ public class MainModule extends AbstractModule {
 
         bind(FullPVP.class).toInstance(fullPVP);
         bind(Plugin.class).to(FullPVP.class);
+
+        bind(CombatLogAnnouncer.class).to(SimpleCombatLogAnnouncer.class).singleton();
 
     }
 
