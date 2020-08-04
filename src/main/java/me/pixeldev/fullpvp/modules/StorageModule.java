@@ -13,6 +13,7 @@ import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.clans.ClanStorageManager;
 import me.pixeldev.fullpvp.clans.request.ClanRequest;
 import me.pixeldev.fullpvp.clans.request.ClanRequestCache;
+import me.pixeldev.fullpvp.combatlog.CombatLogCache;
 import me.pixeldev.fullpvp.pearl.PearlCountdownCache;
 import me.pixeldev.fullpvp.user.User;
 import me.pixeldev.fullpvp.user.UserStorageManager;
@@ -23,6 +24,8 @@ import team.unnamed.inject.bind.AbstractModule;
 import team.unnamed.inject.identity.Key;
 
 import org.bukkit.Location;
+import team.unnamed.inject.identity.type.TypeReference;
+import team.unnamed.inject.name.Names;
 
 import java.util.UUID;
 
@@ -37,9 +40,11 @@ public class StorageModule extends AbstractModule {
 
         bind(new Key<Cache<UUID, SupplierChest>>() {}).to(SupplierChestEditorCache.class).singleton();
         bind(new Key<Cache<UUID, UserCreator>>() {}).to(SupplierChestCreatorCache.class).singleton();
-        bind(new Key<Cache<UUID, Integer>>() {}).to(PearlCountdownCache.class).singleton();
         bind(new Key<Cache<UUID, ClanRequest>>() {}).to(ClanRequestCache.class).singleton();
         bind(new Key<Cache<UUID, ActionData>>() {}).to(FakeCommandCache.class).singleton();
+
+        bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("pearls"))).to(PearlCountdownCache.class).singleton();
+        bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("combat"))).to(CombatLogCache.class).singleton();
     }
 
 }

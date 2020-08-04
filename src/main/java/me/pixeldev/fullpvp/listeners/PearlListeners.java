@@ -26,6 +26,7 @@ import java.util.UUID;
 public class PearlListeners implements Listener {
 
     @Inject
+    @Named("pearls")
     private Cache<UUID, Integer> pearlsCache;
 
     @Inject
