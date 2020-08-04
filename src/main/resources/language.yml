@@ -24,6 +24,9 @@ format:
   second: "segundo"
   seconds: "segundos"
 
+combatlog:
+  finished: "&a¡Ya no estás combate!"
+
 clans:
   already-exists: "%prefix% &7¡Lo siento, al parecer ya existe un clan con este nombre!"
   no-creator: "%prefix% &7¡Whoops, al parecer no eres el creador de este clan, no tienes acceso a estas opciones!"

@@ -33,6 +33,10 @@ clans:
     gray: 2000
     black: 12000
 
+combatlog:
+  symbol: "▇"
+  duration: 20
+
 pearl:
   cooldown: 20
 
