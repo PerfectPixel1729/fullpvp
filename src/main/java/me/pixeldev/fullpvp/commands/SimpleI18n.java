@@ -7,12 +7,7 @@ import me.pixeldev.fullpvp.Delegates;
 
 import team.unnamed.inject.Inject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SimpleI18n extends DefaultI18n {
-
-    private final Map<String, String> messageMap = new HashMap<>();
 
     @Inject
     public SimpleI18n(@Delegates me.pixeldev.fullpvp.message.Message message) {
