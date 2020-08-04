@@ -10,6 +10,7 @@ i18n:
 
 no-player-sender: "%prefix% &7¡Este comando es solo disponible para jugadores!"
 no-player-exists: "%prefix% &7¡Al parecer no existe un jugador con este nombre!"
+no-player-online: "%prefix% &7¡Al parecer este jugador no está conectado!"
 
 format:
   week: "semana"
