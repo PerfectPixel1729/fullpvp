@@ -1,9 +1,6 @@
 package me.pixeldev.fullpvp.modules;
 
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-
 import me.pixeldev.fullpvp.Delegates;
-import me.pixeldev.fullpvp.PlaceHolderHandler;
 import me.pixeldev.fullpvp.message.FileMessages;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.message.SimpleMessageDecorator;
@@ -22,7 +19,6 @@ public class MessageModule extends AbstractModule {
         bind(Message.class).qualified(Delegates.class).to(FileMessages.class).singleton();
         bind(Message.class).to(SimpleMessageDecorator.class).singleton();
         bind(MessageMenu.class).to(SimpleMessageMenu.class).singleton();
-        bind(PlaceholderExpansion.class).to(PlaceHolderHandler.class).singleton();
     }
 
 }

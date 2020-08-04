@@ -1,7 +1,5 @@
 package me.pixeldev.fullpvp.service;
 
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-
 import me.pixeldev.fullpvp.loader.CommandsLoader;
 import me.pixeldev.fullpvp.loader.EventsLoader;
 import me.pixeldev.fullpvp.loader.TickLoader;
@@ -19,9 +17,6 @@ public final class FullPVPService implements Service {
 
     @Inject
     private TickLoader tickLoader;
-
-    @Inject
-    private PlaceholderExpansion placeholderExpansion;
 
     @Inject
     @Named("clans-service")
@@ -44,8 +39,6 @@ public final class FullPVPService implements Service {
         tickLoader.load();
         commandsLoader.load();
         eventsLoader.load();
-
-        placeholderExpansion.register();
 
         clanService.start();
         supplierChestService.start();
