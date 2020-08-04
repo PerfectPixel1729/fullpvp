@@ -4,6 +4,7 @@ import me.pixeldev.fullpvp.FullPVP;
 import me.pixeldev.fullpvp.listeners.*;
 import me.pixeldev.fullpvp.listeners.chest.SupplierChestListeners;
 import me.pixeldev.fullpvp.listeners.clan.ClanListeners;
+import me.pixeldev.fullpvp.listeners.combat.CombatLogListener;
 import me.pixeldev.fullpvp.listeners.fake.FakeCommandListener;
 import team.unnamed.inject.Inject;
 import org.bukkit.Bukkit;
@@ -28,6 +29,9 @@ public final class EventsLoader implements Loader {
     private PlayerInteractListener playerInteractListener;
 
     @Inject
+    private PlayerDamageListener playerDamageListener;
+
+    @Inject
     private AsyncPlayerChatListener asyncPlayerChatListener;
 
     @Inject
@@ -42,6 +46,9 @@ public final class EventsLoader implements Loader {
     @Inject
     private FakeCommandListener fakeCommandListener;
 
+    @Inject
+    private CombatLogListener combatlogListener;
+
     @Override
     public void load() {
         registerListeners(
@@ -53,6 +60,8 @@ public final class EventsLoader implements Loader {
                 supplierChestListeners,
                 pearlListeners,
                 clanListeners,
+                playerDamageListener,
+                combatlogListener,
                 fakeCommandListener,
                 new MenuListeners()
         );
