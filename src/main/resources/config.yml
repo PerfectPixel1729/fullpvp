@@ -36,6 +36,13 @@ clans:
 combatlog:
   symbol: "▇"
   duration: 20
+  drop-items: false
+  block-commands:
+    - "spawn"
+    - "tpa"
+    - "home"
+    - "fly"
+    - "gamemode"
 
 pearl:
   cooldown: 20
