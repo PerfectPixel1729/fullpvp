@@ -6,44 +6,26 @@ import me.pixeldev.fullpvp.listeners.chest.SupplierChestListeners;
 import me.pixeldev.fullpvp.listeners.clan.ClanListeners;
 import me.pixeldev.fullpvp.listeners.combat.CombatLogListener;
 import me.pixeldev.fullpvp.listeners.fake.FakeCommandListener;
-import team.unnamed.inject.Inject;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import team.unnamed.gui.listeners.MenuListeners;
 
+import team.unnamed.gui.listeners.MenuListeners;
+import team.unnamed.inject.InjectAll;
+
+@InjectAll
 public final class EventsLoader implements Loader {
 
-    @Inject
     private FullPVP fullPVP;
-
-    @Inject
     private PlayerJoinListener playerJoinListener;
-
-    @Inject
     private PlayerDeathListener playerDeathListener;
-
-    @Inject
     private PlayerQuitListener playerQuitListener;
-
-    @Inject
     private PlayerInteractListener playerInteractListener;
-
-    @Inject
     private AsyncPlayerChatListener asyncPlayerChatListener;
-
-    @Inject
     private SupplierChestListeners supplierChestListeners;
-
-    @Inject
     private PearlListeners pearlListeners;
-
-    @Inject
     private ClanListeners clanListeners;
-
-    @Inject
     private FakeCommandListener fakeCommandListener;
-
-    @Inject
     private CombatLogListener combatlogListener;
 
     @Override
