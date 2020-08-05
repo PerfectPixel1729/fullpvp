@@ -26,6 +26,8 @@ format:
 
 combatlog:
   finished: "&a¡Ya no estás combate!"
+  player-disconnect: "&9CombatLog &8| &7El jugador &9%player% &7se ha desconectado en combate!"
+  can-not-execute-command: "&9CombatLog &8| &7No puedes ejecutar este comando mientras estás en combate!"
 
 clans:
   already-exists: "%prefix% &7¡Lo siento, al parecer ya existe un clan con este nombre!"
