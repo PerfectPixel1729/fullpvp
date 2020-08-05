@@ -1,8 +1,8 @@
 package me.pixeldev.fullpvp.modules;
 
 import me.pixeldev.fullpvp.FullPVP;
-import me.pixeldev.fullpvp.combatlog.CombatLogAnnouncer;
-import me.pixeldev.fullpvp.combatlog.SimpleCombatLogAnnouncer;
+import me.pixeldev.fullpvp.combatlog.announcer.CombatLogAnnouncer;
+import me.pixeldev.fullpvp.combatlog.announcer.SimpleCombatLogAnnouncer;
 import me.pixeldev.fullpvp.files.FileBinder;
 import me.pixeldev.fullpvp.files.FileCreator;
 
