@@ -4,33 +4,25 @@ import me.pixeldev.fullpvp.loader.CommandsLoader;
 import me.pixeldev.fullpvp.loader.EventsLoader;
 import me.pixeldev.fullpvp.loader.TickLoader;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
+@InjectAll
 public final class FullPVPService implements Service {
 
-    @Inject
     private EventsLoader eventsLoader;
-
-    @Inject
     private CommandsLoader commandsLoader;
-
-    @Inject
     private TickLoader tickLoader;
 
-    @Inject
     @Named("clans-service")
     private Service clanService;
 
-    @Inject
     @Named("supplierchests-service")
     private Service supplierChestService;
 
-    @Inject
     @Named("users-service")
     private Service userService;
 
-    @Inject
     @Named("supplierchestsviewers-service")
     private Service supplierChestViewerService;
 
