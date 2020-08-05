@@ -1,4 +1,4 @@
-package me.pixeldev.fullpvp.combatlog;
+package me.pixeldev.fullpvp.combatlog.announcer;
 
 import org.bukkit.entity.Player;
 
