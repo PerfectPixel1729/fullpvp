@@ -3,6 +3,7 @@ package me.pixeldev.fullpvp.user;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.files.FileCreator;
 
+import org.bukkit.configuration.MemorySection;
 import team.unnamed.inject.Inject;
 import team.unnamed.inject.name.Named;
 
@@ -36,7 +37,25 @@ public class UserStorageManager implements Storage<UUID, User> {
             return Optional.empty();
         }
 
-        return Optional.of(new SimpleUser((Map<String, Object>) data.get("users." + uuid.toString())));
+        Object o = data.get("users." + uuid.toString());
+
+        if (o instanceof Map) {
+            System.out.println("Usando map: " + o);
+
+            return Optional.of(new SimpleUser((Map<String, Object>) o));
+        } else if (o instanceof ConfigurationSection) {
+            System.out.println("Usando section: " + data.getConfigurationSection("users." + uuid.toString()).getValues(false));
+
+            return Optional.of(
+                    new SimpleUser(
+                            data.getConfigurationSection("users." + uuid.toString()).getValues(false)
+                    )
+            );
+        } else {
+            System.out.println("Usando vacío.");
+
+            return Optional.empty();
+        }
     }
 
     @Override
