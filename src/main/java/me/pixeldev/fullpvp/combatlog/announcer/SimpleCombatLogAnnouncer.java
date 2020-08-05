@@ -1,8 +1,9 @@
-package me.pixeldev.fullpvp.combatlog;
+package me.pixeldev.fullpvp.combatlog.announcer;
 
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.packets.ActionbarMessenger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import team.unnamed.inject.Inject;
@@ -26,7 +27,7 @@ public class SimpleCombatLogAnnouncer implements CombatLogAnnouncer {
 
     @Override
     public void sendPlayerDisconnect(Player player) {
-
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.sendMessage(messageDecorator.quitMessage().replace("%player%", player.getName())));
     }
 
     @Override
