@@ -1,4 +1,4 @@
-package me.pixeldev.fullpvp.combatlog;
+package me.pixeldev.fullpvp.combatlog.announcer;
 
 import com.google.common.base.Strings;
 
@@ -36,13 +36,14 @@ public class CombatLogMessageDecorator {
         }
 
         return Strings.repeat(greenSymbol, currentSeconds / 2) + Strings.repeat(redSymbol, (duration / 2) - (currentSeconds / 2));
-
-//        return (currentSeconds % 2 == 0) ? Strings.repeat(greenSymbol, currentSeconds / 2) + Strings.repeat(redSymbol, (duration / 2) - (currentSeconds / 2)) :
-//                Strings.repeat(greenSymbol, (int) ((currentSeconds / 2) + 0.5)) + Strings.repeat(redSymbol, (int) ((duration / 2) - (currentSeconds / 2) + 0.5));
     }
 
     public String formatFinish() {
         return fileMessage.getMessage(null, "combatlog.finished");
+    }
+
+    public String quitMessage() {
+        return fileMessage.getMessage(null, "combatlog.player-disconnect");
     }
 
 }
