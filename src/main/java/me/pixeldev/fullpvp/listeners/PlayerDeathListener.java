@@ -59,6 +59,8 @@ public class PlayerDeathListener implements Listener {
             killer.sendMessage(message.getMessage(killer, "events.player-kill"));
             killer.sendMessage(message.getMessage(killer, "events.player-gain-coins").replace("%coins%", coins + ""));
         });
+
+        player.spigot().respawn();
     }
 
 }
