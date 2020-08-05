@@ -42,4 +42,32 @@ public class InventoryUtils {
         }
     }
 
+    public List<ItemStack> getContents(Player player) {
+        List<ItemStack> items = new ArrayList<>();
+
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (item == null) {
+                continue;
+            }
+
+            items.add(item);
+        }
+
+        return items;
+    }
+
+    public void removeItems(Player player) {
+        for (int i = 0; i < player.getInventory().getContents().length; i++) {
+            ItemStack item = player.getInventory().getItem(i);
+
+            if (item == null) {
+                continue;
+            }
+
+            player.getInventory().clear(i);
+        }
+
+        player.updateInventory();
+    }
+
 }
