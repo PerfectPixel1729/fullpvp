@@ -1,10 +1,13 @@
 package me.pixeldev.fullpvp.listeners.combat;
 
 import me.pixeldev.fullpvp.Cache;
+import me.pixeldev.fullpvp.Storage;
+import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.combatlog.announcer.CombatLogAnnouncer;
 import me.pixeldev.fullpvp.event.FullPVPTickEvent;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.message.Message;
+import me.pixeldev.fullpvp.user.User;
 import me.pixeldev.fullpvp.utils.InventoryUtils;
 import me.pixeldev.fullpvp.utils.TickCause;
 
@@ -24,9 +27,16 @@ import team.unnamed.inject.Inject;
 import team.unnamed.inject.name.Named;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class CombatLogListener implements Listener {
+
+    @Inject
+    private Storage<UUID, User> userStorage;
+
+    @Inject
+    private Storage<String, Clan> clanStorage;
 
     @Inject
     @Named("combat")
@@ -137,6 +147,27 @@ public class CombatLogListener implements Listener {
 
             if (uuidSender.equals(uuidTarget)) {
                 return;
+            }
+
+            Optional<User> userOptional = userStorage.find(uuidSender);
+
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+
+                Optional<String> clanNameOptional = user.getClanName();
+                if (clanNameOptional.isPresent()) {
+                    Optional<Clan> clanOptional = clanStorage.find(clanNameOptional.get());
+
+                    if (clanOptional.isPresent()) {
+                        Clan clan = clanOptional.get();
+
+                        if (clan.getMembers().contains(uuidTarget) || clan.getCreator().equals(uuidTarget)) {
+                            event.setCancelled(!clan.getProperties().isAllowedDamage());
+
+                            return;
+                        }
+                    }
+                }
             }
 
             combatLogCache.add(uuidSender, duration);
