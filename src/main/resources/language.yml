@@ -45,6 +45,13 @@ clans:
   successfully-clear-messages: "%prefix% &7¡Haz removido los mensajes de entrada de tu clan!"
   successfully-cancel-disband: "%prefix% &7¡Haz cancelado la eliminación de tu clan correctamente!"
 
+  edit-messages:
+    maximum-characters: "&9Clan &8| &7¡Lo siento, la línea debe tener como máximo &9%characters%&7 carácteres!"
+    instructions: "&9Clan &8| &7Ahora estás en modo editor de mensajes, deberás escribir cada mensaje que deseas agregar, puedes añadir colores o incluso enlaces.
+    Puedes colocar &c&lcancel &7cuando hayas finalizado.\n&7¡Puedes centrar tus textos colocando &9(center) &7al inicio de la frase!"
+    cancel: "&9Clan &8| &7¡Haz salido correctamente del editor de mensajes!"
+    successfully-add: "&9Clan &8| &7Haz añadido correctamente una nueva línea, mensaje actual: \n%message%"
+
   clan-disband-members: "%prefix% &7¡El clan al que pertenecías ha sido removido, ahora no perteneces a ningún clan!"
   clan-disband-creator: "%prefix% &7¡Haz removido tu clan correctamente, ahora eres libre!"
   already-clear-messages: "%prefix% &7¡Al parecer ya habían sido removidos los mensajes de entrada de tu clan!"
