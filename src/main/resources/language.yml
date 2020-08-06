@@ -74,12 +74,16 @@ clans:
     name-too-long: "%prefix% &7¡Este nombre es demasiado largo, debe tener máximo &9%characters% &7carácteres!"
     maximum-members: "%prefix% &7¡Al parecer tu clan está lleno, el límite de miembros es &9%limit%&7!"
     already-member: "%prefix% &7¡Este jugador ya pertenece a tu clan, no puedes invitarlo de nuevo!"
+    invalid-member: "%prefix% &7¡Lo siento, al parecer este jugador no pertenece a tu clan, no puedes expulsarlo!"
     error-opening-menu: "%prefix% &7¡Ha ocurrido algún percance al intentar abrir el menú, intenta de nuevo!"
 
     successfully-create: "%prefix% &7¡Haz creado correctamente el clan &9%name%&7!"
     successfully-invite-sender: "%prefix% &7¡Haz invitado correctamente a &9%target% &7a tu clan!"
     successfully-invite-target: "%prefix% &7¡Haz recibido una invitación al clan &9%clan% &7por parte de &9%sender%&7! &7¡Tienes &9%time% &7minutos para aceptar la invitación!"
     successfully-join: "%prefix% &7¡Te haz unido correctamente al clan &9%clan% &7disfruta tu estadía ahí!"
+    successfully-kick-member: "&9Clan &8| &7¡Expulsaste correctamente al jugador &9%target% &7de tu clan!"
+    successfully-kick-member-target: "&9Clan &8| &7¡Fuiste expulsado del clan &9%clan% &7ya no perteneces más a el!"
+    successfully-kick-member-members: "&9Clan &8| &7¡El jugador &9%target% &7ha sido expulsado de tu clan!"
     successfully-accept-request: "%prefix% &7¡El jugador &9%player% &7ha aceptado la invitación a tu clan, ahora es parte de el!"
 
     already-clan: "%prefix% &7¡Whoops! Ya perteneces a un clan, debes salir primero!"
