@@ -10,6 +10,7 @@ import me.pixeldev.fullpvp.chest.editor.SupplierChestEditorCache;
 import me.pixeldev.fullpvp.chest.viewer.SupplierChestViewerStorageManager;
 import me.pixeldev.fullpvp.chest.viewer.UserViewer;
 import me.pixeldev.fullpvp.clans.Clan;
+import me.pixeldev.fullpvp.clans.ClanEditMessagesCache;
 import me.pixeldev.fullpvp.clans.ClanStorageManager;
 import me.pixeldev.fullpvp.clans.request.ClanRequest;
 import me.pixeldev.fullpvp.clans.request.ClanRequestCache;
@@ -42,6 +43,7 @@ public class StorageModule extends AbstractModule {
         bind(new Key<Cache<UUID, UserCreator>>() {}).to(SupplierChestCreatorCache.class).singleton();
         bind(new Key<Cache<UUID, ClanRequest>>() {}).to(ClanRequestCache.class).singleton();
         bind(new Key<Cache<UUID, ActionData>>() {}).to(FakeCommandCache.class).singleton();
+        bind(new Key<Cache<UUID, Clan>>() {}).to(ClanEditMessagesCache.class).singleton();
 
         bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("pearls"))).to(PearlCountdownCache.class).singleton();
         bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("combat"))).to(CombatLogCache.class).singleton();
