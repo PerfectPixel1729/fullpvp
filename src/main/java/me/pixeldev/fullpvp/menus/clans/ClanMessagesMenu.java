@@ -1,5 +1,6 @@
 package me.pixeldev.fullpvp.menus.clans;
 
+import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.menus.Menu;
@@ -24,6 +25,8 @@ public class ClanMessagesMenu implements Menu {
 
     private final Storage<UUID, User> userStorage;
 
+    private final Cache<UUID, Clan> editMessagesCache;
+
     private final MessageMenu messageMenu;
 
     private final Message message;
@@ -33,10 +36,12 @@ public class ClanMessagesMenu implements Menu {
     public ClanMessagesMenu(
             Storage<String, Clan> clanStorage,
             Storage<UUID, User> userStorage,
+            Cache<UUID, Clan> editMessagesCache,
             MessageMenu messageMenu,
             Message message,
             ClanSettingsMenu clanSettingsMenu) {
 
+        this.editMessagesCache = editMessagesCache;
         this.clanStorage = clanStorage;
         this.userStorage = userStorage;
         this.messageMenu = messageMenu;
@@ -96,7 +101,15 @@ public class ClanMessagesMenu implements Menu {
                     )
                     .addButton(
                             11,
-                            new SimpleButton(click -> true)
+                            new SimpleButton(click -> {
+                                player.closeInventory();
+                                player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
+                                player.sendMessage(message.getMessage(player, "clans.edit-messages.instructions"));
+
+                                editMessagesCache.add(player.getUniqueId(), clan);
+
+                                return true;
+                            })
                     )
                     .addButton(
                             15,
