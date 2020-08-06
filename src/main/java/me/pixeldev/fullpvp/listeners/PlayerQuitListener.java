@@ -1,5 +1,6 @@
 package me.pixeldev.fullpvp.listeners;
 
+import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.chest.viewer.UserViewer;
 import me.pixeldev.fullpvp.clans.Clan;
@@ -18,6 +19,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class PlayerQuitListener implements Listener {
+
+    @Inject
+    private Cache<UUID, Clan> editMessagesCache;
 
     @Inject
     private Storage<UUID, User> userStorage;
@@ -41,6 +45,8 @@ public class PlayerQuitListener implements Listener {
 
             userStorage.saveObject(player.getUniqueId(), user);
         });
+
+        editMessagesCache.remove(player.getUniqueId());
 
         userViewerStorage.save(player.getUniqueId());
     }
