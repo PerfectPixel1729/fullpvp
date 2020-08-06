@@ -10,7 +10,7 @@ import me.pixeldev.fullpvp.event.chest.SupplierChestOpenEvent;
 import me.pixeldev.fullpvp.event.chest.SupplierChestPreCreateEvent;
 import me.pixeldev.fullpvp.message.Message;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,18 +26,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.Optional;
 import java.util.UUID;
 
+@InjectAll
 public class PlayerInteractListener implements Listener {
 
-    @Inject
     private Cache<UUID, UserCreator> userCreatorCache;
-
-    @Inject
     private Storage<Location, SupplierChest> supplierChestStorage;
-
-    @Inject
     private Storage<UUID, UserViewer> userViewerStorage;
-
-    @Inject
     private Message message;
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)

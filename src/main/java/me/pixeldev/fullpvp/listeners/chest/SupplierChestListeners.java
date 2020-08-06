@@ -16,7 +16,7 @@ import me.pixeldev.fullpvp.utils.InventoryUtils;
 import me.pixeldev.fullpvp.utils.TickCause;
 import me.pixeldev.fullpvp.utils.TimeFormat;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import org.bukkit.Sound;
@@ -28,27 +28,19 @@ import org.bukkit.inventory.Inventory;
 import java.util.Optional;
 import java.util.UUID;
 
+@InjectAll
 public class SupplierChestListeners implements Listener {
 
-    @Inject
     private Storage<UUID, UserViewer> userViewerStorage;
-
-    @Inject
     private Cache<UUID, SupplierChest> userEditorCache;
+    private TimeFormat timeFormat;
+    private InventoryUtils inventoryUtils;
 
-    @Inject
     @Named("config")
     private FileCreator config;
 
-    @Inject
     @Named("chest-creator")
     private Menu chestCreatorMenu;
-
-    @Inject
-    private TimeFormat timeFormat;
-
-    @Inject
-    private InventoryUtils inventoryUtils;
 
     @EventHandler
     public void onServerTick(FullPVPTickEvent event) {

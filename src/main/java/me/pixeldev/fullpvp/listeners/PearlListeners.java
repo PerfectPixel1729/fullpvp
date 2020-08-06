@@ -8,9 +8,9 @@ import me.pixeldev.fullpvp.packets.ActionbarMessenger;
 import me.pixeldev.fullpvp.utils.TickCause;
 import me.pixeldev.fullpvp.utils.TimeFormat;
 
-import team.unnamed.inject.Inject;
-
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EnderPearl;
@@ -23,22 +23,16 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
+@InjectAll
 public class PearlListeners implements Listener {
 
-    @Inject
+    private TimeFormat timeFormat;
+    private Message message;
+    private ActionbarMessenger actionbarMessenger;
+
     @Named("pearls")
     private Cache<UUID, Integer> pearlsCache;
 
-    @Inject
-    private TimeFormat timeFormat;
-
-    @Inject
-    private Message message;
-
-    @Inject
-    private ActionbarMessenger actionbarMessenger;
-
-    @Inject
     @Named("config")
     private FileCreator config;
 

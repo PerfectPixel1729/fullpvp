@@ -17,7 +17,7 @@ import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.utils.TickCause;
 import me.pixeldev.fullpvp.utils.fake.ActionData;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import org.bukkit.Bukkit;
@@ -30,36 +30,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@InjectAll
 public class ClanListeners implements Listener {
 
-    @Inject
     private Cache<UUID, ClanRequest> clanRequestCache;
-
-    @Inject
     private Cache<UUID, ActionData> actionDataCache;
-
-    @Inject
     private Cache<UUID, Clan> editMessagesCache;
-
-    @Inject
     private Storage<String, Clan> clanStorage;
-
-    @Inject
     private Message message;
-
-    @Inject
     private ClanUtilities clanUtilities;
+    private ClanMessagesFormatter clanMessagesFormatter;
 
-    @Inject
     @Delegates
     private Message fileMessage;
 
-    @Inject
     @Named("config")
     private FileCreator config;
-
-    @Inject
-    private ClanMessagesFormatter clanMessagesFormatter;
 
     @EventHandler
     public void onServerTick(FullPVPTickEvent event) {

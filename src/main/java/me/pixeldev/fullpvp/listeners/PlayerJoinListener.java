@@ -7,7 +7,7 @@ import me.pixeldev.fullpvp.event.clan.ClanMemberJoinEvent;
 import me.pixeldev.fullpvp.user.SimpleUser;
 import me.pixeldev.fullpvp.user.User;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,15 +18,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.UUID;
 
+@InjectAll
 public class PlayerJoinListener implements Listener {
 
-    @Inject
     private Storage<UUID, User> userStorage;
-
-    @Inject
     private Storage<UUID, UserViewer> userViewerStorage;
-
-    @Inject
     private Storage<String, Clan> clanStorage;
 
     @EventHandler(priority = EventPriority.NORMAL)

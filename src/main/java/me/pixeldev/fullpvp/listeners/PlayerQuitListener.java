@@ -7,7 +7,7 @@ import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.event.clan.ClanMemberQuitEvent;
 import me.pixeldev.fullpvp.user.User;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,18 +18,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.Optional;
 import java.util.UUID;
 
+@InjectAll
 public class PlayerQuitListener implements Listener {
 
-    @Inject
     private Cache<UUID, Clan> editMessagesCache;
-
-    @Inject
     private Storage<UUID, User> userStorage;
-
-    @Inject
     private Storage<UUID, UserViewer> userViewerStorage;
-
-    @Inject
     private Storage<String, Clan> clanStorage;
 
     @EventHandler

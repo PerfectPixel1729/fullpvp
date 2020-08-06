@@ -8,7 +8,7 @@ import me.pixeldev.fullpvp.event.clan.ClanEditMessagesEvent;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.user.User;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import org.bukkit.Bukkit;
@@ -19,18 +19,13 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.UUID;
 
+@InjectAll
 public class AsyncPlayerChatListener implements Listener {
 
-    @Inject
     private Cache<UUID, Clan> editMessagesCache;
-
-    @Inject
     private Storage<UUID, User> userStorage;
-
-    @Inject
     private Storage<String, Clan> clanStorage;
 
-    @Inject
     @Named("config")
     private FileCreator config;
 

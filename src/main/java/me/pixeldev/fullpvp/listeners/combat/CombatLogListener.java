@@ -23,37 +23,27 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@InjectAll
 public class CombatLogListener implements Listener {
 
-    @Inject
     private Storage<UUID, User> userStorage;
-
-    @Inject
     private Storage<String, Clan> clanStorage;
+    private Message message;
+    private InventoryUtils inventoryUtils;
+    private CombatLogAnnouncer combatLogAnnouncer;
 
-    @Inject
     @Named("combat")
     private Cache<UUID, Integer> combatLogCache;
 
-    @Inject
-    private CombatLogAnnouncer combatLogAnnouncer;
-
-    @Inject
     @Named("config")
     private FileCreator config;
-
-    @Inject
-    private Message message;
-
-    @Inject
-    private InventoryUtils inventoryUtils;
 
     @EventHandler
     public void onServerTick(FullPVPTickEvent event) {

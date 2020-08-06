@@ -7,7 +7,7 @@ import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import org.bukkit.entity.Player;
@@ -17,24 +17,18 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.UUID;
 
+@InjectAll
 public class PlayerDeathListener implements Listener {
 
-    @Inject
     private Storage<UUID, User> userStorage;
-
-    @Inject
     private Storage<String, Clan> clansStorage;
+    private Message message;
 
-    @Inject
     @Named("combat")
     private Cache<UUID, Integer> combatLogCache;
 
-    @Inject
     @Named("config")
     private FileCreator config;
-
-    @Inject
-    private Message message;
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
