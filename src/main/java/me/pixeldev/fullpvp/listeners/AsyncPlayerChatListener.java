@@ -1,8 +1,10 @@
 package me.pixeldev.fullpvp.listeners;
 
+import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.event.clan.ClanChatEvent;
+import me.pixeldev.fullpvp.event.clan.ClanEditMessagesEvent;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.user.User;
 
@@ -20,6 +22,9 @@ import java.util.UUID;
 public class AsyncPlayerChatListener implements Listener {
 
     @Inject
+    private Cache<UUID, Clan> editMessagesCache;
+
+    @Inject
     private Storage<UUID, User> userStorage;
 
     @Inject
@@ -32,15 +37,22 @@ public class AsyncPlayerChatListener implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
+        String message = event.getMessage();
 
         userStorage.find(player.getUniqueId()).flatMap(User::getClanName).flatMap(clanName -> clanStorage.find(clanName)).ifPresent(clan -> {
-            String message = event.getMessage();
-
-            if (event.getMessage().startsWith(config.getString("clans.symbol-chat"))) {
+            if (message.startsWith(config.getString("clans.symbol-chat"))) {
                 event.setCancelled(true);
 
                 Bukkit.getPluginManager().callEvent(new ClanChatEvent(player, clan, message.substring(1)));
             }
+        });
+
+        editMessagesCache.find(player.getUniqueId()).ifPresent(clan -> {
+            event.setCancelled(true);
+
+            Bukkit.getPluginManager().callEvent(
+                    new ClanEditMessagesEvent(player, clan, message)
+            );
         });
     }
 
