@@ -79,10 +79,6 @@ clan-settings:
         - "&7Aquí podrás modificar el mensaje de entrada, que será mandado a"
         - "&7los miembros de tu clan, cada que ingresen al servidor."
         - ""
-        - "&7Mensaje establecido:"
-        - ""
-        - "%message%"
-        - ""
         - "&e¡Click para desplegar más opciones!"
       messages-empty: "&7Ninguno."
     change-color:
