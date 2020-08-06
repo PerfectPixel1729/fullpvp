@@ -5,13 +5,13 @@ import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 import me.fixeddev.ebcm.parametric.annotation.Usage;
 
-import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 
+import org.bukkit.entity.Player;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
@@ -20,26 +20,46 @@ import java.util.UUID;
 
 @ACommand(names = {"coins", "coin"}, permission = "fullpvp.coins")
 @Usage(usage = "§8- §9[add, remove, set]")
+@InjectAll
 public class CoinsCommands implements CommandClass {
 
-    @Inject
     private Storage<UUID, User> userStorage;
+    private Message message;
 
-    @Inject
-    @Delegates
-    private Message fileMessage;
+    @ACommand(names = "")
+    public boolean runMainCoinsCommand(@Injected(true) CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(message.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        Optional<User> userOptional = userStorage.find(player.getUniqueId());
+
+        if (!userOptional.isPresent()) {
+            sender.sendMessage(message.getMessage(player, "coins.command.user-no-exists"));
+
+            return true;
+        }
+
+        player.sendMessage(message.getMessage(player, "coins.command.show-coins"));
+
+        return true;
+    }
 
     @ACommand(names = "add", permission = "fullpvp.coins.add")
     @Usage(usage = "§8- §9<targetName> <coins>")
     public boolean runAddCoinsCommand(@Injected(true) CommandSender sender, OfflinePlayer target, Integer coins) {
         if (target == null) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-exists"));
+            sender.sendMessage(message.getMessage(null, "no-player-exists"));
 
             return true;
         }
 
         if (!target.isOnline()) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-online"));
+            sender.sendMessage(message.getMessage(null, "no-player-online"));
 
             return true;
         }
@@ -47,13 +67,13 @@ public class CoinsCommands implements CommandClass {
         Optional<User> userOptional = userStorage.find(target.getUniqueId());
 
         if (!userOptional.isPresent()) {
-            sender.sendMessage(fileMessage.getMessage(null, "coins.command.user-no-exists"));
+            sender.sendMessage(message.getMessage(null, "coins.command.user-no-exists"));
 
             return true;
         }
 
         userOptional.get().getCoins().add(coins);
-        sender.sendMessage(fileMessage.getMessage(null, "coins.command.successfully-add")
+        sender.sendMessage(message.getMessage(null, "coins.command.successfully-add")
                 .replace("%coins%", String.valueOf(coins))
                 .replace("%target%", target.getName())
         );
@@ -65,13 +85,13 @@ public class CoinsCommands implements CommandClass {
     @Usage(usage = "§8- §9<targetName> <coins>")
     public boolean runSetCoinsCommand(@Injected(true) CommandSender sender, OfflinePlayer target, Integer coins) {
         if (target == null) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-exists"));
+            sender.sendMessage(message.getMessage(null, "no-player-exists"));
 
             return true;
         }
 
         if (!target.isOnline()) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-online"));
+            sender.sendMessage(message.getMessage(null, "no-player-online"));
 
             return true;
         }
@@ -79,14 +99,14 @@ public class CoinsCommands implements CommandClass {
         Optional<User> userOptional = userStorage.find(target.getUniqueId());
 
         if (!userOptional.isPresent()) {
-            sender.sendMessage(fileMessage.getMessage(null, "coins.command.user-no-exists"));
+            sender.sendMessage(message.getMessage(null, "coins.command.user-no-exists"));
 
             return true;
         }
 
         userOptional.get().getCoins().set(coins);
 
-        sender.sendMessage(fileMessage.getMessage(null, "coins.command.successfully-set")
+        sender.sendMessage(message.getMessage(null, "coins.command.successfully-set")
                 .replace("%coins%", String.valueOf(coins))
                 .replace("%target%", target.getName())
         );
@@ -98,13 +118,13 @@ public class CoinsCommands implements CommandClass {
     @Usage(usage = "§8- §9<targetName> <coins>")
     public boolean runRemoveCoinsCommand(@Injected(true) CommandSender sender, OfflinePlayer target, Integer coins) {
         if (target == null) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-exists"));
+            sender.sendMessage(message.getMessage(null, "no-player-exists"));
 
             return true;
         }
 
         if (!target.isOnline()) {
-            sender.sendMessage(fileMessage.getMessage(null, "no-player-online"));
+            sender.sendMessage(message.getMessage(null, "no-player-online"));
 
             return true;
         }
@@ -112,7 +132,7 @@ public class CoinsCommands implements CommandClass {
         Optional<User> userOptional = userStorage.find(target.getUniqueId());
 
         if (!userOptional.isPresent()) {
-            sender.sendMessage(fileMessage.getMessage(null, "coins.command.user-no-exists"));
+            sender.sendMessage(message.getMessage(null, "coins.command.user-no-exists"));
 
             return true;
         }
@@ -120,20 +140,20 @@ public class CoinsCommands implements CommandClass {
         User user = userOptional.get();
 
         if (!user.getCoins().hasCoins()) {
-            sender.sendMessage(fileMessage.getMessage(null, "coins.command.no-coins"));
+            sender.sendMessage(message.getMessage(null, "coins.command.no-coins"));
 
             return true;
         }
 
         if (!user.getCoins().hasEnoughCoins(coins)) {
-            sender.sendMessage(fileMessage.getMessage(null, "coins.command.no-enough-coins"));
+            sender.sendMessage(message.getMessage(null, "coins.command.no-enough-coins"));
 
             return true;
         }
 
         user.getCoins().remove(coins);
 
-        sender.sendMessage(fileMessage.getMessage(null, "coins.command.successfully-remove")
+        sender.sendMessage(message.getMessage(null, "coins.command.successfully-remove")
                 .replace("%coins%", String.valueOf(coins))
                 .replace("%target%", target.getName())
         );
