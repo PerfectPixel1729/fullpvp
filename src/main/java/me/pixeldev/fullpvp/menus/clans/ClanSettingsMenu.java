@@ -1,5 +1,6 @@
 package me.pixeldev.fullpvp.menus.clans;
 
+import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.clans.ClanUtilities;
@@ -30,6 +31,8 @@ public class ClanSettingsMenu implements Menu {
 
     private final Storage<UUID, User> userStorage;
 
+    private final Cache<UUID, Clan> editMessagesCache;
+
     private final MessageMenu messageMenu;
 
     private final Message message;
@@ -47,6 +50,7 @@ public class ClanSettingsMenu implements Menu {
     public ClanSettingsMenu(
             Storage<String, Clan> clanStorage,
             Storage<UUID, User> userStorage,
+            Cache<UUID, Clan> editMessagesCache,
             MessageMenu messageMenu,
             Message message,
             Message fileMessage,
@@ -56,6 +60,7 @@ public class ClanSettingsMenu implements Menu {
             ClanUtilities clanUtilities
     ) {
 
+        this.editMessagesCache = editMessagesCache;
         this.clanStorage = clanStorage;
         this.userStorage = userStorage;
         this.messageMenu = messageMenu;
@@ -119,14 +124,7 @@ public class ClanSettingsMenu implements Menu {
                         13,
                         new ItemBuilder(Material.PAPER)
                                 .name(messageMenu.getItemName(keyMenu, "message"))
-                                .lore(
-                                        new LoreBuilder(messageMenu.getItemLore(keyMenu, "message"))
-                                                .replace(
-                                                        "%message%",
-                                                        clan.getProperties().getMessages().isEmpty() ? messageMenu.getString(keyMenu + ".items.message.messages-empty") :
-                                                                String.join("\n", clan.getProperties().getMessages())
-                                                )
-                                )
+                                .lore(messageMenu.getItemLore(keyMenu, "message"))
                                 .build()
                 )
                 .addItem(
@@ -206,6 +204,7 @@ public class ClanSettingsMenu implements Menu {
                             player.openInventory(new ClanMessagesMenu(
                                     clanStorage,
                                     userStorage,
+                                    editMessagesCache,
                                     messageMenu,
                                     message,
                                     this
