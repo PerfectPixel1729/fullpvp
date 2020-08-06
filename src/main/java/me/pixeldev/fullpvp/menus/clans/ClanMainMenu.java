@@ -1,5 +1,6 @@
 package me.pixeldev.fullpvp.menus.clans;
 
+import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
@@ -35,6 +36,9 @@ public class ClanMainMenu implements Menu {
 
     @Inject
     private Storage<UUID, User> userStorage;
+
+    @Inject
+    private Cache<UUID, Clan> editMessagesCache;
 
     @Inject
     private MessageMenu messageMenu;
@@ -78,7 +82,7 @@ public class ClanMainMenu implements Menu {
         if (clanOptional.isPresent()) {
             Clan clan = clanOptional.get();
 
-            MenuBuilder menuBuilder = new MenuBuilder(messageMenu.getTitle(keyMenu).replace("%clan%", clanNameOptional.get()), 6)
+            MenuBuilder menuBuilder = new MenuBuilder(messageMenu.getTitle(keyMenu).replace("%clan%", clan.getProperties().getColor() + clanNameOptional.get()), 6)
                     .addItem(
                             48,
                             new ItemBuilder(Material.BOOK)
@@ -129,6 +133,7 @@ public class ClanMainMenu implements Menu {
                                 player.openInventory(new ClanSettingsMenu(
                                         clanStorage,
                                         userStorage,
+                                        editMessagesCache,
                                         messageMenu,
                                         message,
                                         fileMessage,
