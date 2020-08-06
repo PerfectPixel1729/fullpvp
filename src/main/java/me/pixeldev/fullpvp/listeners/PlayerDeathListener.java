@@ -1,5 +1,6 @@
 package me.pixeldev.fullpvp.listeners;
 
+import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.files.FileCreator;
@@ -25,6 +26,10 @@ public class PlayerDeathListener implements Listener {
     private Storage<String, Clan> clansStorage;
 
     @Inject
+    @Named("combat")
+    private Cache<UUID, Integer> combatLogCache;
+
+    @Inject
     @Named("config")
     private FileCreator config;
 
@@ -44,6 +49,8 @@ public class PlayerDeathListener implements Listener {
             player.sendMessage(message.getMessage(player, "events.player-death"));
         });
 
+        combatLogCache.remove(player.getUniqueId());
+
         if (killer == null) {
             return;
         }
@@ -59,6 +66,8 @@ public class PlayerDeathListener implements Listener {
             killer.sendMessage(message.getMessage(killer, "events.player-kill"));
             killer.sendMessage(message.getMessage(killer, "events.player-gain-coins").replace("%coins%", coins + ""));
         });
+
+        combatLogCache.remove(killer.getUniqueId());
 
         player.spigot().respawn();
     }
