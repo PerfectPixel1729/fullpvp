@@ -151,6 +151,20 @@ class ClanChangeColorMenu implements Menu {
 
                 int price = config.getInt("clans.colors-price." + currentColor.name().toLowerCase());
 
+                if (clan.getProperties().getColor() == currentColor) {
+                    menuBuilder
+                            .addItem(
+                                    index,
+                                    new ItemBuilder(Material.INK_SACK, 1, chatColorByteEntry.getValue())
+                                            .name(messageMenu.getItemName(keyMenu, "current"))
+                                            .lore(messageMenu.getItemLore(keyMenu, "current"))
+                                            .build()
+                            )
+                            .addButton(index, new SimpleButton(click -> true));
+
+                    continue;
+                }
+
                 menuBuilder
                         .addItem(
                                 index,
@@ -203,18 +217,6 @@ class ClanChangeColorMenu implements Menu {
                                     return true;
                                 })
                         );
-
-                if (clan.getProperties().getColor() == currentColor) {
-                    menuBuilder
-                            .addItem(
-                                    index,
-                                    new ItemBuilder(Material.INK_SACK, 1, chatColorByteEntry.getValue())
-                                            .name(messageMenu.getItemName(keyMenu, "current"))
-                                            .lore(messageMenu.getItemLore(keyMenu, "current"))
-                                            .build()
-                            )
-                            .addButton(index, new SimpleButton(click -> true));
-                }
 
                 index++;
             }
