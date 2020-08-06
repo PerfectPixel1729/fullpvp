@@ -109,6 +109,82 @@ public class ClanCommands implements CommandClass {
         return true;
     }
 
+    @ACommand(names = "kick")
+    public boolean runKickMemberCommand(@Injected(true) CommandSender sender, OfflinePlayer target) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        if (target == null) {
+            player.sendMessage(message.getMessage(player, "no-player-exists"));
+
+            return true;
+        }
+
+        if (!target.isOnline()) {
+            player.sendMessage(message.getMessage(player, "no-player-online"));
+
+            return true;
+        }
+
+        Optional<User> userOptional = userStorage.find(player.getUniqueId());
+
+        if (!userOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "clans.commands.user-error"));
+
+            return true;
+        }
+
+        User user = userOptional.get();
+
+        Optional<String> clanNameOptional = user.getClanName();
+
+        if (!clanNameOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "clans.commands.no-clan"));
+
+            return true;
+        }
+
+        String clanName = clanNameOptional.get();
+
+        Optional<Clan> clanOptional = clanStorage.find(clanName);
+
+        if (clanOptional.isPresent()) {
+            Clan clan = clanOptional.get();
+
+            if (!clan.getCreator().equals(player.getUniqueId())) {
+                player.sendMessage(message.getMessage(player, "clans.no-creator"));
+
+                return true;
+            }
+
+            if (!clan.getMembers().contains(target.getUniqueId())) {
+                player.sendMessage(message.getMessage(player, "clans.commands.invalid-member"));
+
+                return true;
+            }
+
+            clan.getMembers().remove(target.getUniqueId());
+            player.sendMessage(message.getMessage(player, "clans.commands.successfully-kick-member")
+                    .replace("%target%", target.getName())
+            );
+
+            target.getPlayer().sendMessage(message.getMessage(target.getPlayer(), "clans.commands.successfully-kick-member-target")
+                    .replace("%clan%", clanName)
+            );
+
+            clanUtilities.sendMessageToMembers(clan, fileMessage.getMessage(null, "clans.commands.successfully-kick-member-members")
+                    .replace("%target%", target.getName())
+            );
+        }
+
+        return true;
+    }
+
     @ACommand(names = "help")
     public boolean runHelpClanCommand(@Injected(true) CommandSender sender) {
         if (!(sender instanceof Player)) {
