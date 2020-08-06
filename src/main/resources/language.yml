@@ -101,6 +101,7 @@ coins:
   no-enough-coins: "%prefix% &7¡Al parecer no tienes coins suficientes, necesitas &9%missing% &7coins más!"
 
   command:
+    show-coins: "%prefix% &7¡Tus coins actuales son &9%fullpvp_coins%&7!"
     no-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene coins!"
     no-enough-coins: "%prefix% &7¡Lo siento, al parecer este jugador no tiene los coins suficientes!"
     user-no-exists: "%prefix% &7¡Ha ocurrido un problema al intentar buscar al usuario, intenta de nuevo!"
