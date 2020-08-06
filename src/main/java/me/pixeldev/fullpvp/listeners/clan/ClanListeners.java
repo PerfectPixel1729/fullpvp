@@ -4,10 +4,12 @@ import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
+import me.pixeldev.fullpvp.clans.ClanMessagesFormatter;
 import me.pixeldev.fullpvp.clans.ClanUtilities;
 import me.pixeldev.fullpvp.clans.request.ClanRequest;
 import me.pixeldev.fullpvp.event.FullPVPTickEvent;
 import me.pixeldev.fullpvp.event.clan.ClanChatEvent;
+import me.pixeldev.fullpvp.event.clan.ClanEditMessagesEvent;
 import me.pixeldev.fullpvp.event.clan.ClanMemberJoinEvent;
 import me.pixeldev.fullpvp.event.clan.ClanMemberQuitEvent;
 import me.pixeldev.fullpvp.files.FileCreator;
@@ -16,8 +18,8 @@ import me.pixeldev.fullpvp.utils.TickCause;
 import me.pixeldev.fullpvp.utils.fake.ActionData;
 
 import team.unnamed.inject.Inject;
-
 import team.unnamed.inject.name.Named;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -37,6 +39,9 @@ public class ClanListeners implements Listener {
     private Cache<UUID, ActionData> actionDataCache;
 
     @Inject
+    private Cache<UUID, Clan> editMessagesCache;
+
+    @Inject
     private Storage<String, Clan> clanStorage;
 
     @Inject
@@ -52,6 +57,9 @@ public class ClanListeners implements Listener {
     @Inject
     @Named("config")
     private FileCreator config;
+
+    @Inject
+    private ClanMessagesFormatter clanMessagesFormatter;
 
     @EventHandler
     public void onServerTick(FullPVPTickEvent event) {
@@ -97,18 +105,18 @@ public class ClanListeners implements Listener {
         Player player = event.getPlayer();
         Clan clan = event.getClan();
 
-        List<String> messages = clan.getProperties().getMessages();
-
-        messages.replaceAll(line -> ChatColor.translateAlternateColorCodes('&', line));
-
-        messages.forEach(player::sendMessage);
-
         String joinMessage = fileMessage.getMessage(null, "clans.member-join-server")
                 .replace("%member%", player.getName());
 
         Bukkit.getPlayer(clan.getCreator()).sendMessage(joinMessage);
 
         clanUtilities.sendMessageToMembers(clan, joinMessage);
+
+        List<String> messages = clan.getProperties().getMessages();
+
+        messages.replaceAll(line -> ChatColor.translateAlternateColorCodes('&', line));
+
+        clanMessagesFormatter.getCenteredMessages(messages).forEach(player::sendMessage);
     }
 
     @EventHandler
@@ -137,5 +145,36 @@ public class ClanListeners implements Listener {
         Bukkit.getPlayer(clan.getCreator()).sendMessage(finalMessage);
         clanUtilities.sendMessageToMembers(clan, finalMessage);
     }
+
+    @EventHandler
+    public void onEditMessage(ClanEditMessagesEvent event) {
+        Player player = event.getPlayer();
+        String message = event.getMessage();
+        Clan clan = event.getClan();
+
+        if (message.equalsIgnoreCase("cancel")) {
+            player.sendMessage(this.message.getMessage(player, "clans.edit-messages.cancel"));
+            editMessagesCache.remove(player.getUniqueId());
+
+            return;
+        }
+
+        List<String> messages = clan.getProperties().getMessages();
+
+        if (message.equals("(empty)")) {
+            messages.add("");
+        } else {
+            messages.add(message);
+        }
+
+        messages.replaceAll(line -> ChatColor.translateAlternateColorCodes('&', line));
+
+        player.sendMessage("");
+
+        player.sendMessage(this.message.getMessage(player, "clans.edit-messages.successfully-add")
+                .replace("%message%", String.join("\n", clanMessagesFormatter.getCenteredMessages(messages)))
+        );
+    }
+
 
 }
