@@ -119,6 +119,12 @@ pearl:
   actionbar: "&eRestan &6%time%&e."
   actionbar-finish: "&e¡Ya puedes usar de nuevo!"
 
+kit:
+  cancel-creator: "%prefix% &7¡Haz cancelado correctamente la creación de este kit!"
+  successfully-creation: "%prefix% &7¡Haz creado correctamente el kit para el nivel &9%level%&7!"
+  already-kit: "%prefix% &7¡Al parecer ya existe un kit para este nivel!"
+  enter-creator-mode: "%prefix% &7¡Ahora estás creando el kit para el nivel &9%level%&7!"
+
 chest:
   successfully-creation: "%prefix% &7¡Haz finalizado correctamente la creación de este inventario!"
   successfully-edition: "%prefix% &7¡Haz finalizado correctamente la edición de este inventario!"
