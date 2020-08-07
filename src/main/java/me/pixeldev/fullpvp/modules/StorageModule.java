@@ -15,6 +15,9 @@ import me.pixeldev.fullpvp.clans.ClanStorageManager;
 import me.pixeldev.fullpvp.clans.request.ClanRequest;
 import me.pixeldev.fullpvp.clans.request.ClanRequestCache;
 import me.pixeldev.fullpvp.combatlog.CombatLogCache;
+import me.pixeldev.fullpvp.kit.Kit;
+import me.pixeldev.fullpvp.kit.KitCreatorCache;
+import me.pixeldev.fullpvp.kit.KitStorageManager;
 import me.pixeldev.fullpvp.pearl.PearlCountdownCache;
 import me.pixeldev.fullpvp.user.User;
 import me.pixeldev.fullpvp.user.UserStorageManager;
@@ -37,6 +40,7 @@ public class StorageModule extends AbstractModule {
         bind(new Key<Storage<UUID, User>>() {}).to(UserStorageManager.class).singleton();
         bind(new Key<Storage<Location, SupplierChest>>() {}).to(SupplierChestStorageManager.class).singleton();
         bind(new Key<Storage<UUID, UserViewer>>() {}).to(SupplierChestViewerStorageManager.class).singleton();
+        bind(new Key<Storage<Integer, Kit>>() {}).to(KitStorageManager.class).singleton();
         bind(new Key<Storage<String, Clan>>() {}).to(ClanStorageManager.class).singleton();
 
         bind(new Key<Cache<UUID, SupplierChest>>() {}).to(SupplierChestEditorCache.class).singleton();
@@ -47,6 +51,7 @@ public class StorageModule extends AbstractModule {
 
         bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("pearls"))).to(PearlCountdownCache.class).singleton();
         bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("combat"))).to(CombatLogCache.class).singleton();
+        bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("kits"))).to(KitCreatorCache.class).singleton();
     }
 
 }
