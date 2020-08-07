@@ -22,7 +22,7 @@ public class StatisticPlaceholderApplier implements PlaceholderApplier {
                     .replace("%fullpvp_kills%", user.getKills().get() + "")
                     .replace("%fullpvp_deaths%", user.getDeaths().get() + "")
                     .replace("%fullpvp_coins%", user.getCoins().get() + "")
-                    .replace("%fullpvp_level", user.getLevel().get() + "");
+                    .replace("%fullpvp_level%", user.getLevel().get() + "");
         }
 
         return text;
