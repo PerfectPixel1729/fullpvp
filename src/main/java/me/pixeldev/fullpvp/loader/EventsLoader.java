@@ -27,6 +27,8 @@ public final class EventsLoader implements Loader {
     private ClanListeners clanListeners;
     private FakeCommandListener fakeCommandListener;
     private CombatLogListener combatlogListener;
+    private UserListeners userListeners;
+    private SupplierKitListeners supplierKitListeners;
 
     @Override
     public void load() {
@@ -38,6 +40,8 @@ public final class EventsLoader implements Loader {
                 asyncPlayerChatListener,
                 supplierChestListeners,
                 pearlListeners,
+                userListeners,
+                supplierKitListeners,
                 clanListeners,
                 combatlogListener,
                 fakeCommandListener,
