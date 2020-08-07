@@ -18,6 +18,30 @@ chest-creator:
       lore:
         - "&7Haz click aquí para limpiar el inventario!"
 
+kit-creator:
+  title: "&9Creador de kits"
+  items:
+    decoration:
+      name: "&7"
+      lore:
+      - "&7"
+    save:
+      name: "&aGuardar"
+      lore:
+        - "&7Haz click para guardar el kit"
+    cancel:
+      name: "&cCancelar"
+      lore:
+        - "&7Haz click aquí para cancelar!"
+    clear-contents:
+      name: "&cLimpiar contenido"
+      lore:
+        - "&7Haz click aquí para limpiar el contenido."
+    clear-armor:
+      name: "&cLimpiar armadura"
+      lore:
+        - "&7Haz click aquí para limpiar la armadura."
+
 clan-main:
   title: "&7Clan %clan%"
   status-online: "&aConectado"
