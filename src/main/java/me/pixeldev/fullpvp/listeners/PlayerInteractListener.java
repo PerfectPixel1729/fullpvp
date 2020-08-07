@@ -1,10 +1,12 @@
 package me.pixeldev.fullpvp.listeners;
 
+import me.pixeldev.fullpvp.BasicManager;
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.chest.SupplierChest;
 import me.pixeldev.fullpvp.chest.creator.UserCreator;
 import me.pixeldev.fullpvp.chest.viewer.UserViewer;
+import me.pixeldev.fullpvp.event.SupplierKitReceiveEvent;
 import me.pixeldev.fullpvp.event.chest.SupplierChestEditEvent;
 import me.pixeldev.fullpvp.event.chest.SupplierChestOpenEvent;
 import me.pixeldev.fullpvp.event.chest.SupplierChestPreCreateEvent;
@@ -29,6 +31,9 @@ import java.util.UUID;
 @InjectAll
 public class PlayerInteractListener implements Listener {
 
+    private BasicManager<Location> supplierKitManager;
+    private BasicManager<UUID> supplierKitCreatorCache;
+
     private Cache<UUID, UserCreator> userCreatorCache;
     private Storage<Location, SupplierChest> supplierChestStorage;
     private Storage<UUID, UserViewer> userViewerStorage;
@@ -45,6 +50,27 @@ public class PlayerInteractListener implements Listener {
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (block.getType() == Material.CHEST) {
+                if (supplierKitCreatorCache.exists(player.getUniqueId())) {
+                    event.setCancelled(true);
+
+                    if (!supplierKitManager.exists(block.getLocation())) {
+                        supplierKitManager.add(block.getLocation());
+                        player.sendMessage(message.getMessage(player, "kit.supplier.successfully-creation"));
+                    } else {
+                        player.sendMessage(message.getMessage(player, "kit.supplier.already-location"));
+                    }
+
+                    return;
+                }
+
+                if (supplierKitManager.exists(block.getLocation())) {
+                    event.setCancelled(true);
+
+                    Bukkit.getPluginManager().callEvent(new SupplierKitReceiveEvent(player));
+
+                    return;
+                }
+
                 Optional<UserCreator> userCreatorOptional = userCreatorCache.find(player.getUniqueId());
                 Optional<SupplierChest> supplierChestOptional = supplierChestStorage.find(block.getLocation());
 
