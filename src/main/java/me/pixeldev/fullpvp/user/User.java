@@ -1,6 +1,7 @@
 package me.pixeldev.fullpvp.user;
 
 import me.pixeldev.fullpvp.statistic.Coins;
+import me.pixeldev.fullpvp.statistic.Experience;
 import me.pixeldev.fullpvp.statistic.KDR;
 import me.pixeldev.fullpvp.statistic.Level;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -13,6 +14,8 @@ public interface User extends ConfigurationSerializable, KDR {
 
     int getKitLevel();
 
+    void setKitLevel(int kitLevel);
+
     Optional<String> getClanName();
 
     void setClanName(String clanName);
@@ -20,6 +23,8 @@ public interface User extends ConfigurationSerializable, KDR {
     Coins getCoins();
 
     Level getLevel();
+
+    Experience getExperience();
 
     @Override
     default Map<String, Object> serialize() {
@@ -30,6 +35,7 @@ public interface User extends ConfigurationSerializable, KDR {
         playerMap.put("deaths", getDeaths().get());
         playerMap.put("kills", getKills().get());
         playerMap.put("kit-level", getKitLevel());
+        playerMap.put("experience-to", getExperience().getTo());
 
         getClanName().ifPresent(name -> playerMap.put("clan", name));
 
