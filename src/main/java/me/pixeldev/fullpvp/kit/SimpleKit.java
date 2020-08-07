@@ -1,24 +1,17 @@
 package me.pixeldev.fullpvp.kit;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@Getter
+@AllArgsConstructor
 public class SimpleKit implements Kit {
 
-    private final List<ItemStack> armorContents = new ArrayList<>();
-    private final List<ItemStack> contents = new ArrayList<>();
-
-    @Override
-    public Optional<List<ItemStack>> getArmorContents() {
-        return Optional.of(armorContents);
-    }
-
-    @Override
-    public List<ItemStack> getContents() {
-        return contents;
-    }
+    private final List<ItemStack> armorContents;
+    private final List<ItemStack> contents;
 
 }
