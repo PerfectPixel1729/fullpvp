@@ -1,13 +1,13 @@
 package me.pixeldev.fullpvp.statistic;
 
-public interface Statistic<T> {
+public interface Statistic {
 
-    T get();
+    int get();
 
-    void add(T t);
+    void add(int t);
 
-    void remove(T t);
+    void remove(int t);
 
-    void set(T t);
+    void set(int t);
 
 }
