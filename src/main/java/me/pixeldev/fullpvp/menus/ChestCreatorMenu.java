@@ -36,7 +36,7 @@ public class ChestCreatorMenu implements Menu {
     private Message message;
 
     @Inject
-    private MessageMenu simpleMessageMenu;
+    private MessageMenu messageMenu;
 
     @Inject
     private Cache<UUID, SupplierChest> userEditorCache;
@@ -52,30 +52,30 @@ public class ChestCreatorMenu implements Menu {
         String menuKey = "chest-creator";
 
         ItemStack fill = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 9)
-                .name(simpleMessageMenu.getItemName(menuKey, "decoration"))
-                .lore(simpleMessageMenu.getItemLore(menuKey, "decoration"))
+                .name(messageMenu.getItemName(menuKey, "decoration"))
+                .lore(messageMenu.getItemLore(menuKey, "decoration"))
                 .build();
 
-        MenuBuilder menuBuilder = new MenuBuilder(simpleMessageMenu.getTitle("chest-creator"), 5)
+        MenuBuilder menuBuilder = new MenuBuilder(messageMenu.getTitle("chest-creator"), 5)
                 .addItem(
                         44,
                         new ItemBuilder(Material.STAINED_CLAY, 1, (byte) 5)
-                                .name(simpleMessageMenu.getItemName(menuKey, "save"))
-                                .lore(simpleMessageMenu.getItemLore(menuKey, "save"))
+                                .name(messageMenu.getItemName(menuKey, "save"))
+                                .lore(messageMenu.getItemLore(menuKey, "save"))
                                 .build()
                 )
                 .addItem(
                         40,
                         new ItemBuilder(Material.BARRIER)
-                                .name(simpleMessageMenu.getItemName(menuKey, "cancel"))
-                                .lore(simpleMessageMenu.getItemLore(menuKey, "cancel"))
+                                .name(messageMenu.getItemName(menuKey, "cancel"))
+                                .lore(messageMenu.getItemLore(menuKey, "cancel"))
                                 .build()
                 )
                 .addItem(
                         36,
                         new ItemBuilder(Material.STAINED_CLAY, 1, (byte) 14)
-                                .name(simpleMessageMenu.getItemName(menuKey, "clear"))
-                                .lore(simpleMessageMenu.getItemLore(menuKey, "clear"))
+                                .name(messageMenu.getItemName(menuKey, "clear"))
+                                .lore(messageMenu.getItemLore(menuKey, "clear"))
                                 .build()
                 )
                 .addButton(
