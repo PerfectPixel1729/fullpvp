@@ -3,10 +3,12 @@ package me.pixeldev.fullpvp.listeners;
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
+import me.pixeldev.fullpvp.event.PlayerRiseExperienceEvent;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
 
+import org.bukkit.Bukkit;
 import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
@@ -52,7 +54,10 @@ public class PlayerDeathListener implements Listener {
         userStorage.find(killer.getUniqueId()).ifPresent(user -> {
             int coins = config.getInt("game.coins-per-kill");
 
+            Bukkit.getPluginManager().callEvent(new PlayerRiseExperienceEvent(killer, user, user.getExperience().getCurrent().get() + 1));
+
             user.getKills().add(1);
+            user.getExperience().getCurrent().add(1);
             user.getCoins().add(coins);
 
             user.getClanName().flatMap(clanName -> clansStorage.find(clanName)).ifPresent(clan -> clan.getStatistics().getKills().add(1));
