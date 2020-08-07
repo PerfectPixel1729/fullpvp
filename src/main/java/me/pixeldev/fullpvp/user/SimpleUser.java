@@ -14,6 +14,8 @@ import java.util.Optional;
 public class SimpleUser implements User {
 
     private String clanName;
+
+    private final int kitLevel;
     private final Coins coins;
     private final Level level;
     private final Deaths deaths;
@@ -25,6 +27,7 @@ public class SimpleUser implements User {
         deaths = new Deaths();
         kills = new Kills();
         clanName = null;
+        kitLevel = 0;
     }
 
     public SimpleUser(Map<String, Object> userMap) {
@@ -33,6 +36,7 @@ public class SimpleUser implements User {
         deaths = new Deaths((Integer) userMap.get("deaths"));
         kills = new Kills((Integer) userMap.get("kills"));
         clanName = (String) userMap.get("clan");
+        kitLevel = (int) userMap.get("kit-level");
     }
 
     @Override
