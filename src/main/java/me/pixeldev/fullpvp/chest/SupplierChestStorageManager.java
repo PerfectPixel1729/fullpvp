@@ -57,9 +57,9 @@ public class SupplierChestStorageManager implements Storage<Location, SupplierCh
             chests.set("chests." + supplierChest.getName() + ".items", supplierChest.serialize());
 
             chests.set("chests." + supplierChest.getName() + ".location", LocationSerializable.fromBukkit(location));
-        });
 
-        remove(location);
+            remove(location);
+        });
     }
 
     @Override
