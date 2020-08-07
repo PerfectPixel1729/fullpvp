@@ -1,6 +1,6 @@
 package me.pixeldev.fullpvp.statistic;
 
-public class Level implements Statistic<Integer> {
+public class Level implements Statistic {
 
     private int level;
 
@@ -13,22 +13,22 @@ public class Level implements Statistic<Integer> {
     }
 
     @Override
-    public Integer get() {
+    public int get() {
         return level;
     }
 
     @Override
-    public void add(Integer integer) {
+    public void add(int integer) {
         level += integer;
     }
 
     @Override
-    public void remove(Integer integer) {
+    public void remove(int integer) {
         level -= integer;
     }
 
     @Override
-    public void set(Integer integer) {
+    public void set(int integer) {
         level = integer;
     }
 

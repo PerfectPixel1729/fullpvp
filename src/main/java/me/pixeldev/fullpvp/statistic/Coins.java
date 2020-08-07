@@ -1,6 +1,6 @@
 package me.pixeldev.fullpvp.statistic;
 
-public class Coins implements Statistic<Integer> {
+public class Coins implements Statistic {
 
     private int coins;
 
@@ -13,22 +13,22 @@ public class Coins implements Statistic<Integer> {
     }
 
     @Override
-    public Integer get() {
+    public int get() {
         return coins;
     }
 
     @Override
-    public void add(Integer integer) {
+    public void add(int integer) {
         coins += integer;
     }
 
     @Override
-    public void remove(Integer integer) {
+    public void remove(int integer) {
         coins -= integer;
     }
 
     @Override
-    public void set(Integer integer) {
+    public void set(int integer) {
         coins = integer;
     }
 
@@ -36,7 +36,7 @@ public class Coins implements Statistic<Integer> {
         return coins > 0;
     }
 
-    public boolean hasEnoughCoins(Integer coins) {
+    public boolean hasEnoughCoins(int coins) {
         return this.coins >= coins;
     }
 

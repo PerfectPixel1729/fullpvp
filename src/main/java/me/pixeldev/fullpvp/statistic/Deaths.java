@@ -1,6 +1,6 @@
 package me.pixeldev.fullpvp.statistic;
 
-public class Deaths implements Statistic<Integer> {
+public class Deaths implements Statistic {
 
     private int deaths;
 
@@ -13,22 +13,22 @@ public class Deaths implements Statistic<Integer> {
     }
 
     @Override
-    public Integer get() {
+    public int get() {
         return deaths;
     }
 
     @Override
-    public void add(Integer integer) {
+    public void add(int integer) {
         deaths += integer;
     }
 
     @Override
-    public void remove(Integer integer) {
+    public void remove(int integer) {
         deaths -= integer;
     }
 
     @Override
-    public void set(Integer integer) {
+    public void set(int integer) {
         deaths = integer;
     }
 
