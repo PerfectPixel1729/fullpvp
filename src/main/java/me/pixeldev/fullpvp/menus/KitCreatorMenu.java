@@ -7,8 +7,10 @@ import me.pixeldev.fullpvp.kit.SimpleKit;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.message.menu.MessageMenu;
 
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -140,8 +142,8 @@ public class KitCreatorMenu implements Menu {
                                 );
 
                                 kitStorage.add(level, new SimpleKit(
-                                        new ArrayList<>(getAvailableItems(inventory, 0, 27).values()),
-                                        new ArrayList<>(getAvailableItems(inventory, 36, 40).values())
+                                        parseToDefault(getAvailableItems(inventory, 0, 27)),
+                                        parseToDefault(getAvailableItems(inventory, 36, 40))
                                 ));
 
                                 kitCreatorsCache.remove(player.getUniqueId());
@@ -158,6 +160,24 @@ public class KitCreatorMenu implements Menu {
         }
 
         return menuBuilder;
+    }
+
+    private List<ItemStack> parseToDefault(Map<Integer, ItemStack> input) {
+        List<ItemStack> items = new ArrayList<>();
+
+        for (ItemStack item : input.values()) {
+            net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+
+            NBTTagCompound tagCompound = nmsItem.hasTag() ? nmsItem.getTag() : new NBTTagCompound();
+
+            tagCompound.setString("kit-default", "kit-default");
+
+            nmsItem.setTag(tagCompound);
+
+            items.add(CraftItemStack.asBukkitCopy(nmsItem));
+        }
+
+        return items;
     }
 
     private Map<Integer, ItemStack> getAvailableItems(Inventory inventory, int from, int to) {
