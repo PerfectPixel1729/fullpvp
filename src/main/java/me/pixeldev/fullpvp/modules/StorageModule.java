@@ -1,5 +1,6 @@
 package me.pixeldev.fullpvp.modules;
 
+import me.pixeldev.fullpvp.BasicManager;
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.chest.SupplierChest;
@@ -18,6 +19,8 @@ import me.pixeldev.fullpvp.combatlog.CombatLogCache;
 import me.pixeldev.fullpvp.kit.Kit;
 import me.pixeldev.fullpvp.kit.KitCreatorCache;
 import me.pixeldev.fullpvp.kit.KitStorageManager;
+import me.pixeldev.fullpvp.kit.supplier.SupplierKitCreatorCache;
+import me.pixeldev.fullpvp.kit.supplier.SupplierKitManager;
 import me.pixeldev.fullpvp.pearl.PearlCountdownCache;
 import me.pixeldev.fullpvp.user.User;
 import me.pixeldev.fullpvp.user.UserStorageManager;
@@ -52,6 +55,9 @@ public class StorageModule extends AbstractModule {
         bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("pearls"))).to(PearlCountdownCache.class).singleton();
         bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("combat"))).to(CombatLogCache.class).singleton();
         bind(Key.of(new TypeReference<Cache<UUID, Integer>>() {}, Names.named("kits"))).to(KitCreatorCache.class).singleton();
+
+        bind(Key.of(new TypeReference<BasicManager<UUID>>() {})).to(SupplierKitCreatorCache.class).singleton();
+        bind(Key.of(new TypeReference<BasicManager<Location>>() {})).to(SupplierKitManager.class).singleton();
     }
 
 }
