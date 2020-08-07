@@ -24,6 +24,10 @@ format:
   second: "segundo"
   seconds: "segundos"
 
+user:
+  level-up: "%prefix% &7¡Haz subido de nivel, ahora eres nivel &9%fullpvp_level%&7!"
+  level-up-title: "&7Nivel &9%fullpvp_level%"
+
 combatlog:
   finished: "&a¡Ya no estás combate!"
   player-disconnect: "&9CombatLog &8| &7El jugador &9%player% &7se ha desconectado en combate!"
@@ -124,6 +128,12 @@ kit:
   successfully-creation: "%prefix% &7¡Haz creado correctamente el kit para el nivel &9%level%&7!"
   already-kit: "%prefix% &7¡Al parecer ya existe un kit para este nivel!"
   enter-creator-mode: "%prefix% &7¡Ahora estás creando el kit para el nivel &9%level%&7!"
+
+  supplier:
+    enter-creator-mode: "%prefix% &7¡Ahora estás en modo selector de locaciones para los kits! Haz click derecho en algún cofre que quieras añadir."
+    successfully-creation: "%prefix% &7¡Haz añadido correctamente este cofre a las locaiones de kits!"
+    exit-creator-mode: "%prefix% &7¡Haz salido correctamente del selector de locaciones para los kits!"
+    already-location: "%prefix% &7¡Al parecer ya existe una locación de kits aquí!"
 
 chest:
   successfully-creation: "%prefix% &7¡Haz finalizado correctamente la creación de este inventario!"
