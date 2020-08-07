@@ -18,6 +18,7 @@ public final class CommandsLoader implements Loader {
     private ClanCommands clanCommands;
     private KitCommands kitCommands;
     private SimpleI18n simpleI18n;
+    private SupplierKitCommand supplierKitCommand;
 
     @InjectIgnore
     private final ParametricCommandBuilder builder = new ReflectionParametricCommandBuilder();
@@ -35,7 +36,13 @@ public final class CommandsLoader implements Loader {
     public void load() {
         commandManager.setI18n(simpleI18n);
 
-        registerCommands(chestCreatorCommand, coinsCommands, clanCommands, kitCommands);
+        registerCommands(
+                chestCreatorCommand,
+                coinsCommands,
+                clanCommands,
+                kitCommands,
+                supplierKitCommand
+        );
     }
 
 }
