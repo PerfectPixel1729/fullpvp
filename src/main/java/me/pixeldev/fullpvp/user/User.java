@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public interface User extends ConfigurationSerializable, KDR {
 
+    int getKitLevel();
+
     Optional<String> getClanName();
 
     void setClanName(String clanName);
@@ -27,6 +29,7 @@ public interface User extends ConfigurationSerializable, KDR {
         playerMap.put("level", getLevel().get());
         playerMap.put("deaths", getDeaths().get());
         playerMap.put("kills", getKills().get());
+        playerMap.put("kit-level", getKitLevel());
 
         getClanName().ifPresent(name -> playerMap.put("clan", name));
 
