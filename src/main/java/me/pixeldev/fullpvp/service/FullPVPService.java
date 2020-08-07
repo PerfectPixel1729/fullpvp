@@ -26,6 +26,9 @@ public final class FullPVPService implements Service {
     @Named("supplierchestsviewers-service")
     private Service supplierChestViewerService;
 
+    @Named("kits-service")
+    private Service kitsService;
+
     @Override
     public void start() {
         tickLoader.load();
@@ -33,6 +36,7 @@ public final class FullPVPService implements Service {
         eventsLoader.load();
 
         clanService.start();
+        kitsService.start();
         supplierChestService.start();
         supplierChestViewerService.start();
         userService.start();
@@ -41,6 +45,7 @@ public final class FullPVPService implements Service {
     @Override
     public void stop() {
         clanService.stop();
+        kitsService.stop();
         supplierChestService.stop();
         userService.stop();
         supplierChestViewerService.stop();
