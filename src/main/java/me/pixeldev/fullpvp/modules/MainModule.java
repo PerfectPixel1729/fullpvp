@@ -26,7 +26,8 @@ public class MainModule extends AbstractModule {
                 .bind("language", new FileCreator(fullPVP, "language"))
                 .bind("chests", new FileCreator(fullPVP, "chests"))
                 .bind("menu", new FileCreator(fullPVP, "menu"))
-                .bind("clans", new FileCreator(fullPVP, "clans"));
+                .bind("clans", new FileCreator(fullPVP, "clans"))
+                .bind("kits", new FileCreator(fullPVP, "kits"));
 
         install(fileBinder.build());
         install(new MessageModule());
