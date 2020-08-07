@@ -4,6 +4,7 @@
 
 game:
   coins-per-kill: 20
+  addition-experience: 100
 
 clans:
   price: 10000
