@@ -11,15 +11,35 @@ import org.bukkit.inventory.ItemStack;
 public class ItemUtils {
 
     public ItemStack addNBTTag(ItemStack input, String key, String value) {
-        net.minecraft.server.v1_8_R3.ItemStack itemNMS = CraftItemStack.asNMSCopy(input);
+        net.minecraft.server.v1_8_R3.ItemStack nmsItem = asNMSCopy(input);
 
-        NBTTagCompound tagCompound = itemNMS.hasTag() ? itemNMS.getTag() : new NBTTagCompound();
+        NBTTagCompound tagCompound = getNBTTag(input);
 
         tagCompound.setString(key, value);
 
-        itemNMS.setTag(tagCompound);
+        nmsItem.setTag(tagCompound);
 
-        return CraftItemStack.asBukkitCopy(itemNMS);
+        return asBukkitCopy(nmsItem);
+    }
+
+    public boolean hasNBTTag(ItemStack input, String key) {
+        net.minecraft.server.v1_8_R3.ItemStack nmsItem = asNMSCopy(input);
+
+        return nmsItem.hasTag() && nmsItem.getTag().hasKey(key);
+    }
+
+    private net.minecraft.server.v1_8_R3.ItemStack asNMSCopy(ItemStack input) {
+        return CraftItemStack.asNMSCopy(input);
+    }
+
+    private ItemStack asBukkitCopy(net.minecraft.server.v1_8_R3.ItemStack input) {
+        return CraftItemStack.asBukkitCopy(input);
+    }
+
+    private NBTTagCompound getNBTTag(ItemStack input) {
+        net.minecraft.server.v1_8_R3.ItemStack nmsItem = asNMSCopy(input);
+
+        return nmsItem.hasTag() ? nmsItem.getTag() : new NBTTagCompound();
     }
 
 }
