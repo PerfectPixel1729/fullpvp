@@ -128,8 +128,12 @@ kit:
   successfully-creation: "%prefix% &7¡Haz creado correctamente el kit para el nivel &9%level%&7!"
   already-kit: "%prefix% &7¡Al parecer ya existe un kit para este nivel!"
   enter-creator-mode: "%prefix% &7¡Ahora estás creando el kit para el nivel &9%level%&7!"
+  can-not-enchant: "%prefix% &7¡No puedes encantar este item ya que pertenece a tu kit default!"
+  can-not-reforge: "%prefix% &7¡Este item no puede ser juntado con algo más porque pertenece a tu kit default!"
 
   supplier:
+    successfully-receive: "%prefix% &7¡Haz recibido el kit default correctamente!"
+
     enter-creator-mode: "%prefix% &7¡Ahora estás en modo selector de locaciones para los kits! Haz click derecho en algún cofre que quieras añadir."
     successfully-creation: "%prefix% &7¡Haz añadido correctamente este cofre a las locaiones de kits!"
     exit-creator-mode: "%prefix% &7¡Haz salido correctamente del selector de locaciones para los kits!"
