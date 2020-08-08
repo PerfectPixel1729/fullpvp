@@ -8,7 +8,9 @@ import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
 
+import me.pixeldev.fullpvp.utils.ItemUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.inventory.ItemStack;
 import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
@@ -17,7 +19,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @InjectAll
 public class PlayerDeathListener implements Listener {
@@ -25,6 +29,7 @@ public class PlayerDeathListener implements Listener {
     private Storage<UUID, User> userStorage;
     private Storage<String, Clan> clansStorage;
     private Message message;
+    private ItemUtils itemUtils;
 
     @Named("combat")
     private Cache<UUID, Integer> combatLogCache;
@@ -45,7 +50,16 @@ public class PlayerDeathListener implements Listener {
             player.sendMessage(message.getMessage(player, "events.player-death"));
         });
 
+        List<ItemStack> drops = event.getDrops();
+
+        List<ItemStack> newDrops = drops.stream().filter(item -> !itemUtils.hasNBTTag(item, "default-kit")).collect(Collectors.toList());
+
+        drops.clear();
+        drops.addAll(newDrops);
+
         combatLogCache.remove(player.getUniqueId());
+
+        player.spigot().respawn();
 
         if (killer == null) {
             return;
@@ -67,8 +81,6 @@ public class PlayerDeathListener implements Listener {
         });
 
         combatLogCache.remove(killer.getUniqueId());
-
-        player.spigot().respawn();
     }
 
 }
