@@ -6,11 +6,10 @@ import me.pixeldev.fullpvp.kit.Kit;
 import me.pixeldev.fullpvp.kit.SimpleKit;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.message.menu.MessageMenu;
+import me.pixeldev.fullpvp.utils.ItemUtils;
 
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,25 +17,21 @@ import org.bukkit.inventory.ItemStack;
 import team.unnamed.gui.button.SimpleButton;
 import team.unnamed.gui.item.ItemBuilder;
 import team.unnamed.gui.menu.MenuBuilder;
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import java.util.*;
 
+@InjectAll
 public class KitCreatorMenu implements Menu {
 
-    @Inject
     @Named("kits")
     private Cache<UUID, Integer> kitCreatorsCache;
 
-    @Inject
     private Storage<Integer, Kit> kitStorage;
-
-    @Inject
     private MessageMenu messageMenu;
-
-    @Inject
     private Message message;
+    private ItemUtils itemUtils;
 
     @Override
     public MenuBuilder build(Player player) {
@@ -142,8 +137,8 @@ public class KitCreatorMenu implements Menu {
                                 );
 
                                 kitStorage.add(level, new SimpleKit(
-                                        parseToDefault(getAvailableItems(inventory, 0, 27)),
-                                        parseToDefault(getAvailableItems(inventory, 36, 40))
+                                        parseToDefault(getAvailableItems(inventory, 36, 40)),
+                                        parseToDefault(getAvailableItems(inventory, 0, 27))
                                 ));
 
                                 kitCreatorsCache.remove(player.getUniqueId());
@@ -165,17 +160,7 @@ public class KitCreatorMenu implements Menu {
     private List<ItemStack> parseToDefault(Map<Integer, ItemStack> input) {
         List<ItemStack> items = new ArrayList<>();
 
-        for (ItemStack item : input.values()) {
-            net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
-
-            NBTTagCompound tagCompound = nmsItem.hasTag() ? nmsItem.getTag() : new NBTTagCompound();
-
-            tagCompound.setString("kit-default", "kit-default");
-
-            nmsItem.setTag(tagCompound);
-
-            items.add(CraftItemStack.asBukkitCopy(nmsItem));
-        }
+        input.values().forEach(item -> items.add(itemUtils.addNBTTag(item, "default-kit", "default-kit")));
 
         return items;
     }
