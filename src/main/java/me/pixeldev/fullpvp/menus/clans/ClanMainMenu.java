@@ -5,13 +5,14 @@ import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.clans.ClanUtilities;
+import me.pixeldev.fullpvp.economy.PlayerEconomy;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.menus.Menu;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.message.menu.MessageMenu;
 import me.pixeldev.fullpvp.user.User;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import org.bukkit.Bukkit;
@@ -29,37 +30,25 @@ import team.unnamed.gui.menu.MenuBuilder;
 import java.util.Optional;
 import java.util.UUID;
 
+@InjectAll
 public class ClanMainMenu implements Menu {
 
-    @Inject
     private Storage<String, Clan> clanStorage;
-
-    @Inject
     private Storage<UUID, User> userStorage;
-
-    @Inject
     private Cache<UUID, Clan> editMessagesCache;
-
-    @Inject
     private MessageMenu messageMenu;
-
-    @Inject
     private Message message;
+    private ClanUtilities clanUtilities;
+    private PlayerEconomy playerEconomy;
 
-    @Inject
     @Delegates
     private Message fileMessage;
 
-    @Inject
     @Named("config")
     private FileCreator config;
 
-    @Inject
     @Named("clan-disband")
     private Menu clanDisbandMenu;
-
-    @Inject
-    private ClanUtilities clanUtilities;
 
     @Override
     public MenuBuilder build(Player player) {
@@ -140,7 +129,8 @@ public class ClanMainMenu implements Menu {
                                         config,
                                         clanDisbandMenu,
                                         this,
-                                        clanUtilities)
+                                        clanUtilities,
+                                        playerEconomy)
                                         .build(player)
                                         .build()
                                 );
