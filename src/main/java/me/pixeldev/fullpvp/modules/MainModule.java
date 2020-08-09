@@ -3,6 +3,8 @@ package me.pixeldev.fullpvp.modules;
 import me.pixeldev.fullpvp.FullPVP;
 import me.pixeldev.fullpvp.combatlog.announcer.CombatLogAnnouncer;
 import me.pixeldev.fullpvp.combatlog.announcer.SimpleCombatLogAnnouncer;
+import me.pixeldev.fullpvp.economy.DefaultEconomyWrapper;
+import me.pixeldev.fullpvp.economy.EconomyWrapper;
 import me.pixeldev.fullpvp.files.FileBinder;
 import me.pixeldev.fullpvp.files.FileCreator;
 
@@ -39,7 +41,7 @@ public class MainModule extends AbstractModule {
         bind(Plugin.class).to(FullPVP.class);
 
         bind(CombatLogAnnouncer.class).to(SimpleCombatLogAnnouncer.class).singleton();
-
+        bind(EconomyWrapper.class).to(DefaultEconomyWrapper.class).singleton();
     }
 
 }
