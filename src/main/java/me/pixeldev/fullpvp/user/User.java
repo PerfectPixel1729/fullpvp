@@ -1,6 +1,5 @@
 package me.pixeldev.fullpvp.user;
 
-import me.pixeldev.fullpvp.statistic.Coins;
 import me.pixeldev.fullpvp.statistic.Experience;
 import me.pixeldev.fullpvp.statistic.KDR;
 import me.pixeldev.fullpvp.statistic.Level;
@@ -20,8 +19,6 @@ public interface User extends ConfigurationSerializable, KDR {
 
     void setClanName(String clanName);
 
-    Coins getCoins();
-
     Level getLevel();
 
     Experience getExperience();
@@ -30,7 +27,6 @@ public interface User extends ConfigurationSerializable, KDR {
     default Map<String, Object> serialize() {
         Map<String, Object> playerMap = new LinkedHashMap<>();
 
-        playerMap.put("coins", getCoins().get());
         playerMap.put("level", getLevel().get());
         playerMap.put("deaths", getDeaths().get());
         playerMap.put("kills", getKills().get());
