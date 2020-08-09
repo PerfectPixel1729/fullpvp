@@ -35,7 +35,7 @@ public class SupplierKitCommand implements CommandClass {
 
         Player player = (Player) sender;
 
-        if (!player.hasPermission("kits.create")) {
+        if (!player.hasPermission("fullpvp.kits.supplier.create") || !player.hasPermission("fullpvp.admin")) {
             player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
 
             return true;
