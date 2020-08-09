@@ -12,7 +12,7 @@ import me.pixeldev.fullpvp.chest.creator.UserCreatorInventory;
 import me.pixeldev.fullpvp.menus.Menu;
 import me.pixeldev.fullpvp.message.Message;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import org.bukkit.command.CommandSender;
@@ -21,19 +21,15 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 @ACommand(names = {"chestcreator", "ccreator"})
+@InjectAll
 public class ChestCreatorCommand implements CommandClass {
 
-    @Inject
+    private Cache<UUID, UserCreator> chestCreators;
+    private Message message;
+
     @Named("chest-creator")
     private Menu chestCreatorMenu;
 
-    @Inject
-    private Cache<UUID, UserCreator> chestCreators;
-
-    @Inject
-    private Message message;
-
-    @Inject
     @Delegates
     private Message fileMessage;
 
@@ -46,6 +42,12 @@ public class ChestCreatorCommand implements CommandClass {
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.chestcreator") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
 
         chestCreators.add(
                 player.getUniqueId(),
