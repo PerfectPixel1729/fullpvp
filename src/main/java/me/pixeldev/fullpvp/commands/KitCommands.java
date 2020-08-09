@@ -4,6 +4,7 @@ import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 
+import me.fixeddev.ebcm.parametric.annotation.Usage;
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.Storage;
@@ -14,33 +15,29 @@ import me.pixeldev.fullpvp.message.Message;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import team.unnamed.inject.Inject;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import java.util.UUID;
 
 @ACommand(names = {"kitcreator", "kcreator"})
+@InjectAll
 public class KitCommands implements CommandClass {
 
-    @Inject
+    private Storage<Integer, Kit> kitStorage;
+    private Message message;
+
     @Named("kits")
     private Cache<UUID, Integer> kitCreatorsCache;
 
-    @Inject
-    private Storage<Integer, Kit> kitStorage;
-
-    @Inject
-    private Message message;
-
-    @Inject
     @Delegates
     private Message fileMessage;
 
-    @Inject
     @Named("kit-creator")
     private Menu menu;
 
     @ACommand(names = "")
+    @Usage(usage = "§8- §9[level]")
     public boolean runMainCommand(@Injected(true) CommandSender sender, Integer level) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
@@ -50,7 +47,7 @@ public class KitCommands implements CommandClass {
 
         Player player = (Player) sender;
 
-        if (!player.hasPermission("kits.create")) {
+        if (!player.hasPermission("fullpvp.kits.create") || !player.hasPermission("fullpvp.admin")) {
             player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
 
             return true;
