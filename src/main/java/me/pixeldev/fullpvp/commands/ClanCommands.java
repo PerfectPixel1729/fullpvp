@@ -13,6 +13,7 @@ import me.pixeldev.fullpvp.clans.ClanUtilities;
 import me.pixeldev.fullpvp.clans.DefaultClan;
 import me.pixeldev.fullpvp.clans.request.ClanRequest;
 import me.pixeldev.fullpvp.clans.request.DefaultClanRequest;
+import me.pixeldev.fullpvp.economy.PlayerEconomy;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.menus.Menu;
 import me.pixeldev.fullpvp.message.Message;
@@ -20,7 +21,9 @@ import me.pixeldev.fullpvp.user.User;
 import me.pixeldev.fullpvp.utils.fake.EasyTextComponent;
 
 import org.bukkit.OfflinePlayer;
-import team.unnamed.inject.Inject;
+
+import team.unnamed.gui.menu.MenuBuilder;
+import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
 import net.md_5.bungee.api.ChatColor;
@@ -31,42 +34,28 @@ import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import team.unnamed.gui.menu.MenuBuilder;
-
 import java.util.Optional;
 import java.util.UUID;
 
-@ACommand(names = {"clan", "clans", "clanes"}, permission = "fullpvp.clans")
+@ACommand(names = {"clan", "clans", "clanes"})
 @Usage(usage = "§8- §9[create, invite, leave, settings, help]")
+@InjectAll
 public class ClanCommands implements CommandClass {
 
-    @Inject
     private Storage<String, Clan> clanStorage;
-
-    @Inject
     private Storage<UUID, User> userStorage;
-
-    @Inject
     private Cache<UUID, ClanRequest> clanRequestCache;
-
-    @Inject
     private Message message;
+    private ClanUtilities clanUtilities;
+    private EasyTextComponent easyTextComponent;
+    private PlayerEconomy playerEconomy;
 
-    @Inject
     @Delegates
     private Message fileMessage;
 
-    @Inject
     @Named("config")
     private FileCreator config;
 
-    @Inject
-    private ClanUtilities clanUtilities;
-
-    @Inject
-    private EasyTextComponent easyTextComponent;
-
-    @Inject
     @Named("clan-main")
     private Menu clanSettingsMenu;
 
@@ -79,6 +68,12 @@ public class ClanCommands implements CommandClass {
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.clans") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
 
         Optional<User> userOptional = userStorage.find(player.getUniqueId());
 
@@ -118,6 +113,12 @@ public class ClanCommands implements CommandClass {
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.clans.kick") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
 
         if (target == null) {
             player.sendMessage(message.getMessage(player, "no-player-exists"));
@@ -195,12 +196,18 @@ public class ClanCommands implements CommandClass {
 
         Player player = (Player) sender;
 
+        if (!player.hasPermission("fullpvp.clans.help") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
+
         fileMessage.getMessages(null, "clans.commands.help").forEach(player::sendMessage);
 
         return true;
     }
 
-    @ACommand(names = "settings")
+    @ACommand(names = {"settings", "configuracion"})
     public boolean runSettingsClanCommand(@Injected(true) CommandSender sender) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
@@ -209,6 +216,12 @@ public class ClanCommands implements CommandClass {
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.clans.settings") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
 
         Optional<User> userOptional = userStorage.find(player.getUniqueId());
 
@@ -237,7 +250,7 @@ public class ClanCommands implements CommandClass {
         return true;
     }
 
-    @ACommand(names = {"crear", "create"}, permission = "fullpvp.clans.create")
+    @ACommand(names = {"crear", "create"})
     @Usage(usage = "§8- §9<name>")
     public boolean runCreateClanCommand(@Injected(true) CommandSender sender, String name) {
         if (!(sender instanceof Player)) {
@@ -247,6 +260,12 @@ public class ClanCommands implements CommandClass {
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.clans.create") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
 
         Optional<User> userOptional = userStorage.find(player.getUniqueId());
 
@@ -268,6 +287,22 @@ public class ClanCommands implements CommandClass {
             return true;
         }
 
+        if (!playerEconomy.hasMoney(player)) {
+            player.sendMessage(message.getMessage(player, "coins.no-coins"));
+
+            return true;
+        }
+
+        int cost = config.getInt("clans.price");
+
+        if (!playerEconomy.hasEnoughMoney(player, cost)) {
+            player.sendMessage(message.getMessage(player, "coins.no-enough-coins")
+                    .replace("%missing%", String.valueOf(cost - playerEconomy.getMoney(player)))
+            );
+
+            return true;
+        }
+
         if (name.length() >= config.getInt("clans.maximum-characters")) {
             player.sendMessage(message.getMessage(player, "clans.commands.name-too-long")
                     .replace("%characters%", config.getInt("clans.maximum-characters") + "")
@@ -280,6 +315,8 @@ public class ClanCommands implements CommandClass {
             clanStorage.add(name, new DefaultClan(player.getUniqueId(), name));
             user.setClanName(name);
 
+            playerEconomy.withdrawMoney(player, cost);
+
             player.sendMessage(message.getMessage(player, "clans.commands.successfully-create")
                     .replace("%name%", name)
             );
@@ -288,7 +325,7 @@ public class ClanCommands implements CommandClass {
         return true;
     }
 
-    @ACommand(names = {"invite", "invitar"}, permission = "fullpvp.clans.invite")
+    @ACommand(names = {"invite", "invitar"})
     @Usage(usage = "§8- §9<name>")
     public boolean runInviteClanCommand(@Injected(true) CommandSender sender, OfflinePlayer target) {
         if (!(sender instanceof Player)) {
@@ -298,6 +335,12 @@ public class ClanCommands implements CommandClass {
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.clans.invite") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
 
         if (target == null) {
             player.sendMessage(message.getMessage(player, "no-player-exists"));
