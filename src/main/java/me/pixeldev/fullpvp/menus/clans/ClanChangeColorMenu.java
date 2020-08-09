@@ -3,6 +3,7 @@ package me.pixeldev.fullpvp.menus.clans;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.clans.ClanUtilities;
+import me.pixeldev.fullpvp.economy.PlayerEconomy;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.menus.Menu;
 import me.pixeldev.fullpvp.message.Message;
@@ -27,22 +28,16 @@ import java.util.UUID;
 class ClanChangeColorMenu implements Menu {
 
     private final Storage<String, Clan> clanStorage;
-
     private final Storage<UUID, User> userStorage;
-
     private final MessageMenu messageMenu;
-
     private final Message message;
-
     private final Message fileMessage;
-
     private final FileCreator config;
-
     private final ClanUtilities clanUtilities;
+    private final ClanSettingsMenu clanSettingsMenu;
+    private final PlayerEconomy playerEconomy;
 
     private final Map<ChatColor, Byte> colorByteMap = new HashMap<>();
-
-    private final ClanSettingsMenu clanSettingsMenu;
 
     public ClanChangeColorMenu(
             Storage<String, Clan> clanStorage,
@@ -52,13 +47,15 @@ class ClanChangeColorMenu implements Menu {
             Message fileMessage,
             FileCreator config,
             ClanUtilities clanUtilities,
-            ClanSettingsMenu clanSettingsMenu
+            ClanSettingsMenu clanSettingsMenu,
+            PlayerEconomy playerEconomy
     ) {
 
         this.clanStorage = clanStorage;
         this.userStorage = userStorage;
         this.messageMenu = messageMenu;
         this.message = message;
+        this.playerEconomy = playerEconomy;
         this.fileMessage = fileMessage;
         this.config = config;
         this.clanUtilities = clanUtilities;
@@ -185,15 +182,15 @@ class ClanChangeColorMenu implements Menu {
 
                                     User user = userOptional.get();
 
-                                    if (!user.getCoins().hasCoins()) {
+                                    if (!playerEconomy.hasMoney(player)) {
                                         player.sendMessage(message.getMessage(player, "coins.no-coins"));
 
                                         return true;
                                     }
 
-                                    if (!user.getCoins().hasEnoughCoins(price)) {
+                                    if (!playerEconomy.hasEnoughMoney(player, price)) {
                                         player.sendMessage(message.getMessage(player, "coins.no-enough-coins")
-                                                .replace("%missing%", String.valueOf(price - userOptional.get().getCoins().get()))
+                                                .replace("%missing%", String.valueOf(price - playerEconomy.getMoney(player)))
                                         );
 
                                         return true;
@@ -201,7 +198,7 @@ class ClanChangeColorMenu implements Menu {
 
                                     String colorReplacement = currentColor + currentColor.name();
 
-                                    user.getCoins().remove(price);
+                                    playerEconomy.withdrawMoney(player, price);
 
                                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1, 2);
                                     player.sendMessage(message.getMessage(player, "clans.successfully-change-color")
