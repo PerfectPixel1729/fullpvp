@@ -2,6 +2,7 @@ package me.pixeldev.fullpvp.listeners;
 
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
+import me.pixeldev.fullpvp.backpack.user.BackpackUser;
 import me.pixeldev.fullpvp.chest.viewer.UserViewer;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.event.clan.ClanMemberQuitEvent;
@@ -25,6 +26,7 @@ public class PlayerQuitListener implements Listener {
     private Storage<UUID, User> userStorage;
     private Storage<UUID, UserViewer> userViewerStorage;
     private Storage<String, Clan> clanStorage;
+    private Storage<UUID, BackpackUser> backpackUserStorage;
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
@@ -40,8 +42,8 @@ public class PlayerQuitListener implements Listener {
             userStorage.saveObject(player.getUniqueId(), user);
         });
 
+        backpackUserStorage.save(player.getUniqueId());
         editMessagesCache.remove(player.getUniqueId());
-
         userViewerStorage.save(player.getUniqueId());
     }
 
