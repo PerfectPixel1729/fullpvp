@@ -3,6 +3,7 @@ package me.pixeldev.fullpvp.listeners;
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
+import me.pixeldev.fullpvp.economy.PlayerEconomy;
 import me.pixeldev.fullpvp.event.PlayerRiseExperienceEvent;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.message.Message;
@@ -20,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,7 @@ public class PlayerDeathListener implements Listener {
     private Storage<String, Clan> clansStorage;
     private Message message;
     private ItemUtils itemUtils;
+    private PlayerEconomy playerEconomy;
 
     @Named("combat")
     private Cache<UUID, Integer> combatLogCache;
@@ -66,16 +69,18 @@ public class PlayerDeathListener implements Listener {
         }
 
         userStorage.find(killer.getUniqueId()).ifPresent(user -> {
-            int coins = config.getInt("game.coins-per-kill");
+            double coins = config.getInt("game.coins-per-kill") + (user.getLevel().get() * 0.25);
 
             Bukkit.getPluginManager().callEvent(new PlayerRiseExperienceEvent(killer, user, user.getExperience().getCurrent().get() + 1));
 
             user.getKills().add(1);
             user.getExperience().getCurrent().add(1);
-            user.getCoins().add(coins);
+
+            playerEconomy.depositMoney(player, coins);
 
             user.getClanName().flatMap(clanName -> clansStorage.find(clanName)).ifPresent(clan -> clan.getStatistics().getKills().add(1));
 
+            killer.giveExp(new Random().nextInt(5));
             killer.sendMessage(message.getMessage(killer, "events.player-kill"));
             killer.sendMessage(message.getMessage(killer, "events.player-gain-coins").replace("%coins%", coins + ""));
         });
