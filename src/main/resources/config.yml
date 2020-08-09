@@ -45,6 +45,16 @@ combatlog:
     - "fly"
     - "gamemode"
 
+backpack:
+  price: 25000
+
+  upgrades:
+    tier-2: 10000
+    tier-3: 15000
+    tier-4: 25000
+    tier-5: 50000
+    tier-6: 80000
+
 pearl:
   cooldown: 20
 
