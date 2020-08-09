@@ -14,11 +14,11 @@ import team.unnamed.inject.InjectIgnore;
 public final class CommandsLoader implements Loader {
 
     private ChestCreatorCommand chestCreatorCommand;
-    private CoinsCommands coinsCommands;
     private ClanCommands clanCommands;
     private KitCommands kitCommands;
     private SimpleI18n simpleI18n;
     private SupplierKitCommand supplierKitCommand;
+    private BackpackCommands backpackCommands;
 
     @InjectIgnore
     private final ParametricCommandBuilder builder = new ReflectionParametricCommandBuilder();
@@ -38,9 +38,9 @@ public final class CommandsLoader implements Loader {
 
         registerCommands(
                 chestCreatorCommand,
-                coinsCommands,
                 clanCommands,
                 kitCommands,
+                backpackCommands,
                 supplierKitCommand
         );
     }

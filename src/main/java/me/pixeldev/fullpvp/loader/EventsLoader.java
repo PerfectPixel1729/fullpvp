@@ -29,6 +29,7 @@ public final class EventsLoader implements Loader {
     private CombatLogListener combatlogListener;
     private UserListeners userListeners;
     private SupplierKitListeners supplierKitListeners;
+    private InventoryCloseListener inventoryCloseListener;
 
     @Override
     public void load() {
@@ -44,6 +45,7 @@ public final class EventsLoader implements Loader {
                 supplierKitListeners,
                 clanListeners,
                 combatlogListener,
+                inventoryCloseListener,
                 fakeCommandListener,
                 new MenuListeners()
         );
