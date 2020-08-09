@@ -18,6 +18,9 @@ chest-creator:
       lore:
         - "&7Haz click aquí para limpiar el inventario!"
 
+backpack:
+  title: "&9Mochila %position%"
+
 kit-creator:
   title: "&9Creador de kits"
   items:

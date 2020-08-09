@@ -148,3 +148,24 @@ chest:
   cancel-creator: "%prefix% &7¡Haz cancelado correctamente la creación de este inventario!"
   already-name: "%prefix% &7¡Al parecer ya exxiste un cofre con este nombre, intenta de nuevo!"
   already-view: "%prefix% &7¡Whoops! Al parecer ya has encontrado este cofre. Debes esperar &9%time%&7."
+
+backpack:
+  user-error: "%prefix% &7¡Ha ocurrido un error al intentar buscar tus datos, intenta de nuevo en unos momentos!"
+  invalid-backpack: "%prefix% &7¡Al parecer no haz adquirido una mochila en esta posición, intenta de nuevo cuando la tengas!"
+  open-backpack: "%prefix% &7¡Abriendo mochila número &9%position%&7!"
+  maximum-tier: "%prefix% &7¡No se ha podido mejorar ya que ha sido mejorada al nivel máximo!"
+
+  successfully-upgrade: "%prefix% &7¡Haz mejorado tu mochila número &9%position% &7ahora tiene &9%rows% &7filas!"
+  successfully-clear: "%prefix% &7¡Haz limpiado correctamente tu mochila número &9%position%&7!"
+
+  help:
+    - "&9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-&7 MOCHILAS &9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+    - "&8 + &7/backpack open <number> &8- &7Abrir la mochila correspondiente al número indicado."
+    - "&8 + &7/backpack clear <number> &8- &7Limpiar inventario de la mochila indicada."
+    - "&8 + &7/backpack upgrade <number> &8- &7Subir de nivel la mochila indicada."
+    - "&8 + &7/backpack buy &8- &7Comprar una nueva mochila."
+    - ""
+    - "&7Recuerda que todas las mochilas son mejorables pero cada fila aumenta"
+    - "&7el precio que costará mejorarla. Pero, son perfectas para almacenar todo"
+    - "&7lo que haz conseguido en esta maravillosa modalidad."
+    - "&9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
