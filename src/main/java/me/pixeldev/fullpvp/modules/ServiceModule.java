@@ -13,6 +13,7 @@ public class ServiceModule extends AbstractModule {
         bind(Service.class).named("supplierchestsviewers-service").to(SupplierChestViewerService.class).singleton();
         bind(Service.class).named("users-service").to(UserService.class).singleton();
         bind(Service.class).named("fullpvp-service").to(FullPVPService.class).singleton();
+        bind(Service.class).named("backpacks-service").to(BackpackService.class).singleton();
         bind(Service.class).named("kits-service").to(KitService.class).singleton();
     }
 
