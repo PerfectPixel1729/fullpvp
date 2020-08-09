@@ -1,6 +1,7 @@
 package me.pixeldev.fullpvp.service;
 
 import me.pixeldev.fullpvp.loader.CommandsLoader;
+import me.pixeldev.fullpvp.loader.EconomyLoader;
 import me.pixeldev.fullpvp.loader.EventsLoader;
 import me.pixeldev.fullpvp.loader.TickLoader;
 
@@ -13,6 +14,7 @@ public final class FullPVPService implements Service {
     private EventsLoader eventsLoader;
     private CommandsLoader commandsLoader;
     private TickLoader tickLoader;
+    private EconomyLoader economyLoader;
 
     @Named("clans-service")
     private Service clanService;
@@ -26,6 +28,9 @@ public final class FullPVPService implements Service {
     @Named("supplierchestsviewers-service")
     private Service supplierChestViewerService;
 
+    @Named("backpacks-service")
+    private Service backpackService;
+
     @Named("kits-service")
     private Service kitsService;
 
@@ -34,8 +39,10 @@ public final class FullPVPService implements Service {
         tickLoader.load();
         commandsLoader.load();
         eventsLoader.load();
+        economyLoader.load();
 
         clanService.start();
+        backpackService.start();
         kitsService.start();
         supplierChestService.start();
         supplierChestViewerService.start();
@@ -45,6 +52,7 @@ public final class FullPVPService implements Service {
     @Override
     public void stop() {
         clanService.stop();
+        backpackService.stop();
         kitsService.stop();
         supplierChestService.stop();
         userService.stop();
