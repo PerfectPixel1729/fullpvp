@@ -30,6 +30,10 @@ public class FileCreator extends YamlConfiguration {
         this(plugin, fileName, fileExtension, plugin.getDataFolder());
     }
 
+    public FileCreator(Plugin plugin, String fileName, String fileExtension, String filePath) {
+        this(plugin, fileName, fileExtension, new File(plugin.getDataFolder().getAbsolutePath() + "/" + filePath));
+    }
+
     private void createFile() {
         try {
             if (!file.exists()) {
