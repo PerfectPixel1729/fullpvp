@@ -4,6 +4,7 @@ import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.clans.Clan;
 import me.pixeldev.fullpvp.clans.ClanUtilities;
+import me.pixeldev.fullpvp.economy.PlayerEconomy;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.menus.Menu;
 import me.pixeldev.fullpvp.message.Message;
@@ -20,7 +21,6 @@ import org.bukkit.inventory.ItemStack;
 
 import team.unnamed.gui.button.SimpleButton;
 import team.unnamed.gui.item.ItemBuilder;
-import team.unnamed.gui.item.LoreBuilder;
 import team.unnamed.gui.menu.MenuBuilder;
 
 import java.util.*;
@@ -28,24 +28,16 @@ import java.util.*;
 public class ClanSettingsMenu implements Menu {
 
     private final Storage<String, Clan> clanStorage;
-
     private final Storage<UUID, User> userStorage;
-
     private final Cache<UUID, Clan> editMessagesCache;
-
     private final MessageMenu messageMenu;
-
     private final Message message;
-
     private final Message fileMessage;
-
     private final FileCreator config;
-
     private final Menu clanDisbandMenu;
-
     private final ClanMainMenu clanMainMenu;
-
     private final ClanUtilities clanUtilities;
+    private final PlayerEconomy playerEconomy;
 
     public ClanSettingsMenu(
             Storage<String, Clan> clanStorage,
@@ -57,7 +49,8 @@ public class ClanSettingsMenu implements Menu {
             FileCreator config,
             Menu clanDisbandMenu,
             ClanMainMenu clanMainMenu,
-            ClanUtilities clanUtilities
+            ClanUtilities clanUtilities,
+            PlayerEconomy playerEconomy
     ) {
 
         this.editMessagesCache = editMessagesCache;
@@ -65,6 +58,7 @@ public class ClanSettingsMenu implements Menu {
         this.userStorage = userStorage;
         this.messageMenu = messageMenu;
         this.message = message;
+        this.playerEconomy = playerEconomy;
         this.fileMessage = fileMessage;
         this.config = config;
         this.clanDisbandMenu = clanDisbandMenu;
@@ -226,7 +220,8 @@ public class ClanSettingsMenu implements Menu {
                                     fileMessage,
                                     config,
                                     clanUtilities,
-                                    this
+                                    this,
+                                    playerEconomy
                             ).build(player).build());
 
                             player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
