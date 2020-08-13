@@ -160,6 +160,12 @@ public class CombatLogListener implements Listener {
                 }
             }
 
+            if (inventoryUtils.hasDefaultKit(playerSender)) {
+                if (playerSender.getHealth() < 20) {
+                    playerSender.setHealth(playerSender.getHealth() + 1);
+                }
+            }
+
             combatLogCache.add(uuidSender, duration);
             combatLogAnnouncer.sendPlayerLog(playerSender);
 
