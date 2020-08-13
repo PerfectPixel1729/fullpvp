@@ -2,6 +2,7 @@ package me.pixeldev.fullpvp.listeners;
 
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Storage;
+import me.pixeldev.fullpvp.backpack.Backpack;
 import me.pixeldev.fullpvp.backpack.SimpleBackpack;
 import me.pixeldev.fullpvp.backpack.user.BackpackUser;
 import me.pixeldev.fullpvp.backpack.user.SimpleBackpackUser;
@@ -52,6 +53,14 @@ public class PlayerJoinListener implements Listener {
         } else {
             BackpackUser backpackUser = new SimpleBackpackUser();
             backpackUser.addBackpack(1, new SimpleBackpack());
+
+            Backpack enderChest = new SimpleBackpack();
+
+            for (int i = 0; i < 2; i++) {
+                enderChest.addRows();
+            }
+
+            backpackUser.addBackpack(0, enderChest);
 
             backpackUserStorage.add(player.getUniqueId(), backpackUser);
         }
