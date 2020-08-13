@@ -4,10 +4,12 @@ import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 
+import me.fixeddev.ebcm.parametric.annotation.Usage;
 import me.pixeldev.fullpvp.Cache;
 import me.pixeldev.fullpvp.Delegates;
 import me.pixeldev.fullpvp.Storage;
 import me.pixeldev.fullpvp.backpack.Backpack;
+import me.pixeldev.fullpvp.backpack.SimpleBackpack;
 import me.pixeldev.fullpvp.backpack.user.BackpackUser;
 import me.pixeldev.fullpvp.economy.PlayerEconomy;
 import me.pixeldev.fullpvp.files.FileCreator;
@@ -22,10 +24,12 @@ import org.bukkit.inventory.Inventory;
 import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
 @ACommand(names = {"backpack", "bp", "bpack"})
+@Usage(usage = "§8- §9[open, buy, upgrade, upgradeender, clear]")
 @InjectAll
 public class BackpackCommands implements CommandClass {
 
@@ -63,6 +67,7 @@ public class BackpackCommands implements CommandClass {
     }
 
     @ACommand(names = {"open", "abrir"})
+    @Usage(usage = "§8- §9[number]")
     public boolean runOpenBackpackCommand(@Injected(true) CommandSender sender, Integer number) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
@@ -112,6 +117,7 @@ public class BackpackCommands implements CommandClass {
     }
 
     @ACommand(names = {"clear", "limpiar"})
+    @Usage(usage = "§8- §9[number]")
     public boolean runClearBackpackCommand(@Injected(true) CommandSender sender, Integer number) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
@@ -154,6 +160,7 @@ public class BackpackCommands implements CommandClass {
     }
 
     @ACommand(names = {"upgrade", "mejorar"})
+    @Usage(usage = "§8- §9[number]")
     public boolean runUpgradeBackpackCommand(@Injected(true) CommandSender sender, Integer number) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
@@ -221,5 +228,125 @@ public class BackpackCommands implements CommandClass {
         return true;
     }
 
+    @ACommand(names = {"upgradeender"})
+    public boolean runUpgradeEnderChestCommand(@Injected(true) CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.backpack.upgrade") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
+
+        Optional<BackpackUser> backpackUserOptional = backpackUserStorage.find(player.getUniqueId());
+
+        if (!backpackUserOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "backpack.user-error"));
+
+            return true;
+        }
+
+        Optional<Backpack> backpackOptional = backpackUserOptional.get().getBackpack(0);
+
+        if (!backpackOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "backpack.invalid-backpack"));
+
+            return true;
+        }
+
+        Backpack backpack = backpackOptional.get();
+
+        if (backpack.getRows() == 6) {
+            player.sendMessage(message.getMessage(player, "backpack.maximum-tier"));
+
+            return true;
+        }
+
+        if (!playerEconomy.hasMoney(player)) {
+            player.sendMessage(message.getMessage(player, "coins.no-coins"));
+
+            return true;
+        }
+
+        int cost = config.getInt("backpack.upgrades.tier-" + (backpack.getRows() + 1));
+
+        if (!playerEconomy.hasEnoughMoney(player, cost)) {
+            player.sendMessage(message.getMessage(player, "coins.no-enough-coins")
+                    .replace("%missing%", String.valueOf(cost - playerEconomy.getMoney(player)))
+            );
+
+            return true;
+        }
+
+        backpack.addRows();
+
+        playerEconomy.withdrawMoney(player, cost);
+
+        player.sendMessage(message.getMessage(player, "backpack.successfully-upgrade-enderchest")
+                .replace("%rows%", backpack.getRows() + "")
+        );
+
+        return true;
+    }
+
+    @ACommand(names = {"buy", "comprar"})
+    public boolean runBuyBackpackCommand(@Injected(true) CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(fileMessage.getMessage(null, "no-player-sender"));
+
+            return true;
+        }
+
+        Player player = (Player) sender;
+
+        if (!player.hasPermission("fullpvp.backpack.upgrade") || !player.hasPermission("fullpvp.admin")) {
+            player.sendMessage(fileMessage.getMessage(null, "i18n.no-permission"));
+
+            return true;
+        }
+
+        Optional<BackpackUser> backpackUserOptional = backpackUserStorage.find(player.getUniqueId());
+
+        if (!backpackUserOptional.isPresent()) {
+            player.sendMessage(message.getMessage(player, "backpack.user-error"));
+
+            return true;
+        }
+
+        if (!playerEconomy.hasMoney(player)) {
+            player.sendMessage(message.getMessage(player, "coins.no-coins"));
+
+            return true;
+        }
+
+        BackpackUser backpackUser = backpackUserOptional.get();
+
+        int latest = Collections.max(backpackUser.getBackpacks().keySet());
+        int cost = config.getInt("backpack.price") * latest;
+
+        if (!playerEconomy.hasEnoughMoney(player, cost)) {
+            player.sendMessage(message.getMessage(player, "coins.no-enough-coins")
+                    .replace("%missing%", String.valueOf(cost - playerEconomy.getMoney(player)))
+            );
+
+            return true;
+        }
+
+        backpackUser.addBackpack(latest + 1, new SimpleBackpack());
+
+        playerEconomy.withdrawMoney(player, cost);
+
+        player.sendMessage(message.getMessage(player, "backpack.successfully-buy")
+                .replace("%amount%", String.valueOf(latest + 1))
+        );
+
+        return true;
+    }
 
 }
