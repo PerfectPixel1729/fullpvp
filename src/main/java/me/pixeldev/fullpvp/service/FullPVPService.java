@@ -1,5 +1,6 @@
 package me.pixeldev.fullpvp.service;
 
+import me.pixeldev.fullpvp.PlaceholderWrapper;
 import me.pixeldev.fullpvp.loader.CommandsLoader;
 import me.pixeldev.fullpvp.loader.EconomyLoader;
 import me.pixeldev.fullpvp.loader.EventsLoader;
@@ -15,6 +16,7 @@ public final class FullPVPService implements Service {
     private CommandsLoader commandsLoader;
     private TickLoader tickLoader;
     private EconomyLoader economyLoader;
+    private PlaceholderWrapper placeholderWrapper;
 
     @Named("clans-service")
     private Service clanService;
@@ -40,6 +42,8 @@ public final class FullPVPService implements Service {
         commandsLoader.load();
         eventsLoader.load();
         economyLoader.load();
+
+        placeholderWrapper.register();
 
         clanService.start();
         backpackService.start();
