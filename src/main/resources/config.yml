@@ -5,10 +5,23 @@
 game:
   coins-per-kill: 20
   addition-experience: 100
+  golden-head:
+    texture: "http://textures.minecraft.net/texture/421cab4095e71bd925cf464990e18e43adb725db7cc175fd9d1dec820914b3de"
+    name: "&6Golden Head"
+    lore:
+      - "&7Esta increíble manzana puede ser"
+      - "&7consumida en cuestión de segundos"
+      - "&7y te dará increíbles efectos."
+      - ""
+      - "&7Recuerda que solo se puedes tener"
+      - "&7como máximo 2 manzanas, y solo se te otorgaran"
+      - "&7si tienes tu kit default."
 
 clans:
   price: 10000
   maximum-characters: 15
+
+  default-clan-name: "Sin clan"
 
 # El tiempo es medido en minutos, al menos en este cooldown. #
   request-expiration: 2
@@ -46,7 +59,7 @@ combatlog:
     - "gamemode"
 
 backpack:
-  price: 25000
+  price: 2500
 
   upgrades:
     tier-2: 10000
