@@ -15,9 +15,11 @@ import me.pixeldev.fullpvp.message.Message;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import org.bukkit.inventory.Inventory;
 import team.unnamed.inject.InjectAll;
 import team.unnamed.inject.name.Named;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @ACommand(names = {"kitcreator", "kcreator"})
@@ -53,8 +55,26 @@ public class KitCommands implements CommandClass {
             return true;
         }
 
-        if (kitStorage.find(level).isPresent()) {
-            player.sendMessage(message.getMessage(player, "kit.already-kit"));
+        Optional<Kit> kitOptional = kitStorage.find(level);
+
+        if (kitOptional.isPresent()) {
+            Inventory inventory = menu.build(player).build();
+            Kit kit = kitOptional.get();
+
+            for (int i = 0; i < kit.getContents().size(); i++) {
+                inventory.setItem(i, kit.getContents().get(i));
+            }
+
+            for (int i = 36; i < 40; i++) {
+                inventory.setItem(i, kit.getArmorContents().get(i - 36));
+            }
+
+            player.openInventory(inventory);
+            kitCreatorsCache.add(player.getUniqueId(), level);
+
+            player.sendMessage(message.getMessage(player, "kit.enter-editor-mode")
+                    .replace("%level%", level + "")
+            );
 
             return true;
         }
