@@ -94,7 +94,11 @@ public class ClanListeners implements Listener {
         String joinMessage = fileMessage.getMessage(null, "clans.member-join-server")
                 .replace("%member%", player.getName());
 
-        Bukkit.getPlayer(clan.getCreator()).sendMessage(joinMessage);
+        Player creator = Bukkit.getPlayer(clan.getCreator());
+
+        if (creator != null) {
+            creator.sendMessage(joinMessage);
+        }
 
         clanUtilities.sendMessageToMembers(clan, joinMessage);
 
@@ -113,7 +117,11 @@ public class ClanListeners implements Listener {
         String leaveMessage = fileMessage.getMessage(null, "clans.member-leave-server")
                 .replace("%member%", player.getName());
 
-        Bukkit.getPlayer(clan.getCreator()).sendMessage(leaveMessage);
+        Player creator = Bukkit.getPlayer(clan.getCreator());
+
+        if (creator != null) {
+            creator.sendMessage(leaveMessage);
+        }
 
         clanUtilities.sendMessageToMembers(clan, leaveMessage);
     }
