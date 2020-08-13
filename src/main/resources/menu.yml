@@ -18,6 +18,9 @@ chest-creator:
       lore:
         - "&7Haz click aquí para limpiar el inventario!"
 
+enderchest:
+  title: "&9Cofre de ender"
+
 backpack:
   title: "&9Mochila %position%"
 
