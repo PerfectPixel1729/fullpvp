@@ -8,17 +8,20 @@ import me.pixeldev.fullpvp.event.PlayerRiseExperienceEvent;
 import me.pixeldev.fullpvp.files.FileCreator;
 import me.pixeldev.fullpvp.message.Message;
 import me.pixeldev.fullpvp.user.User;
-
+import me.pixeldev.fullpvp.utils.GoldenHead;
+import me.pixeldev.fullpvp.utils.InventoryUtils;
 import me.pixeldev.fullpvp.utils.ItemUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.ItemStack;
-import team.unnamed.inject.InjectAll;
-import team.unnamed.inject.name.Named;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import team.unnamed.inject.InjectAll;
+import team.unnamed.inject.name.Named;
 
 import java.util.List;
 import java.util.Random;
@@ -32,7 +35,9 @@ public class PlayerDeathListener implements Listener {
     private Storage<String, Clan> clansStorage;
     private Message message;
     private ItemUtils itemUtils;
+    private InventoryUtils inventoryUtils;
     private PlayerEconomy playerEconomy;
+    private GoldenHead goldenHead;
 
     @Named("combat")
     private Cache<UUID, Integer> combatLogCache;
@@ -55,7 +60,7 @@ public class PlayerDeathListener implements Listener {
 
         List<ItemStack> drops = event.getDrops();
 
-        List<ItemStack> newDrops = drops.stream().filter(item -> !itemUtils.hasNBTTag(item, "default-kit")).collect(Collectors.toList());
+        List<ItemStack> newDrops = drops.stream().filter(item -> !itemUtils.hasNBTTag(item, "default-kit") && !itemUtils.hasNBTTag(item, "golden-head")).collect(Collectors.toList());
 
         drops.clear();
         drops.addAll(newDrops);
@@ -83,6 +88,24 @@ public class PlayerDeathListener implements Listener {
             killer.giveExp(new Random().nextInt(5));
             killer.sendMessage(message.getMessage(killer, "events.player-kill"));
             killer.sendMessage(message.getMessage(killer, "events.player-gain-coins").replace("%coins%", coins + ""));
+
+            int level = user.getLevel().get();
+
+            if (level > 50) {
+                level = 50;
+            }
+
+            int probability = new Random().nextInt(25) + (level % 2 == 0 ? level / 2 : (level / 2 + level % 2));
+
+            if (probability > 15 && probability < 30) {
+                player.getInventory().addItem(new ItemStack(Material.EMERALD));
+            }
+
+            if (inventoryUtils.hasDefaultKit(killer)) {
+                if (goldenHead.canReceiveGoldenHead(killer)) {
+                    killer.getInventory().addItem(goldenHead.create());
+                }
+            }
         });
 
         combatLogCache.remove(killer.getUniqueId());
