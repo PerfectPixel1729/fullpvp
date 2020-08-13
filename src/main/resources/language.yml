@@ -12,6 +12,10 @@ no-player-sender: "%prefix% &7¡Este comando es solo disponible para jugadores!"
 no-player-exists: "%prefix% &7¡Al parecer no existe un jugador con este nombre!"
 no-player-online: "%prefix% &7¡Al parecer este jugador no está conectado!"
 
+reload:
+  invalid: "%prefix% &7¡Archivo inválido, los válidos son: &9config, language, menu&7!"
+  successfully: "%prefix% &7¡Haz recargado correctamente el archivo &9%file%&7!"
+
 format:
   week: "semana"
   weeks: "semanas"
@@ -126,8 +130,10 @@ pearl:
 kit:
   cancel-creator: "%prefix% &7¡Haz cancelado correctamente la creación de este kit!"
   successfully-creation: "%prefix% &7¡Haz creado correctamente el kit para el nivel &9%level%&7!"
+  successfully-edition: "%prefix% &7¡Haz editado correctamente el kit del nivel &9%level%&7!"
   already-kit: "%prefix% &7¡Al parecer ya existe un kit para este nivel!"
   enter-creator-mode: "%prefix% &7¡Ahora estás creando el kit para el nivel &9%level%&7!"
+  enter-editor-mode: "%prefix% &7¡Ahora estás editando el kit para el nivel &9%level%&7!"
   can-not-enchant: "%prefix% &7¡No puedes encantar este item ya que pertenece a tu kit default!"
   can-not-reforge: "%prefix% &7¡Este item no puede ser juntado con algo más porque pertenece a tu kit default!"
 
@@ -149,6 +155,10 @@ chest:
   already-name: "%prefix% &7¡Al parecer ya exxiste un cofre con este nombre, intenta de nuevo!"
   already-view: "%prefix% &7¡Whoops! Al parecer ya has encontrado este cofre. Debes esperar &9%time%&7."
 
+abilities:
+  golden-head:
+    successfully-consume: "%prefix% &7¡Haz consumido una &6Golden Head &7haz recibido velocidad y regeneración!"
+
 backpack:
   user-error: "%prefix% &7¡Ha ocurrido un error al intentar buscar tus datos, intenta de nuevo en unos momentos!"
   invalid-backpack: "%prefix% &7¡Al parecer no haz adquirido una mochila en esta posición, intenta de nuevo cuando la tengas!"
@@ -156,7 +166,9 @@ backpack:
   maximum-tier: "%prefix% &7¡No se ha podido mejorar ya que ha sido mejorada al nivel máximo!"
 
   successfully-upgrade: "%prefix% &7¡Haz mejorado tu mochila número &9%position% &7ahora tiene &9%rows% &7filas!"
+  successfully-upgrade-enderchest: "%prefix% &7¡Haz mejorado tu enderchest, ahora tiene &9%rows% &7filas!"
   successfully-clear: "%prefix% &7¡Haz limpiado correctamente tu mochila número &9%position%&7!"
+  successfully-buy: "%prefix% &7¡Haz comprado una nueva mochila, ahora tienes &9%amount%&7 mochilas!"
 
   help:
     - "&9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-&7 MOCHILAS &9-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
