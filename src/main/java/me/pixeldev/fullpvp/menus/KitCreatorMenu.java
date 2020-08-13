@@ -127,14 +127,15 @@ public class KitCreatorMenu implements Menu {
                                 player.playSound(player.getLocation(), Sound.CLICK, 1, 2);
 
                                 if (kitStorage.find(level).isPresent()) {
-                                    player.sendMessage(message.getMessage(player, "kit.already-kit"));
+                                    player.sendMessage(message.getMessage(player, "kit.successfully-edition")
+                                            .replace("%level%", level + "")
+                                    );
 
-                                    return;
+                                } else {
+                                    player.sendMessage(message.getMessage(player, "kit.successfully-creation")
+                                            .replace("%level%", level + "")
+                                    );
                                 }
-
-                                player.sendMessage(message.getMessage(player, "kit.successfully-creation")
-                                        .replace("%level%", level + "")
-                                );
 
                                 kitStorage.add(level, new SimpleKit(
                                         parseToDefault(getAvailableItems(inventory, 36, 40)),
