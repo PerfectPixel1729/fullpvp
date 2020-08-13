@@ -2,6 +2,8 @@ package me.pixeldev.fullpvp.utils;
 
 import me.pixeldev.fullpvp.chest.SupplierChest;
 
+import org.bukkit.Material;
+import team.unnamed.inject.Inject;
 import team.unnamed.inject.process.annotation.Singleton;
 
 import org.bukkit.entity.Player;
@@ -12,6 +14,9 @@ import java.util.List;
 
 @Singleton
 public class InventoryUtils {
+
+    @Inject
+    private ItemUtils itemUtils;
 
     public boolean hasSpace(Player player, int spaces) {
         int i = 0;
@@ -25,6 +30,20 @@ public class InventoryUtils {
         }
 
         return i >= spaces;
+    }
+
+    public boolean hasDefaultKit(Player player) {
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (item == null || item.getType() == null || item.getType() == Material.AIR) {
+                continue;
+            }
+
+            if (itemUtils.hasNBTTag(item, "default-kit")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void addItemsToPlayer(Player player, SupplierChest supplierChest) {
