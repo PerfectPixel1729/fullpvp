@@ -19,6 +19,7 @@ public final class CommandsLoader implements Loader {
     private SimpleI18n simpleI18n;
     private SupplierKitCommand supplierKitCommand;
     private BackpackCommands backpackCommands;
+    private FullPVPCommand fullPVPCommand;
 
     @InjectIgnore
     private final ParametricCommandBuilder builder = new ReflectionParametricCommandBuilder();
@@ -39,6 +40,7 @@ public final class CommandsLoader implements Loader {
         registerCommands(
                 chestCreatorCommand,
                 clanCommands,
+                fullPVPCommand,
                 kitCommands,
                 backpackCommands,
                 supplierKitCommand
